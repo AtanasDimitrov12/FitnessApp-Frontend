@@ -1,0 +1,131 @@
+/* General header styles */
+header {
+  background: #333;
+  color: white;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.header-area {
+  width: 100%;
+}
+
+.main-header {
+  width: 100%;
+}
+
+.container-fluid {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+}
+
+.home {
+  color: #fff;
+  text-decoration: none;
+}
+
+.home:hover {
+  color: #4CAF50; /* Color change on hover */
+}
+
+/* Navigation Menu */
+.nav-menu {
+  display: flex;
+  justify-content: flex-end; /* Ensure the nav items go to the right */
+  flex-grow: 1; /* Allows the menu to take remaining space and push to the right */
+}
+
+.nav-menu nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+#user-nav,
+#trainer-nav,
+#guest-nav {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+.nav-menu a:hover {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.active-navigation-link {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container-fluid {
+    flex-direction: column;
+  }
+
+  .menu-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-menu {
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+
+  .nav-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .nav-menu a {
+    font-size: 16px;
+    padding: 8px 0;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-menu a {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+}
