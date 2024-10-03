@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 // import './App.css'
 import WorkoutCard from './components/WorkoutCard'
 import Header from './components/Header'
+import HomePage from './components/HomePage';
 
 function App() {
   const workout = {
@@ -20,26 +21,23 @@ function App() {
     <>
       <Header />
 
-        <main id="main-content">
-                <Routes>
-                <Route path="/" exact component={WorkoutCard} />
-                    {/* <Route path="/" exact component={HomePage} />
-                    <Route path="/workouts" exact component={WorkoutCatalog} />
-                    <Route path="/workouts/:workoutId" component={WorkoutDetails} />
-                    <Route path="/trainers" component={ListTrainers} />
-                    <Route path="/user-profile" component={UserProfile} />
-                    <Route path="/trainer-profile" component={TrainersProfile} />
-                    <Route path="/create-workouts" component={CreateWorkout} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} /> */}
-                    
-                    {/* <Route path="/logout" render={(props) => {
-                        console.log('Logged Out!!!');
-
-                        return <Redirect to="/" />
-                    }} /> */}
-                </Routes>
-        </main>
+      <main id="main-content">
+        <Routes>
+          {/* Render HomePage component for the root path */}
+          <Route path="/" element={<HomePage />} />
+          {/* Render WorkoutCard component */}
+          <Route path="/workout" element={<WorkoutCard />} />
+          {/* Uncomment and add more routes when necessary */}
+          {/* <Route path="/workouts" element={<WorkoutCatalog />} />
+          <Route path="/workouts/:workoutId" element={<WorkoutDetails />} />
+          <Route path="/trainers" element={<ListTrainers />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/trainer-profile" element={<TrainersProfile />} />
+          <Route path="/create-workouts" element={<CreateWorkout />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} /> */}
+        </Routes>
+      </main>
     </>
   )
 }
