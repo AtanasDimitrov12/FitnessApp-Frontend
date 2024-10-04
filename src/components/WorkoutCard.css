@@ -1,0 +1,68 @@
+.workout-card {
+    border: 1px solid #d3d3d3;
+    border-radius: 8px;
+    padding: 10px; /* Reduced padding for smaller card size */
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f2f2f2; /* Light grey background */
+    max-width: 300px;
+    transition: transform 0.2s ease-in-out;
+    text-align: center; /* Centering content */
+}
+
+.workout-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+}
+
+.workout-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.workout-description {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #666;
+}
+
+.workout-exercises-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.workout-exercises-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.workout-exercise-item {
+    font-size: 16px;
+    padding: 5px 0;
+    color: #444;
+}
+
+.workout-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.details-button {
+    background-color: #7bb601; /* Green color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.details-button:hover {
+    background-color: white;
+    color: #7bb601; /* Hover color becomes white with green text */
+    border: 1px solid #7bb601; /* Add green border on hover */
+}
