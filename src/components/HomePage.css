@@ -5,7 +5,7 @@
     justify-content: center; /* Centers content vertically */
     align-items: flex-start; /* Aligns the content to the left */
     height: 100vh; /* Full height of the viewport */
-    width: 100vw;  /* Full width of the viewport */
+    width: 100%;  /* Full width of the viewport */
     background-image: url('/images/background.jpg');
     background-size: cover;
     background-position: center;
@@ -16,7 +16,7 @@
     box-sizing: border-box;
     position: relative;
     z-index: 1;
-}
+  }
 
 /* Add a subtle overlay for better text readability */
 #home-page::before {
@@ -35,8 +35,7 @@
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.5); /* Transparent overlay for the text box */
     border-radius: 8px;
-    max-width: 90%;
-    margin: 0;
+    margin-top: 200px;
 }
 
 /* Make the heading clear and prominent */

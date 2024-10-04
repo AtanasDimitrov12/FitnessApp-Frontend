@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom';
 // import './App.css'
-import WorkoutCard from './components/WorkoutCard'
+import WorkoutPage from './components/WorkoutPage'
 import Header from './components/Header'
 import HomePage from './components/HomePage';
 
@@ -25,8 +25,8 @@ function App() {
         <Routes>
           {/* Render HomePage component for the root path */}
           <Route path="/" element={<HomePage />} />
-          {/* Render WorkoutCard component */}
-          <Route path="/workout" element={<WorkoutCard />} />
+          {/* Render WorkoutPage component */}
+          <Route path="/workouts" element={<WorkoutPage />} />
           {/* Uncomment and add more routes when necessary */}
           {/* <Route path="/workouts" element={<WorkoutCatalog />} />
           <Route path="/workouts/:workoutId" element={<WorkoutDetails />} />
