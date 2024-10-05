@@ -1,0 +1,57 @@
+.all-trainers-page {
+    padding: 40px;
+    background-color: #f8f8f8;
+}
+
+.page-title {
+    font-size: 36px;
+    text-align: center;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+.trainer-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Space out cards */
+    gap: 20px; /* Add space between the cards */
+}
+
+/* Trainer card size to fit 4 cards in a row */
+.trainer-card {
+    flex: 1 1 calc(22% - 20px); /* Take up 22% of the width, with room for gaps */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Ensure profile image is displayed well */
+.trainer-card img {
+    max-width: 100%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+/* Responsive Design for smaller screens */
+
+/* For tablets and smaller devices, show 2 or 3 cards in a row */
+@media (max-width: 1024px) {
+    .trainer-card {
+        flex: 1 1 calc(30% - 20px); /* 3 cards in a row */
+    }
+}
+
+/* For mobile devices, show 1 or 2 cards in a row */
+@media (max-width: 768px) {
+    .trainer-card {
+        flex: 1 1 calc(45% - 20px); /* 2 cards in a row */
+    }
+}
+
+@media (max-width: 480px) {
+    .trainer-card {
+        flex: 1 1 100%; /* Full width on small screens */
+    }
+}

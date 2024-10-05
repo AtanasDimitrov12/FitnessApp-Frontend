@@ -1,5 +1,5 @@
 import React from "react";
-import TrainerCard from "./TrainerCard";
+import TrainerCard from "../TrainerCard/TrainerCard";
 import "./AllTrainers.css"; // External CSS for AllTrainers page styling
 
 // Fake trainers array with placeholders
