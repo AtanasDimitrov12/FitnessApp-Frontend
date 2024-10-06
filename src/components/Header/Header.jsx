@@ -18,11 +18,11 @@ const Header = () => {
                   <div id="user-nav">
                     <NavLink to="/workouts">Workouts</NavLink>
                     <NavLink to="/trainers">All Trainers</NavLink>
-                    <NavLink to="/user-profile">Profile</NavLink>
+                    <NavLink to="/user-profile">User Profile</NavLink>
                   </div>
                   <div id="trainer-nav">
                     <NavLink to="/create-workouts">Create Workout</NavLink>
-                    <NavLink to="/trainer-profile">Profile</NavLink>
+                    <NavLink to="/trainer-profile">Trainer Profile</NavLink>
                   </div>
                   <div id="guest-nav">
                     <NavLink to="/login">Login</NavLink>
