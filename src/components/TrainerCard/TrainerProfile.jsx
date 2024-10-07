@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "./TrainerProfile.css"; // External CSS for TrainerProfile styling
+import "./TrainerProfile.css"; 
 
 const TrainerProfile = () => {
-  // Simulating preloaded trainer data (you will fetch this from your backend)
+  
   const [trainer, setTrainer] = useState({
     username: "trainer123",
     email: "trainer@example.com",
@@ -12,20 +12,20 @@ const TrainerProfile = () => {
     pictureURL: "/images/trainer.png",
   });
 
-  const [newProfilePicture, setNewProfilePicture] = useState(null); // For uploading a new picture
+  const [newProfilePicture, setNewProfilePicture] = useState(null); 
 
-  // Handle input changes
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTrainer({ ...trainer, [name]: value });
   };
 
-  // Handle profile picture change
+  
   const handlePictureChange = (e) => {
     setNewProfilePicture(e.target.files[0]);
   };
 
-  // Handle form submission (to update trainer information)
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -36,17 +36,17 @@ const TrainerProfile = () => {
     formData.append("expertise", trainer.expertise);
 
     if (newProfilePicture) {
-      formData.append("profilePicture", newProfilePicture); // Add new picture if one was uploaded
+      formData.append("profilePicture", newProfilePicture); 
     }
 
-    // Example: Send data to the backend (replace URL with your actual API endpoint)
+    
     fetch("/api/trainers/updateProfile", {
       method: "POST",
       body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle successful update, such as refreshing the trainer's data
+        
         console.log("Profile updated successfully", data);
         if (data.pictureURL) {
           setTrainer({ ...trainer, pictureURL: data.pictureURL });

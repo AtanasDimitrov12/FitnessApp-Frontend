@@ -1,8 +1,8 @@
 import React from "react";
 import TrainerCard from "../TrainerCard/TrainerCard";
-import "./AllTrainers.css"; // External CSS for AllTrainers page styling
+import "./AllTrainers.css"; 
 
-// Fake trainers array with placeholders
+
 const trainers = [
   {
     firstName: "John",
@@ -12,7 +12,7 @@ const trainers = [
     age: 32,
     gender: "Male",
     expertise: "Strength Training",
-    profileImage: "/images/trainer.png", // Use trainer.png for all
+    profileImage: "/images/trainer.png", 
   },
   {
     firstName: "Jane",
@@ -22,7 +22,7 @@ const trainers = [
     age: 28,
     gender: "Female",
     expertise: "Cardio and Endurance",
-    profileImage: "/images/trainer.png", // Use trainer.png for all
+    profileImage: "/images/trainer.png", 
   },
   {
     firstName: "Michael",

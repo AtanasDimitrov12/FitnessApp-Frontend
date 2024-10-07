@@ -1,17 +1,17 @@
 .workout-card {
     border: 1px solid #d3d3d3;
     border-radius: 8px;
-    padding: 10px; /* Reduced padding for smaller card size */
+    padding: 10px; 
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #f2f2f2; /* Light grey background */
+    background-color: #f2f2f2; 
     max-width: 300px;
     transition: transform 0.2s ease-in-out;
-    text-align: center; /* Centering content */
+    text-align: center; 
 }
 
 .workout-card:hover {
-    transform: scale(1.05); /* Slightly enlarge the card on hover */
+    transform: scale(1.05); 
 }
 
 .workout-title {
@@ -52,7 +52,7 @@
 }
 
 .details-button {
-    background-color: #7bb601; /* Green color */
+    background-color: #7bb601; 
     color: white;
     border: none;
     border-radius: 8px;
@@ -63,6 +63,6 @@
 
 .details-button:hover {
     background-color: white;
-    color: #7bb601; /* Hover color becomes white with green text */
-    border: 1px solid #7bb601; /* Add green border on hover */
+    color: #7bb601; 
+    border: 1px solid #7bb601; 
 }

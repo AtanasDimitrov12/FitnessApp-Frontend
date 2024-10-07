@@ -1,4 +1,4 @@
-/* General header styles */
+
 header {
   margin: 0;
   padding: 0;
@@ -47,14 +47,14 @@ h1 {
 }
 
 .home:hover {
-  color: #4CAF50; /* Color change on hover */
+  color: #4CAF50; 
 }
 
-/* Navigation Menu */
+
 .nav-menu {
   display: flex;
-  justify-content: flex-end; /* Ensure the nav items go to the right */
-  flex-grow: 1; /* Allows the menu to take remaining space and push to the right */
+  justify-content: flex-end; 
+  flex-grow: 1; 
 }
 
 .nav-menu nav {
@@ -88,7 +88,7 @@ h1 {
   color: white;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .container-fluid {
     flex-direction: column;

@@ -1,34 +1,34 @@
-/* Container for the entire register form */
+
 .register-container {
     max-width: 600px;
     margin: 100px auto;
     padding: 30px;
-    background-color: #f2f2f2; /* Light grey background */
+    background-color: #f2f2f2; 
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     text-align: center;
   }
   
-  /* Title for the register form */
+  
   .register-title {
     font-size: 28px;
     color: #333;
     margin-bottom: 20px;
   }
   
-  /* Form styling */
+  
   .register-form {
     display: flex;
     flex-direction: column;
   }
   
-  /* Individual form groups for labels and inputs */
+  
   .form-group {
     margin-bottom: 15px;
     text-align: left;
   }
   
-  /* Labels for input fields */
+  
   .form-group label {
     display: block;
     font-size: 16px;
@@ -36,7 +36,7 @@
     margin-bottom: 8px;
   }
   
-  /* Input fields and select elements */
+  
   .form-group input,
   .form-group select {
     width: 100%;
@@ -48,9 +48,9 @@
     outline: none;
   }
   
-  /* Styling the register button */
+  
   .register-button {
-    background-color: #7bb601; /* Green button */
+    background-color: #7bb601; 
     color: white;
     padding: 12px 20px;
     border: none;
@@ -61,14 +61,14 @@
     margin-top: 20px;
   }
   
-  /* Hover effect for the register button */
+  
   .register-button:hover {
     background-color: white;
-    color: #7bb601; /* Green text on hover */
+    color: #7bb601; 
     border: 1px solid #7bb601;
   }
   
-  /* Sub-navigation for switching between User and Trainer forms */
+  
   .register-nav {
     display: flex;
     justify-content: center;
@@ -76,7 +76,7 @@
   }
   
   .register-nav button {
-    background-color: #7bb601; /* Green background */
+    background-color: #7bb601; 
     color: white;
     border: none;
     padding: 10px 20px;
@@ -87,34 +87,34 @@
   }
   
   .register-nav button.active {
-    background-color: #4CAF50; /* Darker green for active button */
+    background-color: #4CAF50; 
   }
   
   .register-nav button:hover {
     background-color: white;
-    color: #7bb601; /* White background with green text on hover */
+    color: #7bb601; 
     border: 1px solid #7bb601;
   }
 
-  /* Flexbox container for the two columns */
+  
 .form-row {
     display: flex;
     justify-content: space-between;
-    gap: 40px; /* Increased gap between the columns */
-    flex-wrap: wrap; /* Wrap on smaller screens */
+    gap: 40px; 
+    flex-wrap: wrap; 
   }
   
   .form-column {
     flex: 1;
-    min-width: 250px; /* Ensure the columns don't get too small */
+    min-width: 250px; 
   }
   
-  /* Individual form groups for labels and inputs */
+  
   .form-group {
     margin-bottom: 15px;
   }
   
-  /* Labels for input fields */
+  
   .form-group label {
     display: block;
     font-size: 16px;
@@ -122,7 +122,7 @@
     margin-bottom: 8px;
   }
   
-  /* Input fields and select elements */
+  
   .form-group input,
   .form-group select {
     width: 100%;
@@ -134,7 +134,7 @@
     outline: none;
   }
   
-  /* Styling the register button */
+  
   .register-button {
     background-color: #7bb601;
     color: white;
@@ -145,29 +145,29 @@
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-top: 20px;
-    width: 100%; /* Full-width button */
+    width: 100%; 
   }
   
-  /* Hover effect for the register button */
+  
   .register-button:hover {
     background-color: white;
     color: #7bb601;
     border: 1px solid #7bb601;
   }
   
-  /* Responsive Design for smaller screens */
+  
   @media (max-width: 768px) {
     .form-row {
-      flex-direction: column; /* Stack columns vertically */
+      flex-direction: column; 
     }
   
     .form-column {
-      width: 100%; /* Ensure full width on small screens */
+      width: 100%; 
     }
   }
   
   
-  /* Responsive Design for smaller screens */
+  
   @media (max-width: 768px) {
     .register-container {
       width: 90%;

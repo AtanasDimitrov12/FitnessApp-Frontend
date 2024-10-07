@@ -1,5 +1,5 @@
 import React from "react";
-import "./TrainerCard.css"; // External CSS for TrainerCard styling
+import "./TrainerCard.css"; 
 
 const TrainerCard = ({ trainer }) => {
   return (

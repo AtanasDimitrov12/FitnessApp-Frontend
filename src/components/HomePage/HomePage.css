@@ -1,24 +1,24 @@
-/* Full-page background for the home page */
+
 #home-page {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centers content vertically */
-    align-items: flex-start; /* Aligns the content to the left */
-    height: 100vh; /* Full height of the viewport */
-    width: 100%;  /* Full width of the viewport */
+    justify-content: center; 
+    align-items: flex-start; 
+    height: 100vh; 
+    width: 100%;  
     background-image: url('/images/background.jpg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed; /* Keeps the background fixed while scrolling */
+    background-attachment: fixed; 
     color: white;
-    text-align: left; /* Align text to the left */
-    padding-left: 10%; /* Slightly offset the text from the left */
+    text-align: left; 
+    padding-left: 10%; 
     box-sizing: border-box;
     position: relative;
     z-index: 1;
   }
 
-/* Add a subtle overlay for better text readability */
+
 #home-page::before {
     content: "";
     position: absolute;
@@ -26,19 +26,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    background-color: rgba(0, 0, 0, 0.6); 
     z-index: -1;
 }
 
-/* Simple styling for the welcome message */
+
 .welcome-message {
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5); /* Transparent overlay for the text box */
+    background-color: rgba(0, 0, 0, 0.5); 
     border-radius: 8px;
     margin-top: 200px;
 }
 
-/* Make the heading clear and prominent */
+
 .welcome-message h2 {
     font-size: 3rem;
     margin: 0;
@@ -50,34 +50,34 @@
     margin-top: 10px;
 }
 
-/* Responsive Design */
 
-/* For devices with a screen width of 768px or less (tablets, phones) */
+
+
 @media (max-width: 768px) {
     .welcome-message h2 {
-        font-size: 2rem; /* Adjust font size for smaller screens */
+        font-size: 2rem; 
     }
 
     .welcome-message h3 {
-        font-size: 1.2rem; /* Adjust subheading size */
+        font-size: 1.2rem; 
     }
 
     #home-page {
-        padding-left: 5%; /* Adjust the padding for smaller screens */
+        padding-left: 5%; 
     }
 }
 
-/* For devices with a screen width of 480px or less (phones) */
+
 @media (max-width: 480px) {
     .welcome-message h2 {
-        font-size: 1.8rem; /* Further reduce font size for phones */
+        font-size: 1.8rem; 
     }
 
     .welcome-message h3 {
-        font-size: 1rem; /* Adjust subheading for mobile */
+        font-size: 1rem; 
     }
 
     #home-page {
-        padding-left: 3%; /* Further reduce padding for mobile */
+        padding-left: 3%; 
     }
 }

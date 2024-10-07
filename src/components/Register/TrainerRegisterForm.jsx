@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Register.css"; // Use the same CSS
+import "./Register.css";
 
 const TrainerRegisterForm = () => {
   const [firstName, setFirstName] = useState("");

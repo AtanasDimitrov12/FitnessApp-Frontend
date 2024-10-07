@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "./UserProfile.css"; // External CSS for UserProfile styling
+import "./UserProfile.css"; 
 
 const UserProfile = () => {
-  // State to track which section is currently selected
+  
   const [activeSection, setActiveSection] = useState("updateInfo");
 
-  // Dummy state for the user's data and progress entries
+  
   const [user, setUser] = useState({
     username: "user123",
     email: "user@example.com",
@@ -18,12 +18,12 @@ const UserProfile = () => {
     { date: "2024-01-08", weight: "74kg", sleepRating: "8/10", progressImage: "/images/user-progress2.png" },
   ]);
 
-  // Sub-navigation options
+  
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
 
-  // Render different sections based on the selected navigation option
+  
   return (
     <div className="user-profile-page">
       <h1 className="page-title">User Profile</h1>

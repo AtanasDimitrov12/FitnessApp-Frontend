@@ -1,16 +1,15 @@
 import React, { useState } from "react";
-import UserRegisterForm from "./UserRegisterForm"; // Import User Register Form
-import TrainerRegisterForm from "./TrainerRegisterForm"; // Import Trainer Register Form
+import UserRegisterForm from "./UserRegisterForm"; 
+import TrainerRegisterForm from "./TrainerRegisterForm"; 
 import "./Register.css";
 
 const Register = () => {
-  const [activeForm, setActiveForm] = useState("user"); // Default to User register form
+  const [activeForm, setActiveForm] = useState("user"); 
 
   return (
     <div className="register-container">
       <h2 className="register-title">Register</h2>
       
-      {/* Sub-navigation for switching between User and Trainer forms */}
       <div className="register-nav">
         <button
           className={activeForm === "user" ? "active" : ""}
@@ -26,7 +25,6 @@ const Register = () => {
         </button>
       </div>
 
-      {/* Dynamically load either User or Trainer form */}
       {activeForm === "user" ? <UserRegisterForm /> : <TrainerRegisterForm />}
     </div>
   );

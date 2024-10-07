@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Login.css"; // External CSS for Login styling
+import "./Login.css"; 
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -7,7 +7,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
+    
     console.log("Login form submitted with:", { username, password });
   };
 

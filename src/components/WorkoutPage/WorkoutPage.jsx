@@ -1,6 +1,6 @@
 import React from "react";
-import WorkoutCard from "./WorkoutCard"; // Import the WorkoutCard component
-import "./WorkoutPage.css"; // Import the external CSS file for styling
+import WorkoutCard from "./WorkoutCard"; 
+import "./WorkoutPage.css"; 
 
 const workouts = [
     {

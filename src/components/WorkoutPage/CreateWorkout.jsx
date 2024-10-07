@@ -1,37 +1,37 @@
 import React, { useState } from "react";
-import "./CreateWorkout.css"; // External CSS for CreateWorkout page styling
+import "./CreateWorkout.css"; 
 
 const CreateWorkout = () => {
-  // State for workout fields
+  
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [exercises, setExercises] = useState([{ name: "" }]); // Exercises as an array of objects
+  const [exercises, setExercises] = useState([{ name: "" }]); 
 
-  // Handle input for workout name
+  
   const handleNameChange = (e) => setName(e.target.value);
 
-  // Handle input for workout description
+  
   const handleDescriptionChange = (e) => setDescription(e.target.value);
 
-  // Handle input change for exercises
+  
   const handleExerciseChange = (index, event) => {
     const newExercises = [...exercises];
     newExercises[index].name = event.target.value;
     setExercises(newExercises);
   };
 
-  // Add a new exercise input field
+  
   const addExercise = () => {
     setExercises([...exercises, { name: "" }]);
   };
 
-  // Remove an exercise input field
+  
   const removeExercise = (index) => {
     const newExercises = exercises.filter((_, i) => i !== index);
     setExercises(newExercises);
   };
 
-  // Handle form submission
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const workout = {
@@ -40,7 +40,7 @@ const CreateWorkout = () => {
       exercises,
     };
     console.log("Workout Created:", workout);
-    // You can make an API call here to save the workout to the backend
+    
   };
 
   return (

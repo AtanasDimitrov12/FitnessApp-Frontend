@@ -20,13 +20,8 @@ function App() {
 
       <main id="main-content">
         <Routes>
-          {/* Render HomePage component for the root path */}
           <Route path="/" element={<HomePage />} />
-          {/* Render WorkoutPage component */}
           <Route path="/workouts" element={<WorkoutPage />} />
-          {/* Uncomment and add more routes when necessary */}
-          {/* <Route path="/workouts" element={<WorkoutCatalog />} />
-          <Route path="/workouts/:workoutId" element={<WorkoutDetails />} />*/}
           <Route path="/trainers" element={<AllTrainers />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/trainer-profile" element={<TrainerProfile />} />

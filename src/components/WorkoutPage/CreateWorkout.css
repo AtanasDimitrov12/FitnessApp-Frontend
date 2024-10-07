@@ -72,7 +72,7 @@
   }
   
   .remove-exercise {
-    background-color: #ff4d4f; /* Red button for removing */
+    background-color: #ff4d4f; 
   }
   
   .add-exercise:hover,

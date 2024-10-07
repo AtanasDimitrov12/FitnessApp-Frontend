@@ -1,12 +1,12 @@
 import React from "react";
-import "./WorkoutCard.css"; // Import the external CSS file
+import "./WorkoutCard.css"; 
 
 const WorkoutCard = ({ workout }) => {
   const { name, description, exercises } = workout;
 
   return (
     <div className="workout-card">
-      {/* Placeholder Image - Replace with actual workout image */}
+      
       <img
         className="workout-image"
         src="/images/workout-card.jpg"
@@ -22,7 +22,7 @@ const WorkoutCard = ({ workout }) => {
           </li>
         ))}
       </ul>
-      {/* Details button */}
+      
       <button className="details-button">Details</button>
     </div>
   );
