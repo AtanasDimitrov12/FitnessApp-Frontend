@@ -1,25 +1,33 @@
 import backEndClient from './axiosClient';
 
-const workoutsURL = "workouts";
+const workoutsURL = "api/workouts"; 
 
-export const getTodos = async () => {
-    let response = await backEndClient.get(workoutsURL);
-    if (response)
-    {   
-        return response.data.workouts;
+export const getWorkout = async () => {
+    try {
+        const response = await backEndClient.get(workoutsURL);
+        if (response.status === 200) {
+            return response.data; 
+        } else {
+            console.error(`Error: Received status code ${response.status}`);
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching workouts:", error);
+        return null; 
     }
+};
 
-    alert ("Something went wrong");
-    return "";
-}
 
-export const createNewWorkout = (input) => {
-    return backEndClient.post(workoutsURL, {
-            name: input.name,
-            description: input.description,
-            pictureURL: input.pictureURL,
-            exercises: inpuy.exercises,
-        }).then(response => {
-            return response.data;
-        });
-}
+export const createNewWorkout = async (formData) => {
+  try {
+    const response = await backEndClient.post(workoutsURL, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error creating workout:", error);
+    return null;
+  }
+};

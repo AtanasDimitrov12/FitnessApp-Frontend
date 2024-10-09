@@ -1,47 +1,59 @@
 import React, { useState } from "react";
+import { createNewWorkout } from "../../repositories/WorkoutRepo"; // Import from WorkoutRepo
 import "./CreateWorkout.css"; 
 
 const CreateWorkout = () => {
-  
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [exercises, setExercises] = useState([{ name: "" }]); 
+  const [exercises, setExercises] = useState([{ name: "" }]);
+  const [image, setImage] = useState(null); // State to handle image
 
-  
   const handleNameChange = (e) => setName(e.target.value);
-
-  
   const handleDescriptionChange = (e) => setDescription(e.target.value);
-
-  
   const handleExerciseChange = (index, event) => {
     const newExercises = [...exercises];
     newExercises[index].name = event.target.value;
     setExercises(newExercises);
   };
-
-  
-  const addExercise = () => {
-    setExercises([...exercises, { name: "" }]);
-  };
-
-  
+  const addExercise = () => setExercises([...exercises, { name: "" }]);
   const removeExercise = (index) => {
     const newExercises = exercises.filter((_, i) => i !== index);
     setExercises(newExercises);
   };
+  const handleImageChange = (e) => setImage(e.target.files[0]); // Handle image selection
 
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const workout = {
-      name,
-      description,
-      exercises,
+  
+    // Create a FormData object to handle both text and file data
+    const formData = new FormData();
+  
+    // Create workout details object
+    const workoutDetails = {
+      name: name,
+      description: description,
+      exercises: exercises.map(ex => ex.name), // Array of exercise names
     };
-    console.log("Workout Created:", workout);
-    
+  
+    // Append the workout details as a JSON string
+    formData.append("workout", JSON.stringify(workoutDetails));  // Changed this to "workout"
+    formData.append("image", image);  // The image file
+  
+    try {
+      const response = await createNewWorkout(formData);  // Call the repository method
+      if (response) {
+        alert("Workout created successfully!");
+      } else {
+        alert("Failed to create workout");
+      }
+    } catch (error) {
+      console.error("Error creating workout:", error);
+      alert("Error creating workout");
+    }
   };
+  
+  
+  
 
   return (
     <div className="create-workout-page">
@@ -68,6 +80,17 @@ const CreateWorkout = () => {
             placeholder="Enter workout description"
             required
           ></textarea>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="image">Workout Image</label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange} // Capture image
+            required
+          />
         </div>
 
         <div className="form-group">
