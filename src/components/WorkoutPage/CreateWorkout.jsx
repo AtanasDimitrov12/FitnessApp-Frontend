@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { createNewWorkout } from "../../repositories/WorkoutRepo"; // Import from WorkoutRepo
+import { createNewWorkout } from "../../repositories/WorkoutRepo"; 
 import "./CreateWorkout.css"; 
 
 const CreateWorkout = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [exercises, setExercises] = useState([{ name: "" }]);
-  const [image, setImage] = useState(null); // State to handle image
+  const [image, setImage] = useState(null); 
 
   const handleNameChange = (e) => setName(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
@@ -20,27 +20,27 @@ const CreateWorkout = () => {
     const newExercises = exercises.filter((_, i) => i !== index);
     setExercises(newExercises);
   };
-  const handleImageChange = (e) => setImage(e.target.files[0]); // Handle image selection
+  const handleImageChange = (e) => setImage(e.target.files[0]); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Create a FormData object to handle both text and file data
+    
     const formData = new FormData();
   
-    // Create workout details object
+    
     const workoutDetails = {
       name: name,
       description: description,
-      exercises: exercises.map(ex => ex.name), // Array of exercise names
+      exercises: exercises.map(ex => ex.name), 
     };
   
-    // Append the workout details as a JSON string
-    formData.append("workout", JSON.stringify(workoutDetails));  // Changed this to "workout"
-    formData.append("image", image);  // The image file
+    
+    formData.append("workout", JSON.stringify(workoutDetails));  
+    formData.append("image", image);  
   
     try {
-      const response = await createNewWorkout(formData);  // Call the repository method
+      const response = await createNewWorkout(formData);  
       if (response) {
         alert("Workout created successfully!");
       } else {
@@ -88,7 +88,7 @@ const CreateWorkout = () => {
             type="file"
             id="image"
             accept="image/*"
-            onChange={handleImageChange} // Capture image
+            onChange={handleImageChange} 
             required
           />
         </div>
