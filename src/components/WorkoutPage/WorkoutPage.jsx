@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WorkoutCard from "./WorkoutCard"; 
 import "./WorkoutPage.css";
-import { getWorkout } from "../../repositories/WorkoutRepo"; 
+import { getWorkout, deleteWorkout } from "../../repositories/WorkoutRepo"; 
 
 const WorkoutPage = () => {
   const [workouts, setWorkouts] = useState([]); 
@@ -26,6 +26,16 @@ const WorkoutPage = () => {
   }, []);
 
 
+  const handleDelete = async (id) => {
+    const success = await deleteWorkout(id);
+    if (success) {
+      setWorkouts(workouts.filter((workout) => workout.id !== id)); 
+    } else {
+      alert("Failed to delete workout");
+    }
+  };
+
+
   if (loading) {
     return <div>Loading...</div>; 
   }
@@ -41,7 +51,7 @@ const WorkoutPage = () => {
       <h1 className="page-title">Workout Plans</h1>
       <div className="workout-list">
         {workouts.map((workout, index) => (
-          <WorkoutCard key={index} workout={workout} />
+          <WorkoutCard key={workout.id} workout={workout} onDelete={handleDelete} />
         ))}
       </div>
     </div>

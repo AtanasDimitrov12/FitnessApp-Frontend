@@ -31,3 +31,20 @@ export const createNewWorkout = async (formData) => {
     return null;
   }
 };
+
+
+export const deleteWorkout = async (id) => {
+  try {
+    const response = await backEndClient.delete(`${workoutsURL}/${id}`);
+    if (response.status === 204) {
+      console.log("Workout deleted successfully");
+      return true;
+    } else {
+      console.error(`Error: Received status code ${response.status}`);
+      return false;
+    }
+  } catch (error) {
+    console.error("Error deleting workout:", error);
+    return false;
+  }
+};

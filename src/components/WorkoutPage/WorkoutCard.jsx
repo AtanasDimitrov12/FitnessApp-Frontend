@@ -1,17 +1,18 @@
 import React from "react";
-import "./WorkoutCard.css"; 
+import "./WorkoutCard.css";
 
-const WorkoutCard = ({ workout }) => {
+const WorkoutCard = ({ workout, onDelete }) => {
   const { name, description, pictureURL, exercises } = workout;
 
-  
+  const handleDelete = () => {
+    onDelete(workout.id); 
+  };
 
   return (
     <div className="workout-card">
-      
       <img
         className="workout-image"
-        src= {pictureURL}
+        src={pictureURL}
         alt={`${name} image`}
       />
       <h2 className="workout-title">{name}</h2>
@@ -24,8 +25,10 @@ const WorkoutCard = ({ workout }) => {
           </li>
         ))}
       </ul>
-      
       <button className="details-button">Details</button>
+      <button className="delete-button" onClick={handleDelete}>
+        Delete
+      </button>
     </div>
   );
 };

@@ -15,6 +15,7 @@ const CreateWorkout = () => {
     newExercises[index].name = event.target.value;
     setExercises(newExercises);
   };
+  
   const addExercise = () => setExercises([...exercises, { name: "" }]);
   const removeExercise = (index) => {
     const newExercises = exercises.filter((_, i) => i !== index);
