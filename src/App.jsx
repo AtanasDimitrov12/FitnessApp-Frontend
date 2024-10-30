@@ -10,6 +10,7 @@ import Register from './components/Register/Register';
 import CreateWorkout from './components/WorkoutPage/CreateWorkout';
 import TrainerProfile from './components/TrainerCard/TrainerProfile';
 import UserProfile from './components/UserProfile/UserProfile';
+import Footer from './components/Footer/Footer';
 
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
           <Route path="/register" element={<Register />} /> 
         </Routes>
       </main>
+
+      <Footer/>
     </>
   )
 }
