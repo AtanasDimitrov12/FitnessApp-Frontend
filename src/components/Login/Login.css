@@ -1,3 +1,4 @@
+/* Page Layout */
 .login-page {
   position: relative;
   display: flex;
@@ -8,25 +9,26 @@
   background-color: #f9f9f9;
 }
 
-/* Floating Items Styling */
+/* Floating Background Items Styling */
 .floating-item {
   position: absolute;
   width: 60px;
   height: 60px;
   opacity: 0.2;
   background-size: cover;
-  z-index: -1;
+  z-index: -1; /* Send to background */
 }
 
+/* Specific Floating Items */
 .dumbbell {
-  background-image: url('/public/images/dumbell.svg');
-  top: 20%; 
+  background-image: url('/images/dumbbell.svg');
+  top: 20%;
   left: 15%;
   animation: float 8s ease-in-out infinite;
 }
 
 .plate {
-  background-image: url('/public/images/treadmill.svg');
+  background-image: url('/images/treadmill.svg');
   width: 50px;
   height: 50px;
   top: 50%;
@@ -35,7 +37,7 @@
 }
 
 .barbell {
-  background-image: url('/public/images/push-up-bar.svg');
+  background-image: url('/images/push-up-bar.svg');
   width: 80px;
   height: 80px;
   top: 80%;
@@ -43,6 +45,7 @@
   animation: float 10s ease-in-out infinite;
 }
 
+/* Float Animation */
 @keyframes float {
   0% {
     transform: translateY(0px) rotate(0deg);
@@ -57,7 +60,8 @@
     opacity: 0.1;
   }
 }
-/* Container & Form Styles */
+
+/* Login Form Container */
 .login-container {
   width: 100%;
   max-width: 400px;
@@ -68,6 +72,7 @@
   text-align: center;
   z-index: 1;
 }
+
 /* Title and Subtitle */
 .login-title {
   font-size: 2.2rem;
