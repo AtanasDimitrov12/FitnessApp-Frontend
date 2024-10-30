@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="footer-row">
             <div className="footer-cta">
               <p>Ready to <span className="cta-highlight">start?</span></p>
-              <Link to="/register" className="cta-button">Join now</Link>
+              <Link to="/register" className="footer-cta-button">Join now</Link>
             </div>
             <div className="footer-links">
               <Link to="/about">About Us</Link>

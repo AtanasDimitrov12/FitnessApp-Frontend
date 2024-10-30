@@ -16,20 +16,18 @@
   .video-section .highlight {
     color: #7bb601;
   }
-  
   .video-container {
     position: relative;
-    width: 100%;
-    max-width: 800px;
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-
- 
   
   .video-container video {
     width: 100%;
+    max-width: 800px;
     border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   }
   
   .play-button {
@@ -37,18 +35,79 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    font-size: 2rem;
     color: white;
-    padding: 10px 20px;
+    background-color: rgba(0, 0, 0, 0.7);
     border: none;
-    border-radius: 5px;
-    font-size: 1.2rem;
+    border-radius: 50px;
     cursor: pointer;
-    z-index: 2;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
   }
   
   .play-button:hover {
     background-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .video-controls {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px 15px;
+    border-radius: 10px;
+    width: calc(100% - 30px);
+    max-width: 800px;
+    box-sizing: border-box;
+  }
+  
+  .control-button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  
+  .control-button:hover {
+    color: #76c043;
+  }
+  
+  .progress-bar {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #76c043;
+    cursor: pointer;
+  }
+  
+  .progress-bar::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #76c043;
+    cursor: pointer;
+  }
+  
+  .time {
+    color: white;
+    font-size: 0.9rem;
   }
   
