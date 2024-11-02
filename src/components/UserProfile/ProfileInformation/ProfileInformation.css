@@ -1,0 +1,114 @@
+.profile-information {
+    padding: 50px;/* Offset for sidebar */
+    width: calc(100vw - 250px);
+    background-color: #f2f2f2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+  }
+  
+  /* Header Section */
+  .header-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .header-section h2 {
+    margin-left: 100px;
+    font-size: 34px;
+    color: #333;
+  }
+  
+  .profile-picture-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  
+  .profile-picture {
+    width: 200px; /* Increase to match the original image resolution */
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #b3cf32;
+    object-fit: cover;
+    object-position: center; /* Center the image within the container */
+    transition: filter 0.3s;
+    image-rendering: auto; /* Adjust rendering to improve quality */
+  }
+  
+  
+  .profile-picture-wrapper:hover .profile-picture {
+    filter: blur(2px);
+  }
+  
+  .profile-picture-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .profile-picture-wrapper:hover .profile-picture-overlay {
+    opacity: 1;
+  }
+  
+  .edit-label {
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  
+  /* Information Section */
+  .info-section {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: space-between;
+  }
+  
+  /* Card Styling */
+  .card {
+    flex: 1;
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h3 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .card p {
+    margin: 5px 0;
+  }
+  
+  /* Edit Button */
+  .edit-button {
+    background-color: #7bb601;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .edit-button:hover {
+    background-color: #4CAF50;
+  }
+  

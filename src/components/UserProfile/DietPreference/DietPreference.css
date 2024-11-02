@@ -1,0 +1,128 @@
+/* DietPreference.css */
+.diet-preference {
+    padding: 20px;
+    width: calc(100vw - 250px);
+    background-color: #f2f2f2;
+  }
+  
+  /* ExistingDietPreference.css */
+  .existing-diet-preference {
+    padding: 20px;
+    margin-top: 50px;
+    background-color: #bdbdbd;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+  }
+
+  .existing-diet-preference h3{
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .diet-preference-points{
+    margin-top: 50px;
+  }
+
+  .diet-preference-points .create-button{
+    color: white;
+    background-color: #b3cf32;
+    font-weight: bold;
+    border: 20px;
+  }
+
+  .diet-preference-points .create-button:hover{
+    color: white;
+    background-color: #7bb601;
+    font-weight: bold;
+    border: 20px;
+  }
+  .existing-diet-preference .diet-preference-points p{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px;
+  }
+  
+  .create-button {
+    background-color: #b3cf32;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  .create-diet-preference {
+    padding: 20px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .radio-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  
+  .radio-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    font-weight: bold;
+  }
+  
+  .calculate-button {
+    background-color: #b3cf32;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .calculate-button:hover {
+    background-color: #7bb601;
+  }
+  
+  .calculated-result {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .input-with-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+  }
+  
+  .small-input {
+    width: 100px;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid #d3d3d3;
+  }
+  
+  .submit-button {
+    background-color: #7bb601;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  
