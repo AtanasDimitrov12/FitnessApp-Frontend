@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import './DietPreference.css';
 
 const CreateDietPreference = ({ onSubmit }) => {
-  const [goal, setGoal] = useState('');
+  const [goal, setGoal] = useState('Maintenance'); 
   const [calories, setCalories] = useState('');
   const [mealsPerDay, setMealsPerDay] = useState('');
   const [calculatedCalories, setCalculatedCalories] = useState(null);
 
-  // New state variables for user inputs
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [weight, setWeight] = useState('');
@@ -29,13 +28,32 @@ const CreateDietPreference = ({ onSubmit }) => {
     }
 
     // Adjust BMR based on activity level
-    const recommendedCalories = Math.round(bmr * activityLevel);
+    let recommendedCalories = Math.round(bmr * activityLevel);
+
+    // Adjust recommended calories based on user's goal
+    if (goal === 'Weight Loss') {
+      recommendedCalories = Math.round(recommendedCalories * 0.8); // 20% calorie deficit
+    } else if (goal === 'Muscle Gain') {
+      recommendedCalories = Math.round(recommendedCalories * 1.2); // 20% calorie surplus
+    } // No adjustment needed for Maintenance
+
     setCalculatedCalories(recommendedCalories);
+    setCalories(recommendedCalories); 
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit();
+    
+    onSubmit({
+      goal,
+      calories: calculatedCalories || calories,
+      mealsPerDay,
+      age,
+      gender,
+      weight,
+      height,
+      activityLevel,
+    });
   };
 
   return (
@@ -45,10 +63,21 @@ const CreateDietPreference = ({ onSubmit }) => {
       <div className="form-group">
         <label>1. What is your goal?</label>
         <div className="radio-options">
+        <label>
+            <input
+              type="radio"
+              value="Maintenance"
+              className="radio-button-option"
+              checked={goal === 'Maintenance'}
+              onChange={(e) => setGoal(e.target.value)}
+            />
+            Maintenance
+          </label>
           <label>
             <input
               type="radio"
               value="Weight Loss"
+              className="radio-button-option"
               checked={goal === 'Weight Loss'}
               onChange={(e) => setGoal(e.target.value)}
             />
@@ -58,22 +87,16 @@ const CreateDietPreference = ({ onSubmit }) => {
             <input
               type="radio"
               value="Muscle Gain"
+              className="radio-button-option"
               checked={goal === 'Muscle Gain'}
               onChange={(e) => setGoal(e.target.value)}
             />
             Muscle Gain
           </label>
-          <label>
-            <input
-              type="radio"
-              value="Maintenance"
-              checked={goal === 'Maintenance'}
-              onChange={(e) => setGoal(e.target.value)}
-            />
-            Maintenance
-          </label>
+          
         </div>
       </div>
+
 
       <div className="form-group">
         <label>2. Enter details for calorie calculation</label>
@@ -157,17 +180,23 @@ const CreateDietPreference = ({ onSubmit }) => {
       <div className="form-group">
         <label>4. How many times do you want to eat per day?</label>
         <div className="input-with-label">
-        <input
-          type="number"
-          value={mealsPerDay}
-          onChange={(e) => setMealsPerDay(e.target.value)}
-          className="small-input"
-          required
-        />
+          <input
+            type="number"
+            value={mealsPerDay}
+            onChange={(e) => setMealsPerDay(e.target.value)}
+            className="small-input"
+            required
+            min="2" // Minimum value
+            max="6" // Maximum value
+          />
         </div>
       </div>
 
-      <button type="submit" className="submit-button">Submit</button>
+
+      <div className="submit-button-container">
+        <button type="submit" className="medium-submit-button">Submit</button>
+      </div>
+
     </form>
   );
 };

@@ -1,5 +1,5 @@
 .profile-information {
-    padding: 50px;/* Offset for sidebar */
+    padding: 50px;
     width: calc(100vw - 250px);
     background-color: #f2f2f2;
     display: flex;
@@ -28,14 +28,14 @@
   }
   
   .profile-picture {
-    width: 200px; /* Increase to match the original image resolution */
+    width: 200px; 
     height: 200px;
     border-radius: 50%;
     border: 3px solid #b3cf32;
     object-fit: cover;
-    object-position: center; /* Center the image within the container */
+    object-position: center; 
     transition: filter 0.3s;
-    image-rendering: auto; /* Adjust rendering to improve quality */
+    image-rendering: auto; 
   }
   
   

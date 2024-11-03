@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './SideBar/SideBar';
 import ProfileInformation from './ProfileInformation/ProfileInformation';
 import DietPreference from './DietPreference/DietPreference';
+import WorkoutPreference from './WorkoutPreference/WorkoutPreference';
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -21,7 +22,8 @@ const UserProfile = () => {
       <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
       
       {activeSection === 'profileInfo' && <ProfileInformation user={user} />}
-      {activeSection === 'dietPreference' && <DietPreference user={user} />}
+      {activeSection === 'dietPreference' && <DietPreference />}
+      {activeSection === 'workoutPreference' && <WorkoutPreference />}
       {/* Add other components here as sections when ready */}
     </div>
   );

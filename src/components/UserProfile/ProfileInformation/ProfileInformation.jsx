@@ -9,7 +9,7 @@ const ProfileInformation = ({ user }) => {
         <div className="profile-picture-wrapper">
           <img src={user.pictureURL} alt="Profile" className="profile-picture" />
           <div className="profile-picture-overlay">
-          <label for="profilePicture" className="edit-label">Edit</label>
+          <label htmlFor="profilePicture" className="edit-label">Edit</label>
           </div>
           
         </div>
