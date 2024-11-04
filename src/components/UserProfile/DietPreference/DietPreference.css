@@ -138,6 +138,15 @@
     box-shadow: 0 0 5px rgba(123, 182, 1, 0.3);
     outline: none;
   }
+
+  .create-diet-preference .form-group:nth-of-type(3) .input-with-label .small-input {
+    width: 30%;
+  }
+  
+  /* Target the input in the fourth question */
+  .create-diet-preference .form-group:nth-of-type(4) .input-with-label .small-input {
+    width: 30%;
+  }
   
   .calculate-button {
     background-color: #B3CF32;

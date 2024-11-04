@@ -20,7 +20,7 @@ const Header = () => {
                     <NavLink to="/user-profile">User Profile</NavLink>
                   </div>
                   <div id="trainer-nav">
-                    <NavLink to="/create-workouts">Create Workout</NavLink>
+                    <NavLink to="/admin-craete">Create</NavLink>
                   </div>
                   <div id="guest-nav">
                     <NavLink to="/login">Login</NavLink>

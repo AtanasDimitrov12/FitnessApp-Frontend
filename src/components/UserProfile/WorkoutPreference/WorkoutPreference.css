@@ -13,6 +13,7 @@
     border-radius: 40px;
     text-align: center;
     box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+    
   }
   
   .existing-workout-preference h3 {
@@ -84,6 +85,7 @@
     height: 80vh;
     max-height: 90vh;
     overflow-y: auto;
+    overflow-x: hidden;
   }
   
   .set-workout-preference h3 {
@@ -136,8 +138,8 @@
     margin-top: 5px;
   }
   
-  .small-input {
-    width: 100%;
+  .set-workout-preference .form-group:nth-of-type(4) .small-input {
+    width: 30%;
     padding: 8px;
     border-radius: 8px;
     border: 1px solid #D3D3D3;

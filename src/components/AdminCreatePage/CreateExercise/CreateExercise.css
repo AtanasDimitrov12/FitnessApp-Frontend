@@ -1,0 +1,112 @@
+/* General container styling for the create-exercise section */
+.create-exercise-container {
+    background-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 20px 50px;
+    width: 90%;
+    height: fit-content;
+    max-width: 400px;
+    text-align: center;
+    margin: 100px auto 0 auto;
+    box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.create-exercise-container h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.create-exercise-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Label styling */
+.create-exercise-form label {
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Input and select styling */
+.create-exercise-form input[type="text"],
+.create-exercise-form input[type="number"],
+.create-exercise-form select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    font-size: 1em;
+    box-sizing: border-box; /* Ensure uniform width */
+}
+
+/* Focus styling */
+.create-exercise-form input[type="text"]:focus,
+.create-exercise-form input[type="number"]:focus,
+.create-exercise-form select:focus {
+    border-color: #7bb601;
+    outline: none;
+}
+
+/* Button styling */
+.create-button {
+    background-color: #7bb601;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.create-button:hover {
+    background-color: #5e9401;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .create-exercise-container {
+        width: 100%;
+        max-width: 90%;
+        margin: 80px auto 0;
+    }
+
+    .create-exercise-container h3 {
+        font-size: 1.3em;
+    }
+
+    .create-exercise-form {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-exercise-container {
+        padding: 15px;
+        margin-top: 60px;
+    }
+
+    .create-exercise-container h3 {
+        font-size: 1.2em;
+    }
+
+    .create-exercise-form label {
+        font-size: 0.9em;
+    }
+
+    .create-exercise-form input[type="text"],
+    .create-exercise-form input[type="number"],
+    .create-exercise-form select {
+        padding: 6px;
+        font-size: 0.9em;
+    }
+
+    .create-button {
+        padding: 6px;
+        font-size: 0.9em;
+    }
+}
