@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css'
-import WorkoutPage from './components/UserWorkoutPlan/WorkoutPage'
+import WorkoutPage from './components/WorkoutPage/WorkoutPage'
 import Header from './components/Header/Header'
 import HomePage from './components/HomePage/HomePage';
 import Login from './components/Login/Login';
@@ -19,7 +19,7 @@ function App() {
       <main id="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/workouts" element={<WorkoutPage />} />
+          <Route path="/workout" element={<WorkoutPage />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/admin-craete" element={<AdminCreatePage />} />
           <Route path="/login" element={<Login />} />

@@ -16,10 +16,11 @@ const Header = () => {
               <div className="nav-menu f-right">
                 <nav>
                   <div id="user-nav">
-                    <NavLink to="/workouts">Workouts</NavLink>
+                    <NavLink to="/workout">Workout</NavLink>
+                    <NavLink to="/diet">Diet</NavLink>
                     <NavLink to="/user-profile">User Profile</NavLink>
                   </div>
-                  <div id="trainer-nav">
+                  <div id="admin-nav">
                     <NavLink to="/admin-craete">Create</NavLink>
                   </div>
                   <div id="guest-nav">

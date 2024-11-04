@@ -1,0 +1,58 @@
+/* Styling for the workout card container */
+.workout-card-User {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 15px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Image container inside the workout card */
+  .workout-card-User .workout-image-container {
+    width: 100%;
+    max-width: 300px;
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    background-color: #e0e0e0; /* Placeholder background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Workout image styling */
+  .workout-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Ensures the image covers the container without stretching */
+    border-radius: 10px;
+  }
+  
+  /* Title and description styling */
+  .workout-card-User h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  .workout-card-User p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  /* List of exercises */
+  .workout-card-User ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .workout-card-User li {
+    font-size: 0.9em;
+    color: #333;
+    margin: 5px 0;
+  }
+  

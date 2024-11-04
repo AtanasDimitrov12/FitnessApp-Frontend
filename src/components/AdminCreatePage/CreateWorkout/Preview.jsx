@@ -1,5 +1,5 @@
 import React from 'react';
-import WorkoutCard from '../../WorkoutCard/WorkoutCard';
+import WorkoutCard from '../WorkoutCard/WorkoutCard';
 
 const Preview = ({ workoutData, exerciseList }) => {
   return (
