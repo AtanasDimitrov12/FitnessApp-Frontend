@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
+import ExerciseItem from './ExerciseItem';
 import './AddExercise.css';
 
-const AddExercise = () => {
+const AddExercise = ({ onSave }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedExercises, setSelectedExercises] = useState([]);
+  const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
   const [muscleFilter, setMuscleFilter] = useState([]);
   const [exercises] = useState([
     { id: 1, name: 'Bench Press', sets: 3, reps: 12, group: 'Chest' },
     { id: 2, name: 'Squat', sets: 4, reps: 10, group: 'Legs' },
     { id: 3, name: 'Deadlift', sets: 4, reps: 8, group: 'Back' },
     { id: 4, name: 'Shoulder Press', sets: 3, reps: 12, group: 'Shoulders' },
+    { id: 5, name: 'Squat', sets: 4, reps: 10, group: 'Legs' },
+    { id: 6, name: 'Deadlift', sets: 4, reps: 8, group: 'Back' },
+    { id: 7, name: 'Shoulder Press', sets: 3, reps: 12, group: 'Shoulders' },
     // Add more exercises as needed
   ]);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
-  const handleAddExercise = (exercise) => setSelectedExercises([...selectedExercises, exercise]);
+  const handleAddExercise = (id) => {
+    if (!selectedExerciseIds.includes(id)) {
+      setSelectedExerciseIds([...selectedExerciseIds, id]);
+    }
+  };
   const handleRemoveExercise = (id) =>
-    setSelectedExercises(selectedExercises.filter((exercise) => exercise.id !== id));
+    setSelectedExerciseIds(selectedExerciseIds.filter((exerciseId) => exerciseId !== id));
+
   const handleMuscleFilterChange = (group) =>
     setMuscleFilter((prev) =>
       prev.includes(group) ? prev.filter((g) => g !== group) : [...prev, group]
@@ -28,8 +37,13 @@ const AddExercise = () => {
       (!muscleFilter.length || muscleFilter.includes(exercise.group))
   );
 
+  const handleDone = () => {
+    onSave(selectedExerciseIds); // Pass only the exercise IDs back to the previous page
+  };
+
   return (
     <div className="add-exercise-page">
+      {/* Search and Filter Sidebar */}
       <div className="search-and-filter">
         <input
           type="text"
@@ -53,39 +67,33 @@ const AddExercise = () => {
         </div>
       </div>
 
+      {/* Exercise List */}
       <div className="exercise-list">
         {filteredExercises.map((exercise) => (
-          <div
+          <ExerciseItem
             key={exercise.id}
-            className="exercise-item"
-            onMouseEnter={() => setHoveredExercise(exercise.id)}
-            onMouseLeave={() => setHoveredExercise(null)}
-          >
-            <div>
-              <h5>{exercise.name}</h5>
-              <p>{exercise.sets} sets, {exercise.reps} reps</p>
-            </div>
-            <button
-              className="add-button"
-              onClick={() => handleAddExercise(exercise)}
-            >
-              +
-            </button>
-          </div>
+            exercise={exercise}
+            onAdd={handleAddExercise}
+          />
         ))}
       </div>
 
+      {/* Selected Exercises and Done Button */}
       <div className="exercise-basket">
         <h4>Selected Exercises:</h4>
         <ul>
-          {selectedExercises.map((exercise) => (
-            <li key={exercise.id}>
-              {exercise.name} - {exercise.sets} sets, {exercise.reps} reps
-              <button onClick={() => handleRemoveExercise(exercise.id)}>Remove</button>
-            </li>
-          ))}
+          {selectedExerciseIds.map((id) => {
+            const exercise = exercises.find((ex) => ex.id === id);
+            return (
+              <li key={id}>
+                {exercise.name} - {exercise.sets} sets, {exercise.reps} reps
+                <button onClick={() => handleRemoveExercise(id)}>Remove</button>
+              </li>
+            );
+          })}
         </ul>
-        <p>Total: {selectedExercises.length} exercises</p>
+        <p>Total: {selectedExerciseIds.length} exercises</p>
+        <button onClick={handleDone} className="done-button">Done</button>
       </div>
     </div>
   );

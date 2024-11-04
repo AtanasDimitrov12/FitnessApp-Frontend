@@ -16,4 +16,4 @@ const ExistingWorkoutPreference = ({ onCreateNew }) => {
   );
 };
 
-export default ExistingWorkoutPreference;
+export default ExistingWorkoutPreference; 

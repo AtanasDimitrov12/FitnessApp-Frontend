@@ -3,6 +3,7 @@
     grid-template-columns: 1fr 3fr 1fr;
     gap: 20px;
     padding: 20px;
+    height: 100vh;
   }
   
   .search-and-filter {
@@ -13,8 +14,12 @@
     width: 100%;
     padding: 8px;
     border-radius: 5px;
-    border: 1px solid #d3d3d3;
+    border: 3px solid #d3d3d3;
     margin-bottom: 10px;
+  }
+
+  .search-bar:focus{
+    border: 3px solid #7bb601;
   }
   
   .muscle-filter h4 {
@@ -30,42 +35,19 @@
   .exercise-list {
     grid-column: 2 / 3;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 15px;
-  }
-  
-  .exercise-item {
-    background: #e0e0e0;
-    padding: 10px;
-    border-radius: 8px;
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .exercise-item h5 {
     margin: 0;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 5px;
+    grid-row-gap: 0;
+    padding: 0; /* Adjust vertical gap here */
+    margin-left: 20px;
   }
   
-  .add-button {
-    background-color: #7bb601;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: none;
-  }
-  
-  .exercise-item:hover .add-button {
-    display: block;
-  }
-  
+
   .exercise-basket {
     grid-column: 3 / 4;
     background: #f2f2f2;
-    padding: 10px;
+    padding: 15px;
     border-radius: 8px;
   }
   
@@ -87,6 +69,19 @@
   }
   
   .exercise-basket p {
+    font-weight: bold;
+  }
+  
+  .done-button {
+    margin-top: 20px;
+    background-color: #7bb601;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1em;
     font-weight: bold;
   }
   

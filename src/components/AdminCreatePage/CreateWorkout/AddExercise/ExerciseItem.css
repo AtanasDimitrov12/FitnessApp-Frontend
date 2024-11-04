@@ -1,0 +1,25 @@
+.exercise-item {
+    background: #d3d3d3;
+    padding: 20px;
+    margin: 0px;
+    border-radius: 8px;
+    height: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    transition: background 0.2s;
+  }
+  
+  .exercise-item:hover{ 
+    background: #bdbdbd;
+    border-radius: 5px; 
+    border: 3px solid #7bb601; 
+}
+  
+  .exercise-item h5 {
+    margin: 0;
+  }
+  
+  .exercise-item * {
+    margin: 0;
+  }
