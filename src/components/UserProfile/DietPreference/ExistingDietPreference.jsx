@@ -10,7 +10,7 @@ const ExistingDietPreference = ({ onCreateNew }) => {
 
   return (
     <div className="existing-diet-preference card">
-      <h3>Your existing preference</h3>
+      <h3>Your Existing Preference</h3>
       {userPreference ? (
         <div className='diet-preference-points'>
           <p><strong>Goal:</strong> {userPreference.goal}</p>

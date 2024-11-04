@@ -1,0 +1,181 @@
+.progress-page {
+  padding: 20px;
+  width: calc(100vw - 250px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding-bottom: 60px;
+  overflow-y: auto; /* Primary scroll for the entire page */
+}
+
+.weight-statistic-chart {
+  width: 95%;
+  background-color: #bdbdbd;
+  border-radius: 20px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.weight-statistic-chart h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.date-picker-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.date-picker {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+}
+
+.custom-tooltip {
+  background: #333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+.custom-tooltip p {
+  margin: 0;
+}
+
+.progress-bottom {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 100px;
+  flex-wrap: wrap;
+}
+
+.create-progress-note, .progress-history {
+  width: 45%;
+  min-width: 300px;
+  background-color: #bdbdbd;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  height: 250px;;
+  overflow-y: auto; /* Remove internal scroll */
+}
+
+.create-progress-note h3, .progress-history h3 {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.create-progress-note form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.create-progress-note label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.weight-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.weight-input-container input {
+  width: 100px;
+  padding: 8px;
+  margin-right: 5px;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+}
+
+.create-progress-note input, .create-progress-note textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+}
+
+.create-progress-note input:focus, .create-progress-note textarea:focus {
+  border-color: #7bb601; /* Change this to your desired color */
+  box-shadow: 0 0 25px rgba(123, 182, 1, 0.5); /* Optional shadow for emphasis */
+  outline: none; /* Removes default outline */
+}
+
+
+
+.weight-unit {
+  font-size: 1em;
+  color: #333;
+}
+
+
+.create-progress-note button {
+  background-color: #b3cf32;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.create-progress-note button:hover {
+  background-color: #7bb601;
+}
+
+.history-list {
+  max-height: unset; /* Remove internal height limit */
+  text-align: left;
+  padding-right: 10px;
+  overflow-y: auto;
+}
+
+.history-list p {
+  font-size: 0.9em;
+  color: #333;
+  margin: 8px 0;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .progress-page {
+      width: 100%;
+      padding: 10px;
+  }
+
+  .weight-statistic-chart {
+      width: 100%;
+      margin-bottom: 15px;
+  }
+
+  .progress-bottom {
+      flex-direction: column;
+      align-items: center;
+      
+  }
+
+  .create-progress-note, .progress-history {
+      width: 90%;
+  }
+
+  .create-progress-note h3, .progress-history h3 {
+      font-size: 1em;
+  }
+}

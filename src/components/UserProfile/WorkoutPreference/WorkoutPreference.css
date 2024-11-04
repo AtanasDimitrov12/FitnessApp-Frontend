@@ -37,8 +37,14 @@
     font-weight: bold;
     border: 20px;
   }
+  .workout-preference-points .create-button:hover{
+    color: white;
+    background-color: #7bb601;
+    font-weight: bold;
+    border: 20px;
+  }
   
-  .existing-workout-preference .workout-preference-points p {
+  .existing-workout-preference .preference-details p {
     font-size: 20px;
     font-weight: bold;
     padding: 20px;
@@ -49,9 +55,17 @@
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     cursor: pointer;
     margin-top: 20px;
+    font-size: 1rem;
+  }
+
+  .create-button:hover {
+    color: white;
+    background-color: #7bb601;
+    font-weight: bold;
+    border: 20px;
   }
   
   /* SetWorkoutPreference */

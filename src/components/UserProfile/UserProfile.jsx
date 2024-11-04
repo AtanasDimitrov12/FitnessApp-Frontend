@@ -3,6 +3,7 @@ import Sidebar from './SideBar/SideBar';
 import ProfileInformation from './ProfileInformation/ProfileInformation';
 import DietPreference from './DietPreference/DietPreference';
 import WorkoutPreference from './WorkoutPreference/WorkoutPreference';
+import ProgressNote from './ProgressNote/ProgressNote';
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -24,7 +25,7 @@ const UserProfile = () => {
       {activeSection === 'profileInfo' && <ProfileInformation user={user} />}
       {activeSection === 'dietPreference' && <DietPreference />}
       {activeSection === 'workoutPreference' && <WorkoutPreference />}
-      {/* Add other components here as sections when ready */}
+      {activeSection === 'progressNotes' && <ProgressNote />}
     </div>
   );
 };
