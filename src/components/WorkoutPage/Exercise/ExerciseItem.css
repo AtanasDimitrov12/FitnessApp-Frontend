@@ -8,10 +8,14 @@
     cursor: pointer;
     display: flex;
     transition: background 0.2s;
+    background: #bdbdbd;
+    border: 3px solid #7bb601; 
+    color: rgb(0, 0, 0);;
   }
   
   .exercise-item-workout:hover{ 
-    background: #bdbdbd;
+    background: #5f5b5b;
+    color:white;
     border-radius: 5px; 
     border: 3px solid #7bb601; 
 }

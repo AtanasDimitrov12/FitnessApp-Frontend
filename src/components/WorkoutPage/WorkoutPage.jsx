@@ -16,6 +16,12 @@ const WorkoutPage = () => {
       exerciseList: [
         { id: 1, name: 'Bench Press', sets: 3, reps: 12 },
         { id: 2, name: 'Squat', sets: 4, reps: 10 },
+        { id: 3, name: 'Bench Press', sets: 3, reps: 12 },
+        { id: 4, name: 'Squat', sets: 4, reps: 10 },
+        { id: 5, name: 'Bench Press', sets: 3, reps: 12 },
+        { id: 6, name: 'Squat', sets: 4, reps: 10 },
+        { id: 7, name: 'Bench Press', sets: 3, reps: 12 },
+        { id: 8, name: 'Squat', sets: 4, reps: 10 },
       ],
     },
     {
