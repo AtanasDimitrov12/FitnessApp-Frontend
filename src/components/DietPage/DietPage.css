@@ -1,0 +1,81 @@
+/* Main diet page layout */
+.diet-page {
+    display: grid;
+    grid-template-columns: 1fr 3fr 3fr; /* Sidebar, content, and charts */
+    grid-template-areas:
+      "sidebar meal charts"
+      "sidebar recipe recipe";
+    gap: 20px;
+    padding: 0px;
+    background-color: #f5f5f5;
+  }
+  
+  /* Sidebar styling */
+  .sidebar {
+    grid-area: sidebar;
+    background-color: #e0e0e0;
+    padding: 15px;
+  }
+  
+  /* Diet content area for MealCard */
+  .diet-content {
+    grid-area: meal;
+  }
+  
+  /* MealCard styling */
+  .meal-card {
+    margin: 20px;
+    background-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* RecipeCard styling */
+  .recipe-card {
+    grid-area: recipe;
+    background-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    width: 90%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style for the title in the RecipeCard */
+  .recipe-card h3 {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Charts section for NutrientChart and DailyCaloriesChart */
+  .charts-section {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    grid-area: charts;
+    align-self: start; /* Align the charts section to the top */
+    margin: 20px;
+    margin-right: 100px;
+  }
+  
+  /* Individual chart containers */
+  .chart-container {
+    background-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 300px; /* Increase height for larger charts */
+    width: 100%; /* Make sure the charts take full width of their container */
+  }
+  
+  /* Styling for chart titles */
+  .chart-title {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
