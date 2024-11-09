@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAllExercises } from '../../../../repositories/ExerciseRepo'; // Import getAllExercises from ExerciseRepo
 import ExerciseItem from './ExerciseItem';
 import './AddExercise.css';
 
@@ -6,25 +7,33 @@ const AddExercise = ({ onSave }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
   const [muscleFilter, setMuscleFilter] = useState([]);
-  const [exercises] = useState([
-    { id: 1, name: 'Bench Press', sets: 3, reps: 12, group: 'Chest' },
-    { id: 2, name: 'Squat', sets: 4, reps: 10, group: 'Legs' },
-    { id: 3, name: 'Deadlift', sets: 4, reps: 8, group: 'Back' },
-    { id: 4, name: 'Shoulder Press', sets: 3, reps: 12, group: 'Shoulders' },
-    { id: 5, name: 'Squat', sets: 4, reps: 10, group: 'Legs' },
-    { id: 6, name: 'Deadlift', sets: 4, reps: 8, group: 'Back' },
-    { id: 7, name: 'Shoulder Press', sets: 3, reps: 12, group: 'Shoulders' },
-    // Add more exercises as needed
-  ]);
+  const [exercises, setExercises] = useState([]); // Initialize exercises state for fetched data
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchExercises = async () => {
+      const data = await getAllExercises(); // Use the getAllExercises function
+      if (data) {
+        setExercises(data); // Set the exercises data from the response
+      } else {
+        setError('Failed to load exercises.');
+      }
+    };
+
+    fetchExercises();
+  }, []);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
+
   const handleAddExercise = (id) => {
     if (!selectedExerciseIds.includes(id)) {
       setSelectedExerciseIds([...selectedExerciseIds, id]);
     }
   };
-  const handleRemoveExercise = (id) =>
+
+  const handleRemoveExercise = (id) => {
     setSelectedExerciseIds(selectedExerciseIds.filter((exerciseId) => exerciseId !== id));
+  };
 
   const handleMuscleFilterChange = (group) =>
     setMuscleFilter((prev) =>
@@ -43,6 +52,9 @@ const AddExercise = ({ onSave }) => {
 
   return (
     <div className="add-exercise-page">
+      {/* Error Message */}
+      {error && <p className="error-message">{error}</p>}
+      
       {/* Search and Filter Sidebar */}
       <div className="search-and-filter">
         <input

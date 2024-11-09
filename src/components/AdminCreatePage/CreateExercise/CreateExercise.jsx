@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createExercise } from '../../../repositories/ExerciseRepo'; // Import the function
 import './CreateExercise.css';
 
 const CreateExercise = () => {
@@ -8,6 +9,8 @@ const CreateExercise = () => {
     sets: '',
     muscleGroup: ''
   });
+  
+  const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,10 +20,20 @@ const CreateExercise = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle submit logic (e.g., API call to save exercise)
-    console.log('Exercise created:', exerciseData);
+    try {
+      const response = await createExercise(exerciseData); // Call createExercise with form data
+      if (response) {
+        setStatusMessage('Exercise created successfully!');
+        setExerciseData({ name: '', reps: '', sets: '', muscleGroup: '' }); // Reset form
+      } else {
+        setStatusMessage('Failed to create exercise.');
+      }
+    } catch (error) {
+      console.error('Error creating exercise:', error);
+      setStatusMessage('An error occurred while creating exercise.');
+    }
   };
 
   return (
@@ -76,6 +89,7 @@ const CreateExercise = () => {
         
         <button type="submit" className="create-button">Create</button>
       </form>
+      {statusMessage && <p>{statusMessage}</p>} {/* Display status message */}
     </div>
   );
 };

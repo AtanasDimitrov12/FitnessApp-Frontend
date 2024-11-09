@@ -1,16 +1,21 @@
 import React from 'react';
-import ExerciseItem from './Exercise/ExerciseItem';
 import './ExercisesSection.css';
 
-const ExercisesSection = ({ exercises }) => {
+const ExercisesSection = ({ exercises, onExerciseSelect }) => {
   return (
     <div className="exercises-section">
       <h2>Exercises</h2>
       <div className="exercises-list">
         {exercises.map((exercise) => (
-          <ExerciseItem
-            exercise={ exercise}
-          />
+          <div
+            key={exercise.id}
+            className="exercise-item"
+            onClick={() => onExerciseSelect(exercise.name)}
+          >
+            <h3>{exercise.name}</h3>
+            <p>Sets: {exercise.sets}</p>
+            <p>Reps: {exercise.reps}</p>
+          </div>
         ))}
       </div>
     </div>
