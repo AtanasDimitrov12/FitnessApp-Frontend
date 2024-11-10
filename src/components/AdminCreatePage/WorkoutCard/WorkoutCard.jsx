@@ -1,12 +1,12 @@
 import React from 'react';
-import "./WorkoutCard"
+import "./WorkoutCard.css";
 
-const WorkoutCard = ({ workoutData, exerciseList }) => {
+const WorkoutCard = ({ workoutData, exerciseList, imageFile }) => {
   return (
     <div className="workout-card">
       <div className="workout-image-container">
-        {workoutData.picture ? (
-          <img src={workoutData.picture} alt="Workout" className="workout-image" />
+        {imageFile ? (
+          <img src={URL.createObjectURL(imageFile)} alt="Workout" className="workout-image" />
         ) : (
           <p>No Image Added</p>
         )}

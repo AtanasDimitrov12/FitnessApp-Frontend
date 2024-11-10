@@ -1,7 +1,8 @@
 import backEndClient from './axiosClient';
 
-const workoutsURL = "api/workouts"; 
+const workoutsURL = "/api/workouts";
 
+// Fetch all workouts
 export const getWorkout = async () => {
     try {
         const response = await backEndClient.get(workoutsURL);
@@ -17,9 +18,15 @@ export const getWorkout = async () => {
     }
 };
 
-
-export const createNewWorkout = async (formData) => {
+// Create a new workout with workout data and image file
+export const createNewWorkout = async (workoutData, imageFile) => {
   try {
+    const formData = new FormData();
+    formData.append("workout", JSON.stringify(workoutData)); // Send workout as JSON string
+    if (imageFile) {
+      formData.append("image", imageFile); // Append image file if provided
+    }
+
     const response = await backEndClient.post(workoutsURL, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -32,7 +39,28 @@ export const createNewWorkout = async (formData) => {
   }
 };
 
+// Update an existing workout with optional image
+export const updateWorkout = async (workoutData, imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append("workout", JSON.stringify(workoutData));
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
+    const response = await backEndClient.put(workoutsURL, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating workout:", error);
+    return null;
+  }
+};
+
+// Delete a workout by ID
 export const deleteWorkout = async (id) => {
   try {
     const response = await backEndClient.delete(`${workoutsURL}/${id}`);

@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import CreateWorkoutFields from './CreateWorkoutFields';
 import Preview from './Preview';
 import AddExercise from './AddExercise/AddExercise';
-import './CreateWorkoutPage.css'; 
+import { createNewWorkout } from '../../../repositories/WorkoutRepo';
+import { getExerciseById } from '../../../repositories/ExerciseRepo';
+import './CreateWorkoutPage.css';
 
 const CreateWorkoutPage = () => {
-  const [workoutData, setWorkoutData] = useState({ name: '', description: '', picture: '' });
+  const [workoutData, setWorkoutData] = useState({ name: '', description: '' });
   const [exerciseList, setExerciseList] = useState([]);
   const [isAddingExercises, setIsAddingExercises] = useState(false);
+  const [imageFile, setImageFile] = useState(null); // Separate state for image file
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -15,36 +18,56 @@ const CreateWorkoutPage = () => {
   };
 
   const handleAddExercise = () => {
-    setIsAddingExercises(true); // Show AddExercise component
+    setIsAddingExercises(true);
   };
 
   const handleAddPicture = (e) => {
     const file = e.target.files[0];
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setWorkoutData({ ...workoutData, picture: reader.result });
-      };
-      reader.readAsDataURL(file);
+      setImageFile(file); // Save the file directly for later use
     } else {
       alert('Please upload a JPEG or PNG image.');
     }
   };
 
   const handleSaveExercises = (exercises) => {
-    setExerciseList(exercises); // Update the exercise list
-    setIsAddingExercises(false); // Close the AddExercise view
+    setExerciseList(exercises);
+    setIsAddingExercises(false);
   };
 
-  const handleCreate = () => {
-    console.log('Workout created:', workoutData, exerciseList);
-    // Further logic to save workout details
+  const handleCreate = async () => {
+    try {
+      // Fetch full exercise objects for each ID in exerciseList
+      const fullExercises = await Promise.all(
+        exerciseList.map(async (exerciseId) => {
+          const exercise = await getExerciseById(exerciseId);
+          return exercise;
+        })
+      );
+
+      // Update workout data with full exercise objects
+      const workoutDataWithExercises = {
+        ...workoutData,
+        exercises: fullExercises,
+      };
+
+      console.log(workoutDataWithExercises);
+      // Send data to backend using createNewWorkout function
+      const createdWorkout = await createNewWorkout(workoutDataWithExercises, imageFile);
+      if (createdWorkout) {
+        console.log('Workout created successfully:', createdWorkout);
+      } else {
+        console.error('Failed to create workout.');
+      }
+    } catch (error) {
+      console.error('Error creating workout:', error);
+    }
   };
 
   return (
     <div className="create-workout-page">
       {isAddingExercises ? (
-        <AddExercise onSave={handleSaveExercises} /> // Show AddExercise component
+        <AddExercise onSave={handleSaveExercises} />
       ) : (
         <>
           <div className="create-workout-content">
@@ -53,7 +76,8 @@ const CreateWorkoutPage = () => {
               onAddPicture={handleAddPicture}
               onInputChange={handleInputChange}
             />
-            <Preview workoutData={workoutData} exerciseList={exerciseList} />
+            <Preview workoutData={workoutData} exerciseList={exerciseList} imageFile={imageFile} />
+
           </div>
           <button className="create-button" onClick={handleCreate}>Create</button>
         </>
