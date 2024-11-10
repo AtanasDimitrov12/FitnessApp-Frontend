@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './CreateMeal.css';
+import { createNewMeal } from '../../../repositories/MealRepo'; // Import the create function
 
 const CreateMeal = () => {
   const [mealData, setMealData] = useState({
@@ -18,10 +19,20 @@ const CreateMeal = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle submit logic (e.g., API call to save meal)
-    console.log('Meal created:', mealData);
+    try {
+      const result = await createNewMeal(mealData); // Call createNewMeal with mealData only
+      if (result) {
+        console.log('Meal created successfully:', result);
+        // Optionally, clear the form after successful submission
+        setMealData({ name: '', calories: '', protein: '', carbs: '', cookingTime: '' });
+      } else {
+        console.error('Failed to create meal');
+      }
+    } catch (error) {
+      console.error('Error creating meal:', error);
+    }
   };
 
   return (
@@ -37,7 +48,7 @@ const CreateMeal = () => {
           onChange={handleChange}
           required
         />
-        
+
         <label htmlFor="calories">Calories:</label>
         <input
           type="number"
@@ -48,7 +59,7 @@ const CreateMeal = () => {
           required
           min="0"
         />
-        
+
         <label htmlFor="protein">Protein:</label>
         <input
           type="number"
@@ -59,7 +70,7 @@ const CreateMeal = () => {
           required
           min="0"
         />
-        
+
         <label htmlFor="carbs">Carbs:</label>
         <input
           type="number"
@@ -70,17 +81,19 @@ const CreateMeal = () => {
           required
           min="0"
         />
-        
+
         <label htmlFor="cookingTime">Cooking time:</label>
         <input
-          type="text"
+          type="number" // Change to number to match `double` type in backend
           id="cookingTime"
           name="cookingTime"
           value={mealData.cookingTime}
           onChange={handleChange}
           required
+          min="0"
+          step="0.1" // Allow decimal values
         />
-        
+
         <button type="submit" className="create-button">Create</button>
       </form>
     </div>
