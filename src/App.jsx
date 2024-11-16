@@ -4,8 +4,7 @@ import WorkoutPage from './components/WorkoutPage/WorkoutPage'
 import DietPage from './components/DietPage/DietPage';
 import Header from './components/Header/Header'
 import HomePage from './components/HomePage/HomePage';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
+import AuthContainer from './components/Register/AuthContainer';
 import UserProfile from './components/UserProfile/UserProfile';
 import Footer from './components/Footer/Footer';
 import AdminCreatePage from './components/AdminCreatePage/AdminCreatePage';
@@ -24,8 +23,7 @@ function App() {
           <Route path="/diet" element={<DietPage />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/admin-craete" element={<AdminCreatePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} /> 
+          <Route path="/register" element={<AuthContainer />} />
         </Routes>
       </main>
 

@@ -24,7 +24,6 @@ const Header = () => {
                     <NavLink to="/admin-craete">Create</NavLink>
                   </div>
                   <div id="guest-nav">
-                    <NavLink to="/login">Login</NavLink>
                     <NavLink to="/register">Register</NavLink>
                   </div>
                 </nav>
