@@ -26,6 +26,7 @@
 
 .auth-container h1 {
 	font-weight: bold;
+  font-size: 30px;
 	margin: 0;
 }
 
@@ -34,7 +35,7 @@
 }
 
 .auth-container p {
-	font-size: 14px;
+	font-size: 20px;
 	font-weight: 100;
 	line-height: 20px;
 	letter-spacing: 0.5px;
@@ -42,7 +43,7 @@
 }
 
 .auth-container span {
-	font-size: 12px;
+	font-size: 16px;
 }
 
 .auth-container a {
@@ -102,6 +103,10 @@
 	top: 0;
 	height: 100%;
 	transition: all 0.6s ease-in-out;
+}
+
+.auth-container .form-container .register-form {
+	color:black;
 }
 
 .auth-container .sign-in-container {
@@ -222,27 +227,4 @@
 	width: 40px;
 }
 
-.auth-container footer {
-	background-color: #222;
-	color: #fff;
-	font-size: 14px;
-	bottom: 0;
-	position: fixed;
-	left: 0;
-	right: 0;
-	text-align: center;
-	z-index: 999;
-}
 
-.auth-container footer p {
-	margin: 10px 0;
-}
-
-.auth-container footer i {
-	color: red;
-}
-
-.auth-container footer a {
-	color: #3c97bf;
-	text-decoration: none;
-}

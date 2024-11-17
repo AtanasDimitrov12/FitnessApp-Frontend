@@ -16,7 +16,7 @@ const SignUpForm = () => {
   return (
     <div className="form-container sign-up-container">
       <form onSubmit={handleSubmit}>
-        <h1>Create Account</h1>
+        <h1 className='register-form'>Create Account</h1>
         <div className="social-container">
           <a href="#" className="social"><i className="fab fa-facebook-f"><FaFacebook /></i></a>
           <a href="#" className="social"><i className="fab fa-google-plus-g"><FaGoogle /></i></a>
