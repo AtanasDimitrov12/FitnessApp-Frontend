@@ -26,6 +26,9 @@ const Header = () => {
                   <div id="guest-nav">
                     <NavLink to="/register">Register</NavLink>
                   </div>
+                  <div>
+                    <p>Log out</p>
+                  </div>
                 </nav>
               </div>
             </div>

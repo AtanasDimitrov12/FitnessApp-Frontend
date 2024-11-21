@@ -1,56 +1,77 @@
-// SignUpForm.js
 import React, { useState } from 'react';
 import { FaGoogle, FaFacebook, FaLinkedin } from "react-icons/fa";
+import { login } from '../../repositories/AuthRepo'; // Import login function
+import { useNavigate } from 'react-router-dom'; // Import navigation hook
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Register form submitted with:", { username, email, password, confirmPassword });
+
+    if (!username || !password) {
+      toast.error("Both username and password are required.", { position: "top-center" });
+      return;
+    }
+
+    try {
+      const response = await login({ username, password });
+
+      if (response && response.token && response.role) {
+        toast.success("Login successful!", { position: "top-center" });
+
+        // Save token to localStorage or another secure storage mechanism
+        localStorage.setItem("token", response.token);
+
+        // Navigate based on role
+        if (response.role === "User") {
+          navigate("/user-profile");
+        } else if (response.role === "Admin") {
+          navigate("/admin-create");
+        } else {
+          toast.error("Unknown role. Please contact support.", { position: "top-center" });
+        }
+      } else {
+        toast.error("Invalid username or password. Please try again.", { position: "top-center" });
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+      toast.error("An unexpected error occurred. Please try again later.", { position: "top-center" });
+    }
   };
 
   return (
-    <div className="form-container sign-up-container">
+    <div className="form-container sign-in-container">
       <form onSubmit={handleSubmit}>
-        <h1 className='register-form'>Create Account</h1>
+        <h1 className='register-form'>Sign In</h1>
         <div className="social-container">
-          <a href="#" className="social"><i className="fab fa-facebook-f"><FaFacebook /></i></a>
-          <a href="#" className="social"><i className="fab fa-google-plus-g"><FaGoogle /></i></a>
-          <a href="#" className="social"><i className="fab fa-linkedin-in"><FaLinkedin /></i></a>
+          <a href="#" className="social"><FaFacebook /></a>
+          <a href="#" className="social"><FaGoogle /></a>
+          <a href="#" className="social"><FaLinkedin /></a>
         </div>
-        <span>or use your email for registration</span>
+        <span>or use your account</span>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button type="submit">Sign Up</button>
+        <button type="submit">Sign In</button>
       </form>
     </div>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
