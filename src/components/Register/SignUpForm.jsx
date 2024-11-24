@@ -1,77 +1,117 @@
 import React, { useState } from 'react';
 import { FaGoogle, FaFacebook, FaLinkedin } from "react-icons/fa";
-import { login } from '../../repositories/AuthRepo'; // Import login function
-import { useNavigate } from 'react-router-dom'; // Import navigation hook
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const SignInForm = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+const SignUpForm = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const validateForm = () => {
+    const { username, email, password, confirmPassword } = formData;
+
+    // Username: Only letters, minimum 3 characters
+    const usernameRegex = /^[A-Za-z]{3,}$/;
+    if (!usernameRegex.test(username)) {
+      toast.error("Username must contain only letters and be at least 3 characters long.", { position: "top-center" });
+      return false;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.error("Please enter a valid email address.", { position: "top-center" });
+      return false;
+    }
+
+    // Password: Minimum 8 characters
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long.", { position: "top-center" });
+      return false;
+    }
+
+    // Confirm password matches password
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.", { position: "top-center" });
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      toast.error("Both username and password are required.", { position: "top-center" });
-      return;
-    }
+    if (validateForm()) {
+      // Proceed with sign-up logic (e.g., send data to backend)
+      toast.success("Signup successful!", { position: "top-center" });
+      console.log("Form Data:", formData);
 
-    try {
-      const response = await login({ username, password });
-
-      if (response && response.token && response.role) {
-        toast.success("Login successful!", { position: "top-center" });
-
-        // Save token to localStorage or another secure storage mechanism
-        localStorage.setItem("token", response.token);
-
-        // Navigate based on role
-        if (response.role === "User") {
-          navigate("/user-profile");
-        } else if (response.role === "Admin") {
-          navigate("/admin-create");
-        } else {
-          toast.error("Unknown role. Please contact support.", { position: "top-center" });
-        }
-      } else {
-        toast.error("Invalid username or password. Please try again.", { position: "top-center" });
-      }
-    } catch (err) {
-      console.error("Error during login:", err);
-      toast.error("An unexpected error occurred. Please try again later.", { position: "top-center" });
+      // Reset form
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
     }
   };
 
   return (
-    <div className="form-container sign-in-container">
+    <div className="form-container sign-up-container">
       <form onSubmit={handleSubmit}>
-        <h1 className='register-form'>Sign In</h1>
+        <h1 className='register-form'>Sign Up</h1>
         <div className="social-container">
           <a href="#" className="social"><FaFacebook /></a>
           <a href="#" className="social"><FaGoogle /></a>
           <a href="#" className="social"><FaLinkedin /></a>
         </div>
-        <span>or use your account</span>
+        <span>or use your email for registration</span>
         <input
           type="text"
           placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
           required
         />
         <input
           type="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
           required
         />
-        <button type="submit">Sign In</button>
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;
