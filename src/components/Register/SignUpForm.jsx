@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaGoogle, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { registerUser } from '../../repositories/AuthRepo';
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -52,17 +53,26 @@ const SignUpForm = () => {
     e.preventDefault();
 
     if (validateForm()) {
-      // Proceed with sign-up logic (e.g., send data to backend)
-      toast.success("Signup successful!", { position: "top-center" });
-      console.log("Form Data:", formData);
+      try {
+        const response = await registerUser(formData);
+        if (response) {
+          toast.success("Signup successful!", { position: "top-center" });
+          console.log("Form Data:", formData);
 
-      // Reset form
-      setFormData({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+          // Reset form
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          });
+        } else {
+          toast.error("Signup failed. Please try again.", { position: "top-center" });
+        }
+      } catch (error) {
+        toast.error("An error occurred during signup. Please try again.", { position: "top-center" });
+        console.error("Signup error:", error);
+      }
     }
   };
 

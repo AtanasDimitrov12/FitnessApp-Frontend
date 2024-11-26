@@ -15,14 +15,14 @@ export const getUserById = async (id) => {
 
 // Update a user
 export const updateUser = async (userDTO) => {
-    try {
-      const response = await backEndClient.put(usersURL, userDTO);
-      return response.data;
-    } catch (error) {
-      console.error("Error updating user:", error.response || error.message);
-      throw error; // Re-throw error for the caller to handle
-    }
-  };
+  try {
+    const response = await backEndClient.put(usersURL, userDTO);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user:", error.response || error.message);
+    throw error; // Re-throw error for the caller to handle
+  }
+};
 
 // Fetch all users (Admin only)
 export const getAllUsers = async () => {
@@ -48,6 +48,28 @@ export const deleteUser = async (id) => {
   } catch (error) {
     handleRequestError("Error deleting user", error);
     return false;
+  }
+};
+
+// Upload profile picture
+export const uploadProfilePicture = async (userId, imageFile) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const response = await backEndClient.post(
+      `${usersURL}/${userId}/upload-profile-picture`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    return response.data; // Return the updated user data
+  } catch (error) {
+    handleRequestError("Error uploading profile picture", error);
+    throw error; // Re-throw error for the caller to handle
   }
 };
 

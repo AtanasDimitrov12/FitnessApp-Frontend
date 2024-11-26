@@ -25,13 +25,32 @@ export const registerUser = async (userData) => {
 
 // Login (User or Admin)
 export const login = async (credentials) => {
-    try {
-      const response = await backEndClient.post('/auth/login', credentials, {
-        headers: { "Content-Type": "application/json" },
-      });
-      return response.data; // Contains id, role, and token
-    } catch (error) {
-      console.error("Login error:", error);
-      return null; // Ensure null is returned on failure
+  try {
+    const response = await backEndClient.post(`${authURL}/login`, credentials, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return response.data; // Contains id, role, and token
+  } catch (error) {
+    console.error("Login error:", error);
+    return null; // Ensure null is returned on failure
+  }
+};
+
+// Verify Password
+export const verifyPassword = async (passwordData) => {
+  try {
+    const response = await backEndClient.post(`${authURL}/verify-password`, passwordData, {
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.status === 200) {
+      console.log("Password verified successfully");
+      return response.data; // Typically true/false or a verification result
+    } else {
+      console.error(`Error: Received status code ${response.status}`);
+      return null;
     }
-  };
+  } catch (error) {
+    console.error("Error verifying password:", error);
+    return null;
+  }
+};
