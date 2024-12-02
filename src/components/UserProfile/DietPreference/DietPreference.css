@@ -1,9 +1,12 @@
 /* DietPreference.css */
 .diet-preference {
-    padding: 20px;
-    width: calc(100vw - 250px);
-    background-color: #f2f2f2;
-  }
+  padding: 20px;
+  width: calc(100vw - 250px);
+  max-width: 800px; /* Optional: Restrict maximum width */
+  background-color: #f2f2f2;
+  border-radius: 12px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for aesthetics */
+}
   
   /* ExistingDietPreference.css */
   .existing-diet-preference {

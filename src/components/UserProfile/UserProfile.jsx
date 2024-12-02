@@ -4,7 +4,7 @@ import ProfileInformation from './ProfileInformation/ProfileInformation';
 import DietPreference from './DietPreference/DietPreference';
 import WorkoutPreference from './WorkoutPreference/WorkoutPreference';
 import ProgressNote from './ProgressNote/ProgressNote';
-import { getUserById } from '../../repositories/UserRepo'; // Assuming UserRepo is in the `api` folder
+import { getUserById } from '../../repositories/UserRepo'; // Adjust path if necessary
 import './UserProfile.css';
 
 const UserProfile = () => {
@@ -13,53 +13,67 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch user data
   useEffect(() => {
-    // Retrieve user data from localStorage
-    const storedUser = localStorage.getItem('user');
-    if (!storedUser) {
-      setError('User data not found in session');
-      setLoading(false);
-      return;
-    }
+    const fetchUserData = async () => {
+      const storedUser = localStorage.getItem('user');
 
-    const { userId } = JSON.parse(storedUser);
+      if (!storedUser) {
+        setError('User data not found in session');
+        setLoading(false);
+        return;
+      }
 
-    // Fetch user data
-    const fetchUser = async () => {
       try {
+        const { userId } = JSON.parse(storedUser);
         const fetchedUser = await getUserById(userId);
+
         if (fetchedUser) {
           setUser(fetchedUser);
         } else {
-          setError('Failed to fetch user data');
+          setError('User not found');
         }
       } catch (err) {
         console.error('Error fetching user:', err);
-        setError('An error occurred while fetching user data');
+        setError('Failed to load user data. Please try again.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUser();
+    fetchUserData();
   }, []);
 
+  // Render active section
+  const renderSection = () => {
+    switch (activeSection) {
+      case 'profileInfo':
+        return user && <ProfileInformation user={user} />;
+      case 'dietPreference':
+        return user && <DietPreference userId={user.id} />;
+      case 'workoutPreference':
+        return user && <WorkoutPreference userId={user.id} />;
+      case 'progressNotes':
+        return <ProgressNote userId={user.id} />;
+      default:
+        return <p>Select a section to view</p>;
+    }
+  };
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading user profile...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="error">Error: {error}</div>;
   }
 
   return (
     <div className="user-profile">
       <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
-
-      {activeSection === 'profileInfo' && user && <ProfileInformation user={user} />}
-      {activeSection === 'dietPreference' && <DietPreference />}
-      {activeSection === 'workoutPreference' && <WorkoutPreference />}
-      {activeSection === 'progressNotes' && <ProgressNote />}
+      <div className="section-content">
+        {renderSection()}
+      </div>
     </div>
   );
 };

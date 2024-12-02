@@ -1,6 +1,6 @@
 .profile-information {
   padding: 50px;
-  width: calc(100vw - 250px);
+  width: calc(100vw - 400px);
   background-color: #f8f9fa; /* Light gray background */
   display: flex;
   flex-direction: column;
