@@ -1,33 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import ExistingDietPreference from './ExistingDietPreference';
 import CreateDietPreference from './CreateDietPreference';
-import { getUserDietPreferenceByUserId } from '../../../repositories/DietPreferenceRepo'; // Adjust the import path as needed
+import { getUserDietPreferenceByUserId } from '../../../repositories/DietPreferenceRepo';
 import './DietPreference.css';
 
 const DietPreference = ({ userId }) => {
-  const [hasPreference, setHasPreference] = useState(null); // null indicates loading state
+  const [dietPreference, setDietPreference] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!userId) {
+      setError('User ID is required to fetch diet preferences.');
+      setLoading(false);
+      return;
+    }
+
     const fetchUserPreference = async () => {
+      setLoading(true);
       try {
         const preference = await getUserDietPreferenceByUserId(userId);
-        setHasPreference(!!preference);
+        setDietPreference(preference || null);
       } catch (err) {
         setError('Failed to fetch diet preferences.');
-        console.error(err);
+        console.error('Error fetching diet preferences:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    if (userId) {
-      fetchUserPreference();
-    } else {
-      setError('User ID is required to fetch diet preferences.');
-      setLoading(false);
-    }
+    fetchUserPreference();
   }, [userId]);
 
   if (loading) {
@@ -35,15 +37,22 @@ const DietPreference = ({ userId }) => {
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="error">{error}</p>;
   }
 
   return (
     <div className="diet-preference">
-      {hasPreference ? (
-        <ExistingDietPreference onCreateNew={() => setHasPreference(false)} userId={userId} />
+      {dietPreference ? (
+        <ExistingDietPreference
+          dietPreference={dietPreference}
+          onCreateNew={() => setDietPreference(null)} // Reset state to create new
+        />
       ) : (
-        <CreateDietPreference onSubmit={() => setHasPreference(true)} userId={userId} />
+        <CreateDietPreference
+          dietId={null} // Explicitly pass null for dietId
+          passedUserId={userId} // Ensure userId is passed correctly
+          onSubmit={(newPreference) => setDietPreference(newPreference)} // Update state with new preference
+        />
       )}
     </div>
   );

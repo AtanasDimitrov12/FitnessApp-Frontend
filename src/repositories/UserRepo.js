@@ -59,12 +59,8 @@ export const uploadProfilePicture = async (userId, imageFile) => {
 
     const response = await backEndClient.post(
       `${usersURL}/${userId}/upload-profile-picture`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
+      formData
+      // Headers are not needed here
     );
     return response.data; // Return the updated user data
   } catch (error) {
@@ -72,6 +68,7 @@ export const uploadProfilePicture = async (userId, imageFile) => {
     throw error; // Re-throw error for the caller to handle
   }
 };
+
 
 // Utility function for handling and logging request errors
 const handleRequestError = (message, error) => {

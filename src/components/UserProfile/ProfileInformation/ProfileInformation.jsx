@@ -5,8 +5,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./ProfileInformation.css";
 
 const ProfileInformation = ({ user }) => {
+  const defaultPicURL = "https://res-console.cloudinary.com/dgovaqahy/thumbnails/v1/image/upload/v1733316054/cHJvZmlsZV9samhudWQ=/drilldown";
   const [userData, setUserData] = useState(user);
-  const [previewURL, setPreviewURL] = useState(user.pictureURL); // URL for the image preview
+  const [previewURL, setPreviewURL] = useState(user.pictureURL ?? defaultPicURL); // Use default URL if pictureURL is null
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -20,7 +21,7 @@ const ProfileInformation = ({ user }) => {
       } catch (error) {
         toast.error("Failed to upload profile picture. Please try again.");
         console.error("Image upload error:", error);
-        setPreviewURL(user.pictureURL); // Revert preview if upload fails
+        setPreviewURL(user.pictureURL ?? defaultPicURL); // Revert to previous or default picture if upload fails
       }
     }
   };

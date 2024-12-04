@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './DietPreference.css';
-import { createUserDietPreference } from '../../../repositories/DietPreferenceRepo'; // Adjust path as needed
+import { updateUserDietPreference } from '../../../repositories/DietPreferenceRepo';
 
-const CreateDietPreference = ({ userId, onSubmit }) => {
+const CreateDietPreference = ({ passedUserId, onSubmit }) => {
   const [goal, setGoal] = useState('Maintenance');
   const [calories, setCalories] = useState('');
   const [mealsPerDay, setMealsPerDay] = useState('');
@@ -19,6 +19,7 @@ const CreateDietPreference = ({ userId, onSubmit }) => {
       alert('Please fill out all fields for the calorie calculator.');
       return;
     }
+    console.log("Diet id: "+passedUserId);
 
     let bmr;
     if (gender === 'male') {
@@ -43,16 +44,16 @@ const CreateDietPreference = ({ userId, onSubmit }) => {
     e.preventDefault();
 
     const userDietPreferenceDTO = {
-      userId,
-      calories: calculatedCalories || calories,
-      mealsPerDay,
+      userid: passedUserId,
+      calories,
+      mealFrequency:mealsPerDay,
     };
 
     try {
-      const response = await createUserDietPreference(userDietPreferenceDTO);
+      const response = await updateUserDietPreference(userDietPreferenceDTO);
       if (response) {
         alert('Diet preference successfully created!');
-        if (onSubmit) onSubmit();
+        if (onSubmit) onSubmit(response);
       } else {
         alert('Failed to create diet preference. Please try again.');
       }
