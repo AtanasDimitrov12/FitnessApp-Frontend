@@ -46,19 +46,24 @@ const UserProfile = () => {
 
   // Render active section
   const renderSection = () => {
+    if (!user) {
+      return <p>Loading user data...</p>;
+    }
+
     switch (activeSection) {
       case 'profileInfo':
-        return user && <ProfileInformation user={user} />;
+        return <ProfileInformation user={user} />;
       case 'dietPreference':
-        return user && <DietPreference userId={user.id} />;
+        return <DietPreference userId={user.id} />;
       case 'workoutPreference':
-        return user && <WorkoutPreference userId={user.id} />;
+        return <WorkoutPreference userId={user.id} />;
       case 'progressNotes':
         return <ProgressNote userId={user.id} />;
       default:
         return <p>Select a section to view</p>;
     }
   };
+
 
   if (loading) {
     return <div className="loading">Loading user profile...</div>;

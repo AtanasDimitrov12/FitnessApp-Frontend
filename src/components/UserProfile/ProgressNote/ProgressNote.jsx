@@ -1,33 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WeightStatisticChart from './WeightStatisticChart';
 import CreateProgressNote from './CreateProgressNote';
 import ProgressHistory from './ProgressHistory';
+import { getProgressNotesByUserId, deleteProgressNote } from '../../../repositories/ProgressNoteRepo'; // Import the delete method
 import './Progress.css';
 
-const ProgressNote = () => {
-  const [progressNotes, setProgressNotes] = useState([
-    { date: '2024-11-02', weight: 77, note: 'I am feeling very good' },
-    { date: '2024-10-22', weight: 79, note: 'I feel the progress' },
-    { date: '2024-10-15', weight: 80, note: 'The program works very well' },
-    { date: '2024-10-01', weight: 81, note: 'Noticing more energy throughout the day' },
-    { date: '2024-09-20', weight: 82, note: 'Sticking to the routine is paying off' },
-    { date: '2024-09-10', weight: 83, note: 'Slight drop in weight, feeling stronger' },
-    { date: '2024-09-01', weight: 85, note: 'Increased stamina and endurance' },
-    { date: '2024-08-20', weight: 86, note: 'Good progress this week' },
-    { date: '2024-08-10', weight: 88, note: 'Starting to see visible changes' },
-    { date: '2024-08-01', weight: 90, note: 'Initial weigh-in, excited to start!' }
-  ]);
+const ProgressNote = ({ userId }) => {
+  const [progressNotes, setProgressNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!userId) {
+      setError('User ID is required to fetch progress notes.');
+      setLoading(false);
+      return;
+    }
+
+    const fetchProgressNotes = async () => {
+      setLoading(true);
+      try {
+        const notes = await getProgressNotesByUserId(userId);
+        setProgressNotes(notes || []);
+      } catch (err) {
+        setError('Failed to fetch progress notes.');
+        console.error('Error fetching progress notes:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProgressNotes();
+  }, [userId]);
 
   const addProgressNote = (newNote) => {
     setProgressNotes([newNote, ...progressNotes]);
   };
 
+  const handleDelete = async (noteId) => {
+    try {
+      await deleteProgressNote(noteId); // Call the backend to delete the note
+      setProgressNotes(progressNotes.filter((note) => note.id !== noteId)); // Update state to remove the deleted note
+    } catch (err) {
+      console.error('Failed to delete progress note:', err);
+      setError('Failed to delete progress note.');
+    }
+  };
+
+  if (loading) {
+    return <p>Loading your progress notes...</p>;
+  }
+
+  if (error) {
+    return <p className="error">{error}</p>;
+  }
+
   return (
     <div className="progress-page">
       <WeightStatisticChart data={progressNotes} />
       <div className="progress-bottom">
-        <CreateProgressNote onSubmit={addProgressNote} />
-        <ProgressHistory notes={progressNotes} />
+        <CreateProgressNote userId={userId} onSubmit={addProgressNote} />
+        <ProgressHistory notes={progressNotes} handleDelete={handleDelete} />
       </div>
     </div>
   );

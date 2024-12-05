@@ -29,7 +29,11 @@ export const getProgressNotesByUserId = async (userId) => {
       return null;
     }
   } catch (error) {
-    console.error("Error fetching progress notes by user ID:", error);
+    if (error.response && error.response.status === 401) {
+      console.error("Unauthorized: Ensure the user is logged in and has a valid token.");
+    } else {
+      console.error("Error fetching progress notes by user ID:", error);
+    }
     return null;
   }
 };
@@ -53,20 +57,31 @@ export const getProgressNoteById = async (id) => {
 // Create a new progress note
 export const createProgressNote = async (progressNoteDTO) => {
   try {
+    // Send POST request with DTO
     const response = await backEndClient.post(progressNotesURL, progressNoteDTO, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", // Optional if backEndClient is pre-configured
       },
     });
-    if (response.status === 201) {
-      return response.data;
+
+    // Check for successful status codes (200 or 201)
+    if (response.status === 200 || response.status === 201) {
+      return response.data; // Return the created note
     } else {
-      console.error(`Error: Received status code ${response.status}`);
-      return null;
+      console.error(`Unexpected response status: ${response.status}`);
+      return null; // Handle unexpected response
     }
   } catch (error) {
-    console.error("Error creating progress note:", error);
-    return null;
+    // Log detailed error information
+    if (error.response) {
+      console.error(
+        `Error creating progress note: ${error.response.status} - ${error.response.data}`
+      );
+    } else {
+      console.error("Error creating progress note:", error.message);
+    }
+
+    throw error; // Rethrow the error for upstream handling
   }
 };
 
