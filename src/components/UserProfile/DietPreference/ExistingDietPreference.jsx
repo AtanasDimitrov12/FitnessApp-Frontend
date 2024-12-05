@@ -17,7 +17,6 @@ const ExistingDietPreference = ({ dietPreference, onCreateNew }) => {
     <div className="existing-diet-preference card">
       <h3>Your Existing Diet Preference</h3>
       <div className="diet-preference-points">
-        <p><strong>Diet id:</strong> {dietPreference.id} </p>
         <p><strong>Calorie intake:</strong> {dietPreference.calories} kcal</p>
         <p><strong>Meals per day:</strong> {dietPreference.mealFrequency}</p>
         <button className="create-button" onClick={onCreateNew}>Create new</button>
