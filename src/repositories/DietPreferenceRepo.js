@@ -22,7 +22,7 @@ export const getUserDietPreferenceByUserId = async (userId) => {
 export const createUserDietPreference = async (userDietPreferenceDTO) => {
     try {
       const response = await backEndClient.post(userDietPreferenceURL, userDietPreferenceDTO);
-      if (response.status === 201) {
+      if (response.status === 200 || response.status === 201) {
         return response.data;
       } else {
         console.error(`Error: Received status code ${response.status}`);
@@ -38,7 +38,7 @@ export const createUserDietPreference = async (userDietPreferenceDTO) => {
 export const updateUserDietPreference = async (userDietPreferenceDTO) => {
     try {
       const response = await backEndClient.put(userDietPreferenceURL, userDietPreferenceDTO);
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 201) {
         return response.data;
       } else {
         console.error(`Error: Received status code ${response.status}`);

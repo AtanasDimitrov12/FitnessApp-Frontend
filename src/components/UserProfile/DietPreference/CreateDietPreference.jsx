@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './DietPreference.css';
-import { updateUserDietPreference } from '../../../repositories/DietPreferenceRepo';
+import { createUserDietPreference, updateUserDietPreference } from '../../../repositories/DietPreferenceRepo';
 
-const CreateDietPreference = ({ passedUserId, onSubmit }) => {
+const CreateDietPreference = ({ update, passedUserId, onSubmit }) => {
   const [goal, setGoal] = useState('Maintenance');
   const [calories, setCalories] = useState('');
   const [mealsPerDay, setMealsPerDay] = useState('');
@@ -19,7 +19,6 @@ const CreateDietPreference = ({ passedUserId, onSubmit }) => {
       alert('Please fill out all fields for the calorie calculator.');
       return;
     }
-    console.log("Diet id: "+passedUserId);
 
     let bmr;
     if (gender === 'male') {
@@ -43,29 +42,38 @@ const CreateDietPreference = ({ passedUserId, onSubmit }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate calories and mealsPerDay
+    if (!calories || !mealsPerDay || mealsPerDay < 2 || mealsPerDay > 6) {
+      alert('Please provide valid values for calories and meals per day.');
+      return;
+    }
+
     const userDietPreferenceDTO = {
       userid: passedUserId,
-      calories,
-      mealFrequency:mealsPerDay,
+      calories: parseInt(calories, 10),
+      mealFrequency: parseInt(mealsPerDay, 10),
     };
 
     try {
-      const response = await updateUserDietPreference(userDietPreferenceDTO);
+      const response = update
+        ? await updateUserDietPreference(userDietPreferenceDTO) // Call update method if updating
+        : await createUserDietPreference(userDietPreferenceDTO); // Call create method if creating
+
       if (response) {
-        alert('Diet preference successfully created!');
+        alert(`Diet preference successfully ${update ? 'updated' : 'created'}!`);
         if (onSubmit) onSubmit(response);
       } else {
-        alert('Failed to create diet preference. Please try again.');
+        alert(`Failed to ${update ? 'update' : 'create'} diet preference. Please try again.`);
       }
     } catch (error) {
-      console.error('Error creating diet preference:', error);
-      alert('An error occurred while creating the diet preference.');
+      console.error(`Error ${update ? 'updating' : 'creating'} diet preference:`, error);
+      alert(`An error occurred while ${update ? 'updating' : 'creating'} the diet preference.`);
     }
   };
 
   return (
     <form className="create-diet-preference" onSubmit={handleSubmit}>
-      <h3>Create Diet Preference</h3>
+      <h3>{update ? 'Update Diet Preference' : 'Create Diet Preference'}</h3>
 
       {/* Goal Selection */}
       <div className="form-group">
@@ -207,8 +215,12 @@ const CreateDietPreference = ({ passedUserId, onSubmit }) => {
 
       {/* Submit Button */}
       <div className="submit-button-container">
-        <button type="submit" className="medium-submit-button">
-          Submit
+        <button
+          type="submit"
+          className="medium-submit-button"
+          disabled={!goal || !calories || !mealsPerDay}
+        >
+          {update ? 'Update Preference' : 'Create Preference'}
         </button>
       </div>
     </form>

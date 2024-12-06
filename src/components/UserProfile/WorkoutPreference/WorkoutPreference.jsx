@@ -7,11 +7,11 @@ import './WorkoutPreference.css';
 const WorkoutPreference = ({ userId }) => {
   const [workoutPreference, setWorkoutPreference] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!userId) {
-      setError('User ID is required to fetch workout preferences.');
+      setError(true);
       setLoading(false);
       return;
     }
@@ -20,10 +20,15 @@ const WorkoutPreference = ({ userId }) => {
       setLoading(true);
       try {
         const preference = await getUserWorkoutPreferenceByUserId(userId);
-        setWorkoutPreference(preference || null);
+        if (preference) {
+          setWorkoutPreference(preference);
+        } else {
+          setWorkoutPreference(null);
+          setError(false); // No existing preference is not an error.
+        }
       } catch (err) {
-        setError('Failed to fetch workout preferences.');
         console.error('Error fetching workout preferences:', err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -36,23 +41,24 @@ const WorkoutPreference = ({ userId }) => {
     return <p>Loading your workout preferences...</p>;
   }
 
-  if (error) {
-    return <p className="error">{error}</p>;
-  }
-
   return (
     <div className="workout-preference">
-      {workoutPreference ? (
+      {workoutPreference && !error ? (
         <ExistingWorkoutPreference
           workoutPreference={workoutPreference}
           onCreateNew={() => setWorkoutPreference(null)} // Reset state to create new
         />
       ) : (
         <CreateWorkoutPreference
-          passedUserId={userId} // Ensure userId is passed correctly
-          onSubmit={(newPreference) => setWorkoutPreference(newPreference)} // Update state with new preference
+          update={!!workoutPreference} // Pass `true` if updating an existing preference
+          passedUserId={userId}
+          onSubmit={(newPreference) => {
+            setWorkoutPreference(newPreference);
+            setError(false); // Clear any existing error.
+          }}
         />
       )}
+      {error && <p className="error">Failed to fetch workout preferences.</p>}
     </div>
   );
 };

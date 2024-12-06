@@ -16,6 +16,8 @@ const CreateProgressNote = ({ userId, onSubmit }) => {
       return;
     }
 
+    console.log("User Id: " + userId);
+
     const progressNote = {
       userId,
       weight: parseFloat(weight),

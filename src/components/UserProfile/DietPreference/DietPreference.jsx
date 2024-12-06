@@ -40,17 +40,19 @@ const DietPreference = ({ userId }) => {
     return <p className="error">{error}</p>;
   }
 
+  const isUpdate = dietPreference !== null; // Determine if it's an update
+
   return (
     <div className="diet-preference">
-      {dietPreference ? (
+      {isUpdate ? (
         <ExistingDietPreference
           dietPreference={dietPreference}
           onCreateNew={() => setDietPreference(null)} // Reset state to create new
         />
       ) : (
         <CreateDietPreference
-          dietId={null} // Explicitly pass null for dietId
-          passedUserId={userId} // Ensure userId is passed correctly
+          update={isUpdate} // Pass whether it's an update or not
+          passedUserId={userId} // Pass userId
           onSubmit={(newPreference) => setDietPreference(newPreference)} // Update state with new preference
         />
       )}

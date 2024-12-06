@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './WorkoutPreference.css';
-import { updateUserWorkoutPreference } from '../../../repositories/WorkoutPreferenceRepo';
+import { createUserWorkoutPreference, updateUserWorkoutPreference } from '../../../repositories/WorkoutPreferenceRepo';
 
-const CreateWorkoutPreference = ({ passedUserId, onSubmit }) => {
+const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
   const [goal, setGoal] = useState('Maintenance');
   const [fitnessLevel, setFitnessLevel] = useState('');
   const [trainingStyle, setTrainingStyle] = useState('');
@@ -25,22 +25,25 @@ const CreateWorkoutPreference = ({ passedUserId, onSubmit }) => {
     };
 
     try {
-      const response = await updateUserWorkoutPreference(userWorkoutPreferenceDTO);
+      const response = update
+        ? await updateUserWorkoutPreference(userWorkoutPreferenceDTO)
+        : await createUserWorkoutPreference(userWorkoutPreferenceDTO);
+
       if (response) {
-        alert('Workout preference successfully created!');
+        alert(`Workout preference successfully ${update ? 'updated' : 'created'}!`);
         if (onSubmit) onSubmit(response);
       } else {
-        alert('Failed to create workout preference. Please try again.');
+        alert(`Failed to ${update ? 'update' : 'create'} workout preference. Please try again.`);
       }
     } catch (error) {
-      console.error('Error creating workout preference:', error);
-      alert('An error occurred while creating the workout preference.');
+      console.error(`Error ${update ? 'updating' : 'creating'} workout preference:`, error);
+      alert('An error occurred while saving your workout preference.');
     }
   };
 
   return (
     <form className="set-workout-preference" onSubmit={handleSubmit}>
-      <h3>Set Your Workout Preference</h3>
+      <h3>{update ? 'Update Workout Preference' : 'Set Your Workout Preference'}</h3>
 
       {/* Goal Selection */}
       <div className="form-group">
@@ -154,8 +157,12 @@ const CreateWorkoutPreference = ({ passedUserId, onSubmit }) => {
 
       {/* Submit Button */}
       <div className="submit-button-container">
-        <button type="submit" className="medium-submit-button">
-          Submit
+        <button
+          type="submit"
+          className="medium-submit-button"
+          disabled={!goal || !fitnessLevel || !trainingStyle || !workoutsPerWeek}
+        >
+          {update ? 'Update Preference' : 'Create Preference'}
         </button>
       </div>
     </form>
