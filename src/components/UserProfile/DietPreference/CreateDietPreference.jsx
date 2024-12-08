@@ -49,7 +49,7 @@ const CreateDietPreference = ({ update, passedUserId, onSubmit }) => {
     }
 
     const userDietPreferenceDTO = {
-      userid: passedUserId,
+      userId: passedUserId,
       calories: parseInt(calories, 10),
       mealFrequency: parseInt(mealsPerDay, 10),
     };
@@ -58,6 +58,10 @@ const CreateDietPreference = ({ update, passedUserId, onSubmit }) => {
       const response = update
         ? await updateUserDietPreference(userDietPreferenceDTO) // Call update method if updating
         : await createUserDietPreference(userDietPreferenceDTO); // Call create method if creating
+
+      update
+      ? console.log("Update") // Call update method if updating
+      : console.log("Create");
 
       if (response) {
         alert(`Diet preference successfully ${update ? 'updated' : 'created'}!`);
