@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { FaGoogle, FaFacebook, FaLinkedin } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { registerUser } from '../../repositories/AuthRepo';
+import { registerUser } from "../../repositories/AuthRepo";
 
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
@@ -20,32 +20,22 @@ const SignUpForm = () => {
   const validateForm = () => {
     const { username, email, password, confirmPassword } = formData;
 
-    // Username: Only letters, minimum 3 characters
-    const usernameRegex = /^[A-Za-z]{3,}$/;
-    if (!usernameRegex.test(username)) {
-      toast.error("Username must contain only letters and be at least 3 characters long.", { position: "top-center" });
+    if (!/^[A-Za-z]{3,}$/.test(username)) {
+      toast.error("Username must contain only letters and be at least 3 characters long.");
       return false;
     }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email address.", { position: "top-center" });
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      toast.error("Please enter a valid email address.");
       return false;
     }
-
-    // Password: Minimum 8 characters
     if (password.length < 8) {
-      toast.error("Password must be at least 8 characters long.", { position: "top-center" });
+      toast.error("Password must be at least 8 characters long.");
       return false;
     }
-
-    // Confirm password matches password
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match.", { position: "top-center" });
+      toast.error("Passwords do not match.");
       return false;
     }
-
     return true;
   };
 
@@ -55,35 +45,23 @@ const SignUpForm = () => {
     if (validateForm()) {
       try {
         const response = await registerUser(formData);
-        if (response) {
-          toast.success("Signup successful!", { position: "top-center" });
-          console.log("Form Data:", formData);
-
-          // Reset form
-          setFormData({
-            username: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-          });
-        } else {
-          toast.error("Signup failed. Please try again.", { position: "top-center" });
-        }
+        response
+          ? toast.success("Signup successful!")
+          : toast.error("Signup failed. Please try again.");
       } catch (error) {
-        toast.error("An error occurred during signup. Please try again.", { position: "top-center" });
-        console.error("Signup error:", error);
+        toast.error("An error occurred during signup.");
       }
     }
   };
 
   return (
-    <div className="form-container sign-up-container">
+    <div className="form-container sign-up-container" data-testid="sign-up-container">
       <form onSubmit={handleSubmit}>
-        <h1 className='register-form'>Sign Up</h1>
+        <h1 className="register-form">Sign Up</h1>
         <div className="social-container">
-          <a href="#" className="social"><FaFacebook /></a>
-          <a href="#" className="social"><FaGoogle /></a>
-          <a href="#" className="social"><FaLinkedin /></a>
+          <a href="#" className="social" data-testid="facebook-signup"><FaFacebook /></a>
+          <a href="#" className="social" data-testid="google-signup"><FaGoogle /></a>
+          <a href="#" className="social" data-testid="linkedin-signup"><FaLinkedin /></a>
         </div>
         <span>or use your email for registration</span>
         <input
@@ -93,6 +71,7 @@ const SignUpForm = () => {
           value={formData.username}
           onChange={handleChange}
           required
+          data-testid="username-signup"
         />
         <input
           type="email"
@@ -101,6 +80,7 @@ const SignUpForm = () => {
           value={formData.email}
           onChange={handleChange}
           required
+          data-testid="email-signup"
         />
         <input
           type="password"
@@ -109,6 +89,7 @@ const SignUpForm = () => {
           value={formData.password}
           onChange={handleChange}
           required
+          data-testid="password-signup"
         />
         <input
           type="password"
@@ -117,8 +98,9 @@ const SignUpForm = () => {
           value={formData.confirmPassword}
           onChange={handleChange}
           required
+          data-testid="confirm-password-signup"
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit" data-testid="sign-up-submit">Sign Up</button>
       </form>
     </div>
   );

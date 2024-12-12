@@ -29,7 +29,7 @@ export const login = async (credentials) => {
     const response = await backEndClient.post(`${authURL}/login`, credentials, {
       headers: { "Content-Type": "application/json" },
     });
-    return response.data; // Contains id, role, and token
+    return response.data;
   } catch (error) {
     console.error("Login error:", error);
     return null; // Ensure null is returned on failure

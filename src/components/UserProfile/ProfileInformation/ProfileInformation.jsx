@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateUser, uploadProfilePicture } from "../../../repositories/UserRepo"; // Import the new uploadProfilePicture method
+import { updateUser, uploadProfilePicture } from "../../../repositories/UserRepo";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./ProfileInformation.css";
@@ -7,21 +7,20 @@ import "./ProfileInformation.css";
 const ProfileInformation = ({ user }) => {
   const defaultPicURL = "https://res-console.cloudinary.com/dgovaqahy/thumbnails/v1/image/upload/v1733316054/cHJvZmlsZV9samhudWQ=/drilldown";
   const [userData, setUserData] = useState(user);
-  const [previewURL, setPreviewURL] = useState(user.pictureURL ?? defaultPicURL); // Use default URL if pictureURL is null
+  const [previewURL, setPreviewURL] = useState(user.pictureURL ?? defaultPicURL);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPreviewURL(URL.createObjectURL(file)); // Show the preview immediately
+      setPreviewURL(URL.createObjectURL(file));
       try {
-        // Call backend to upload the image
-        const uploadResponse = await uploadProfilePicture(user.id, file); // Call the backend API
-        setUserData({ ...userData, pictureURL: uploadResponse.pictureURL }); // Update userData with the new picture URL
+        const uploadResponse = await uploadProfilePicture(user.id, file);
+        setUserData({ ...userData, pictureURL: uploadResponse.pictureURL });
         toast.success("Profile picture updated successfully!");
       } catch (error) {
         toast.error("Failed to upload profile picture. Please try again.");
         console.error("Image upload error:", error);
-        setPreviewURL(user.pictureURL ?? defaultPicURL); // Revert to previous or default picture if upload fails
+        setPreviewURL(user.pictureURL ?? defaultPicURL);
       }
     }
   };
