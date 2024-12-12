@@ -1,0 +1,112 @@
+/* General container styling for the update-exercise section */
+.update-exercise-container {
+    background-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 20px 50px;
+    width: 90%;
+    height: fit-content;
+    max-width: 400px;
+    text-align: center;
+    margin: 60px auto 30px auto;
+    box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.update-exercise-container h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.update-exercise-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Label styling */
+.update-exercise-form label {
+    font-weight: bold;
+    text-align: left;
+}
+
+/* Input and select styling */
+.update-exercise-form input[type="text"],
+.update-exercise-form input[type="number"],
+.update-exercise-form select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    font-size: 1em;
+    box-sizing: border-box; /* Ensure uniform width */
+}
+
+/* Focus styling */
+.update-exercise-form input[type="text"]:focus,
+.update-exercise-form input[type="number"]:focus,
+.update-exercise-form select:focus {
+    border-color: #7bb601;
+    outline: none;
+}
+
+/* Button styling */
+.update-button {
+    background-color: #7bb601;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.update-button:hover {
+    background-color: #5e9401;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .update-exercise-container {
+        width: 100%;
+        max-width: 90%;
+        margin: 80px auto 0;
+    }
+
+    .update-exercise-container h3 {
+        font-size: 1.3em;
+    }
+
+    .update-exercise-form {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .update-exercise-container {
+        padding: 15px;
+        margin-top: 60px;
+    }
+
+    .update-exercise-container h3 {
+        font-size: 1.2em;
+    }
+
+    .update-exercise-form label {
+        font-size: 0.9em;
+    }
+
+    .update-exercise-form input[type="text"],
+    .update-exercise-form input[type="number"],
+    .update-exercise-form select {
+        padding: 6px;
+        font-size: 0.9em;
+    }
+
+    .update-button {
+        padding: 6px;
+        font-size: 0.9em;
+    }
+}

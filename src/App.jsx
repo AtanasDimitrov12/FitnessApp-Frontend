@@ -10,6 +10,9 @@ import Footer from "./components/Footer/Footer";
 import AdminCreatePage from "./components/AdminCreatePage/AdminCreatePage";
 import NotAuthorized from "./NotAuthorized";
 import PrivateRoute from "./PrivateRoute";
+import AdminManagePage from "./components/AdminManagePage/AdminManagePage";
+import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateExercise/UpdateExercise";
+import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
 
 function App() {
   return (
@@ -51,6 +54,32 @@ function App() {
               </PrivateRoute>
             }
           />
+           <Route
+            path="/admin-manage"
+            element={
+              <PrivateRoute roles={["ADMIN"]}>
+                <AdminManagePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/update-exercise"
+            element={
+              <PrivateRoute roles={["ADMIN"]}>
+                <UpdateExercise />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/update-meal"
+            element={
+              <PrivateRoute roles={["ADMIN"]}>
+                <UpdateMeal />
+              </PrivateRoute>
+            }
+          />
+
+
           <Route path="/register" element={<AuthContainer />} />
           <Route path="/not-authorized" element={<NotAuthorized />} />
         </Routes>

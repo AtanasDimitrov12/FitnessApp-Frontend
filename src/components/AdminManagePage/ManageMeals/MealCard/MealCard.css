@@ -1,0 +1,60 @@
+.meal-card {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .meal-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .meal-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .meal-card-header h3 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: #333;
+  }
+  
+  .meal-card-body p {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .edit-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    transition: color 0.2s;
+  }
+  
+  .edit-button:hover {
+    color: #0056b3;
+  }
+  
+  .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #dc3545;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: color 0.2s;
+  }
+  
+  .delete-button:hover {
+    color: #c82333;
+  }
+  

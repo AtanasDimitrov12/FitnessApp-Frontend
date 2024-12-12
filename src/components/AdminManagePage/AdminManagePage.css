@@ -1,0 +1,41 @@
+/* Admin Manage Page Layout */
+.admin-manage-page {
+    display: flex;
+    flex-direction: row; /* Sidebar and content side-by-side */
+    min-height: 100vh; /* Full height */
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+.admin-manage-content {
+    flex: 1; /* Take up the remaining space */
+    padding: 20px;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Specific styling for Manage Exercise page */
+.manage-exercise-page {
+    width: 100%; /* Ensure it spans full width within the parent */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.manage-exercise-content {
+    width: 100%; /* Take up full width of parent */
+    max-width: 1200px; /* Limit content width */
+    margin: 0 auto; /* Center the content horizontally */
+}
+
+.manage-exercise-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Grid layout for exercises */
+    gap: 20px;
+    width: 100%;
+}

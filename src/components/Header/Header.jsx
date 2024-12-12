@@ -39,6 +39,7 @@ const Header = () => {
                       )}
                       {user.roles.includes("ADMIN") && (
                         <div id="admin-nav">
+                          <NavLink to="/admin-manage">Manage</NavLink>
                           <NavLink to="/admin-create">Create</NavLink>
                         </div>
                       )}

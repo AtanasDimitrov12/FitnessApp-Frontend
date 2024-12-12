@@ -1,0 +1,60 @@
+.update-meal-container {
+    background-color: #bdbdbd;
+    border-radius: 20px;
+    padding: 20px 50px;
+    width: 90%;
+    height: fit-content;
+    max-width: 400px;
+    text-align: center;
+    margin: 100px auto 0 auto;
+    box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-meal-container h3 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .update-meal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .update-meal-form label {
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .update-meal-form input[type="text"],
+  .update-meal-form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #d3d3d3;
+    font-size: 1em;
+    box-sizing: border-box; /* Ensure uniform width */
+  }
+  
+  .update-meal-form input[type="text"]:focus,
+  .update-meal-form input[type="number"]:focus {
+    border-color: #7bb601;
+    outline: none;
+  }
+  
+  .update-button {
+    background-color: #7bb601;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .update-button:hover {
+    background-color: #5e9401;
+  }
+  
