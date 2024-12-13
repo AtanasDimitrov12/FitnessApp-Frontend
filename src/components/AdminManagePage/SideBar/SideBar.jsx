@@ -11,8 +11,8 @@ const Sidebar = ({ activeSection, onSectionChange }) => {
         Manage Exercises
       </button>
       <button
-        className={`sidebar-button ${activeSection === 'manageWorkout' ? 'active' : ''}`}
-        onClick={() => onSectionChange('manageWorkout')}
+        className={`sidebar-button ${activeSection === 'manageWorkouts' ? 'active' : ''}`}
+        onClick={() => onSectionChange('manageWorkouts')}
       >
         Manage Workouts
       </button>

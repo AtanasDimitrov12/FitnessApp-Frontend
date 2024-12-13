@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import WorkoutCard from "./WorkoutCard/WorkoutCard"; 
 import "./WorkoutPage.css";
-import { getWorkout, deleteWorkout } from "../../repositories/WorkoutRepo"; 
+import { getWorkouts, deleteWorkout } from "../../repositories/WorkoutRepo"; 
 
 const WorkoutPage = () => {
   const [workouts, setWorkouts] = useState([]); 

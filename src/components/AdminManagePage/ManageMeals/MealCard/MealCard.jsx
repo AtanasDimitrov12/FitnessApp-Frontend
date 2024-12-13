@@ -9,9 +9,6 @@ const MealCard = ({ meal, onEdit, onDelete }) => {
     <div className="meal-card">
       <div className="meal-card-header">
         <h3>{name}</h3>
-        <button className="edit-button" onClick={onEdit} title="Edit">
-          <FaEdit />
-        </button>
       </div>
       <div className="meal-card-body">
         <p><strong>Calories:</strong> {calories} kcal</p>
@@ -19,7 +16,10 @@ const MealCard = ({ meal, onEdit, onDelete }) => {
         <p><strong>Carbs:</strong> {carbs} g</p>
         <p><strong>Cooking Time:</strong> {cookingTime} min</p>
       </div>
-      <button className="delete-button" onClick={onDelete} title="Delete">
+      <button className="meal-edit-button" onClick={onEdit} title="Edit">
+          <FaEdit />
+      </button>
+      <button className="meal-delete-button" onClick={onDelete} title="Delete">
         <FaTrash />
       </button>
     </div>

@@ -3,7 +3,7 @@ import backEndClient from './axiosClient';
 const workoutsURL = "/api/workouts";
 
 // Fetch all workouts
-export const getWorkout = async () => {
+export const getWorkouts = async () => {
     try {
         const response = await backEndClient.get(workoutsURL);
         if (response.status === 200) {

@@ -22,29 +22,46 @@
 
 /* Workout content area */
 .workout-content {
+  grid-area: workout;
   display: grid;
-  grid-template-areas:
-    "workout video"
-    "exercises exercises";
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
   gap: 20px;
-  grid-column: 2 / span 2; /* Span the workout and exercises areas */
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* Workout card styling */
 .workout-card {
-  grid-area: workout;
-  background-color: #bdbdbd;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
   border-radius: 10px;
   padding: 20px;
-  text-align: center;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+/* Ensure cards fit within their allocated grid space */
+.workout-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.workout-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Exercises section styling */
 .exercises-section {
   grid-area: exercises;
-  background-color: #bdbdbd;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
@@ -80,7 +97,7 @@
 /* Exercise video section styling */
 .exercise-video {
   grid-area: video;
-  background-color: #bdbdbd;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   text-align: center;

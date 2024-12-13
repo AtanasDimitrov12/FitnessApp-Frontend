@@ -1,0 +1,119 @@
+.workout-card {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative; /* Ensure buttons are positioned relative to the card */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.workout-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.workout-image-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.workout-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.no-image-text {
+  font-size: 0.9rem;
+  color: #999;
+  text-align: center;
+}
+
+.workout-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.workout-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.exercise-list-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.toggle-exercise-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.toggle-exercise-button:hover {
+  background-color: #0056b3;
+}
+
+.exercise-list {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.exercise-item {
+  background-color: #f0f0f0;
+  padding: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+
+.no-exercise-text {
+  font-size: 0.9rem;
+  color: #999;
+  text-align: center;
+}
+
+.workout-edit-button,
+.workout-delete-button {
+  position: absolute; /* Position buttons relative to the card */
+  bottom: 10px; /* Align buttons at the bottom */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.workout-edit-button {
+  left: 10px; /* Align at the left corner */
+  color: #007bff;
+  z-index: 10; /* Ensure the button is above other content */
+}
+
+.workout-edit-button:hover {
+  color: #0056b3;
+}
+
+.workout-delete-button {
+  right: 10px; /* Align at the right corner */
+  color: #dc3545;
+}
+
+.workout-delete-button:hover {
+  color: #c82333;
+}

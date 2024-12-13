@@ -8,21 +8,29 @@ const UpdateMeal = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const meal = location.state?.meal || {}; // Get meal from state
-  const [mealData, setMealData] = useState(meal); // Initialize form with meal data
+  const [mealData, setMealData] = useState({
+    ...meal,
+    cookingTime: meal.cookingTime ? parseFloat(meal.cookingTime).toFixed(1) : '', // Round on initialization
+  });
   const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setMealData({
-      ...mealData,
-      [name]: value,
-    });
+    setMealData((prevMealData) => ({
+      ...prevMealData,
+      [name]: name === 'cookingTime' ? parseFloat(value).toFixed(1) : value, // Round cookingTime
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateMeal(mealData);
+      const updatedMeal = {
+        ...mealData,
+        cookingTime: parseFloat(mealData.cookingTime).toFixed(1), // Ensure cookingTime is rounded before submission
+      };
+
+      const response = await updateMeal(updatedMeal);
       if (response) {
         toast.success('Meal updated successfully!', { position: 'top-right' });
         navigate('/admin-manage'); // Redirect on success
