@@ -13,6 +13,7 @@ import PrivateRoute from "./PrivateRoute";
 import AdminManagePage from "./components/AdminManagePage/AdminManagePage";
 import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateExercise/UpdateExercise";
 import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
+import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
 
 function App() {
   return (
@@ -78,6 +79,16 @@ function App() {
               </PrivateRoute>
             }
           />
+
+          <Route
+            path="/update-workout"
+            element={
+              <PrivateRoute roles={["ADMIN"]}>
+                <UpdateWorkout />
+              </PrivateRoute>
+            }
+          />
+
 
 
           <Route path="/register" element={<AuthContainer />} />

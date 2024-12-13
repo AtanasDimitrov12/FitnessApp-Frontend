@@ -1,94 +1,84 @@
 /* Main Create Workout page container */
 .create-workout-page {
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 100px auto 50px auto;
+  margin: 50px auto;
   gap: 20px;
-  overflow-x: hidden;
+  width: 100%;
 }
 
-/* Container for the form and preview sections side by side */
+/* Container for the form and preview sections */
 .create-workout-content {
   display: flex;
-  gap: 200px;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 40px; /* Space between form and preview */
   width: 100%;
   max-width: 1200px;
-  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Individual section styling */
-.create-workout-fields,
-.preview-container {
+/* Styling for the form container */
+.create-workout-fields {
   background-color: #bdbdbd;
   border-radius: 20px;
-  padding: 30px 40px;
+  padding: 30px;
   width: 100%;
   max-width: 450px;
   box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
 }
 
-/* Title styling for each section */
-.create-workout-fields h3,
-.preview-container h3 {
+/* Form title */
+.create-workout-fields h3 {
   font-size: 1.5em;
   color: #333;
   margin-bottom: 20px;
   text-align: center;
 }
 
-/* Form styling */
-.create-workout-fields form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Labels and inputs */
+/* Input labels */
 .create-workout-fields label {
   font-weight: bold;
-  text-align: left;
+  color: #333;
+  margin-bottom: 5px;
 }
 
+/* Input fields */
 .create-workout-fields input[type="text"],
 .create-workout-fields textarea {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
   border-radius: 5px;
-  border: 1px solid #d3d3d3;
-  font-size: 1em;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #f9f9f9;
 }
 
-/* Textarea specific styling */
-.create-workout-fields textarea {
-  resize: vertical;
-  min-height: 80px;
+/* Grouping buttons into a single row */
+.create-workout-fields .button-group {
+  display: flex;
+  justify-content: space-between; /* Space between buttons */
+  gap: 10px; /* Add space between the buttons */
+  margin-top: 20px;
 }
 
-/* General button styling for both buttons and file input trigger */
-.create-workout-fields .add-button,
-.create-workout-fields #upload-picture + .add-button {
+/* Button styles */
+.create-workout-fields .add-button {
+  flex: 1; /* Make buttons take equal width */
   background-color: #7bb601;
   color: white;
-  padding: 12px 0; /* Center text vertically */
-  width: 100%;
-  display: inline-block;
-  text-align: center;
+  padding: 12px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-weight: bold;
-  font-size: 1em;
-  margin-top: 10px;
-  text-decoration: none; /* Ensure no underline */
+  text-transform: uppercase;
+  text-align: center;
 }
 
-/* Hover effect for both button types */
-.create-workout-fields .add-button:hover,
-.create-workout-fields #upload-picture + .add-button:hover {
+.create-workout-fields .add-button:hover {
   background-color: #5e9401;
 }
 
@@ -97,117 +87,47 @@
   display: none;
 }
 
-
-/* Styling for the preview container, including the WorkoutCard component */
+/* Styling for the preview container */
 .preview-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* Preview card styling */
-.preview-container .workout-card {
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
   width: 100%;
-  max-width: 350px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  box-shadow: 0 14px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Preview title */
+.preview-container h3 {
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 20px;
   text-align: center;
 }
 
-/* Create button at the bottom */
+/* Styling for the create button */
 .create-button {
-  background-color: #7bb601;
+  background-color: #28a745;
   color: white;
-  padding: 12px 25px;
+  padding: 15px 30px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 1rem;
   font-weight: bold;
-  font-size: 1em;
+  text-transform: uppercase;
   margin-top: 20px;
 }
 
 .create-button:hover {
-  background-color: #5e9401;
+  background-color: #218838;
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .create-workout-content {
-    gap: 100px; /* Reduce gap for medium screens */
-  }
-
-  .create-workout-fields,
-  .preview-container {
-    padding: 20px 30px;
-    overflow: hidden;
-  }
-}
-
-@media (max-width: 768px) {
-  .create-workout-content {
-    flex-direction: column; /* Stack components vertically */
+    flex-direction: column;
     align-items: center;
-    gap: 40px;
-    overflow: hidden;
-  }
-
-  .create-workout-fields,
-  .preview-container {
-    max-width: 90%; 
-    overflow: hidden;
-  }
-
-  .create-workout-fields h3,
-  .preview-container h3 {
-    font-size: 1.3em;
-  }
-
-  .create-button {
-    font-size: 0.9em;
-    padding: 10px 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .create-workout-page {
-    margin-top: 50px;
-    gap: 15px;
-    overflow: hidden;
-  }
-
-  .create-workout-fields,
-  .preview-container {
-    padding: 15px 20px;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  .create-workout-fields h3,
-  .preview-container h3 {
-    font-size: 1.2em;
-  }
-
-  .create-workout-fields label {
-    font-size: 0.9em;
-  }
-
-  .create-workout-fields input[type="text"],
-  .create-workout-fields textarea {
-    padding: 6px;
-    font-size: 0.9em;
-  }
-
-  .create-workout-fields .add-button {
-    padding: 8px 10px;
-    font-size: 0.85em;
-  }
-
-  .create-button {
-    padding: 8px 15px;
-    font-size: 0.85em;
+    gap: 30px;
   }
 }

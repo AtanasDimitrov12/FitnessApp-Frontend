@@ -20,16 +20,17 @@ const CreateWorkoutFields = ({ onAddExercise, onAddPicture, onInputChange }) => 
           required
         />
         
-        <button type="button" onClick={onAddExercise} className="add-button">Add exercises</button>
-        
-        <label htmlFor="upload-picture" className="add-button">Add picture</label>
-        <input
-          type="file"
-          id="upload-picture"
-          accept="image/jpeg, image/png"
-          style={{ display: 'none' }}
-          onChange={onAddPicture}
-        />
+        <div className="button-group">
+          <button type="button" onClick={onAddExercise} className="add-button">Add exercises</button>
+          
+          <label htmlFor="upload-picture" className="add-button">Add picture</label>
+          <input
+            type="file"
+            id="upload-picture"
+            accept="image/jpeg, image/png"
+            onChange={onAddPicture}
+          />
+        </div>
       </form>
     </div>
   );

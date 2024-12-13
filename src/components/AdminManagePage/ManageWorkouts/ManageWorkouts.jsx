@@ -40,6 +40,11 @@ const ManageWorkouts = () => {
     }
   };
 
+  // Handle edit
+  const handleEdit = (workout) => {
+    navigate('/update-workout', { state: { workout } }); // Redirect to the UpdateWorkout page with the selected workout
+  };
+
   // Handle page click
   const handlePageClick = (event) => {
     setCurrentPage(event.selected);
@@ -52,16 +57,16 @@ const ManageWorkouts = () => {
         <div className="manage-workout-list">
           {currentWorkouts.map((workout) => (
             <WorkoutCard
-                workoutData={{
+              key={workout.id} // Add a unique key for each card
+              workoutData={{
                 name: workout.name,
                 description: workout.description,
-                }}
-                exerciseList={workout.exercises || []}
-                imageURL={workout.pictureURL || ''}
-                onEdit={() => handleEdit(workout)} // Pass Edit handler
-                onDelete={() => handleDelete(workout.id)} // Pass Delete handler
+              }}
+              exerciseList={workout.exercises || []}
+              imageURL={workout.pictureURL || ''}
+              onEdit={() => handleEdit(workout)} // Pass the workout to handleEdit
+              onDelete={() => handleDelete(workout.id)} // Pass Delete handler
             />
-          
           ))}
         </div>
         <ReactPaginate

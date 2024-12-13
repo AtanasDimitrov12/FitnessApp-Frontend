@@ -43,22 +43,37 @@ export const createNewWorkout = async (workoutData, imageFile) => {
 export const updateWorkout = async (workoutData, imageFile) => {
   try {
     const formData = new FormData();
-    formData.append("workout", JSON.stringify(workoutData));
+    formData.append("workout", JSON.stringify(workoutData)); // Wrap the workoutData as a JSON string
     if (imageFile) {
-      formData.append("image", imageFile);
+      formData.append("image", imageFile); // Add image only if it exists
     }
 
-    const response = await backEndClient.put(workoutsURL, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await backEndClient.put(workoutsURL, formData); // Axios automatically handles the headers
     return response.data;
   } catch (error) {
     console.error("Error updating workout:", error);
     return null;
   }
 };
+
+
+export const updateWorkoutWithoutPicture = async (workoutData) => {
+  try {
+    console.log("Id: "+workoutData.id)
+    const response = await backEndClient.put(`${workoutsURL}/basic`, workoutData, {
+      headers: {
+        "Content-Type": "application/json", // Send as JSON
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error updating workout without picture:", error);
+    return null;
+  }
+};
+
+
 
 // Delete a workout by ID
 export const deleteWorkout = async (id) => {

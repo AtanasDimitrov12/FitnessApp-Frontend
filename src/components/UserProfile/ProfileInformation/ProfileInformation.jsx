@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./ProfileInformation.css";
 
 const ProfileInformation = ({ user }) => {
-  const defaultPicURL = "https://res-console.cloudinary.com/dgovaqahy/thumbnails/v1/image/upload/v1733316054/cHJvZmlsZV9samhudWQ=/drilldown";
+  const defaultPicURL = "http://res.cloudinary.com/dgovaqahy/image/upload/v1734119140/imk3zarp0oeispqsyxdi.jpg";
   const [userData, setUserData] = useState(user);
   const [previewURL, setPreviewURL] = useState(user.pictureURL ?? defaultPicURL);
 
