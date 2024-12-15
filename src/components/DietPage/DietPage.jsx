@@ -4,44 +4,70 @@ import MealCard from './MealCard/MealCard';
 import RecipeCard from './RecipeCard/RecipeCard';
 import NutrientChart from './NutrientChart';
 import DailyCaloriesChart from './DailyCaloriesChart';
+import { getDietByUserId } from '../../repositories/DietRepo'; // Use DietRepo
 import './DietPage.css';
 
 const DietPage = () => {
-  const [activeMealId, setActiveMealId] = useState(1);
+  const [userId, setUserId] = useState(null);
+  const [diet, setDiet] = useState(null);
+  const [activeMealId, setActiveMealId] = useState(null);
   const [mealData, setMealData] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const mealCache = {};
 
-  const mealCache = {}; // Cache to store fetched meal data
+  // Fetch user ID from session/localStorage
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const { userId } = JSON.parse(storedUser);
+      setUserId(userId);
+    } else {
+      setError('User data not found in session');
+      setLoading(false);
+    }
+  }, []);
 
-  const meals = [
-    { id: 1, name: 'Chicken with rice', calories: 250, protein: 20, carbs: 30, cookingTime: 25 },
-    { id: 2, name: 'Baked salmon with fennel & tomatoes', calories: 350, protein: 30, carbs: 40, cookingTime: 45 },
-    { id: 3, name: '15-minute chicken & halloumi burgers', calories: 300, protein: 25, carbs: 20, cookingTime: 30 },
-    // Add more meals as needed
-  ];
+  // Fetch Diet object for the user
+  useEffect(() => {
+    const fetchDiet = async () => {
+      if (!userId) return;
 
-  const dailyCalories = 2000;
+      setLoading(true);
+      try {
+        const fetchedDiet = await getDietByUserId(userId); // Fetch diet from repository
+        if (fetchedDiet && fetchedDiet.meals && fetchedDiet.meals.length > 0) {
+          setDiet(fetchedDiet);
+          setActiveMealId(fetchedDiet.meals[0].id); // Set first meal as default
+        } else {
+          setError('No meals found for the user\'s diet.');
+        }
+      } catch (err) {
+        console.error('Error fetching diet:', err);
+        setError('Failed to load diet. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleMealChange = (mealId) => {
-    setActiveMealId(mealId);
-    setMealData(null); // Reset meal data while loading new meal
-    setError(null); // Clear any previous errors
-  };
+    fetchDiet();
+  }, [userId]);
 
+  // Fetch detailed meal data based on active meal ID
   useEffect(() => {
     const fetchMealData = async () => {
-      const selectedMeal = meals.find(meal => meal.id === activeMealId);
+      if (!activeMealId || !diet) return;
+
+      const selectedMeal = diet.meals.find((meal) => meal.id === activeMealId);
       if (!selectedMeal) return;
 
-      // Check if meal data is already cached
+      // Check cache first
       if (mealCache[selectedMeal.id]) {
         setMealData(mealCache[selectedMeal.id]);
         return;
       }
 
       setLoading(true);
-
       try {
         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${selectedMeal.name}`);
         const data = await response.json();
@@ -58,21 +84,28 @@ const DietPage = () => {
             recipe: mealInfo.strInstructions,
           };
 
-          // Cache the meal data
           mealCache[selectedMeal.id] = fetchedMealData;
           setMealData(fetchedMealData);
         } else {
-          setError("Meal data not found.");
+          setError('Meal details not found.');
         }
       } catch (error) {
-        setError("Error fetching meal data. Please try again later.");
+        console.error('Error fetching meal details:', error);
+        setError('Failed to load meal details. Please try again.');
       } finally {
         setLoading(false);
       }
     };
 
     fetchMealData();
-  }, [activeMealId]);
+  }, [activeMealId, diet]);
+
+  // Handle meal selection change
+  const handleMealChange = (mealId) => {
+    setActiveMealId(mealId);
+    setMealData(null);
+    setError(null);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -88,31 +121,35 @@ const DietPage = () => {
 
   return (
     <div className="diet-page">
-      <Sidebar meals={meals} activeMeal={activeMealId} onMealChange={handleMealChange} />
-      
-      
-        <MealCard
-          image={mealData.image}
-          name={mealData.name}
-          cookingTime={mealData.cookingTime}
-          calories={mealData.calories}
-          protein={mealData.protein}
-          carbs={mealData.carbs}
-        />
-      
+      <Sidebar
+        meals={diet.meals}
+        activeMeal={activeMealId}
+        onMealChange={handleMealChange}
+      />
+
+      <MealCard
+        image={mealData.image}
+        name={mealData.name}
+        cookingTime={mealData.cookingTime}
+        calories={mealData.calories}
+        protein={mealData.protein}
+        carbs={mealData.carbs}
+      />
 
       <div className="charts-section">
         <div className="chart-container">
           <h3 className="chart-title">Nutrient Breakdown</h3>
-          <NutrientChart data={[
-            { name: 'Calories', value: mealData.calories },
-            { name: 'Protein', value: mealData.protein },
-            { name: 'Carbs', value: mealData.carbs },
-          ]} />
+          <NutrientChart
+            data={[
+              { name: 'Calories', value: mealData.calories },
+              { name: 'Protein', value: mealData.protein },
+              { name: 'Carbs', value: mealData.carbs },
+            ]}
+          />
         </div>
         <div className="chart-container">
           <h3 className="chart-title">Calories of the Day</h3>
-          <DailyCaloriesChart dailyCalories={dailyCalories} mealCalories={mealData.calories} />
+          <DailyCaloriesChart dailyCalories={2000} mealCalories={mealData.calories} />
         </div>
       </div>
 
