@@ -1,10 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Header.css";
 import { UserContext } from "../../UserContext"; // Import UserContext
+import { FaBell } from "react-icons/fa"; // Import bell icon
 
-const Header = () => {
+const Header = ({ notifications, setNotifications }) => {
   const { user, setUser } = useContext(UserContext); // Use context for user state
+  const [isModalOpen, setIsModalOpen] = useState(false); // For notifications modal
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -13,6 +15,22 @@ const Header = () => {
     localStorage.removeItem("user");
     setUser(null); // Update context state
     navigate("/"); // Redirect to home page
+  };
+
+  const unreadNotifications = notifications?.some((n) => !n.isRead);
+
+  const toggleNotifications = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const markAsRead = (index) => {
+    setNotifications((prev) =>
+      prev.map((n, i) => (i === index ? { ...n, isRead: true } : n))
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
   };
 
   return (
@@ -43,8 +61,41 @@ const Header = () => {
                           <NavLink to="/admin-create">Create</NavLink>
                         </div>
                       )}
+                      <div className="notifications-container">
+                        <button
+                          className="notification-button"
+                          onClick={toggleNotifications}
+                        >
+                          <FaBell size={22} />
+                          {unreadNotifications && <span className="red-dot"></span>}
+                        </button>
+                        {isModalOpen && (
+                          <div className="notifications-modal">
+                            <h4 className="notifications-title">Notifications</h4>
+                            <ul className="notifications-list">
+                              {notifications.map((notification, index) => (
+                                <li
+                                  key={index}
+                                  className={
+                                    notification.isRead ? "notification-item read" : "notification-item unread"
+                                  }
+                                  onClick={() => markAsRead(index)}
+                                >
+                                  {notification.message}
+                                </li>
+                              ))}
+                            </ul>
+                            <button
+                              className="mark-all-button"
+                              onClick={markAllAsRead}
+                            >
+                              Mark all as read
+                            </button>
+                          </div>
+                        )}
+                      </div>
                       <div>
-                        <p onClick={handleLogout} style={{ cursor: "pointer" }}>
+                        <p onClick={handleLogout} className="logout-button">
                           Log out
                         </p>
                       </div>

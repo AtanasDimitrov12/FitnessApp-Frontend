@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CreateWorkoutFields from './CreateWorkoutFields';
 import Preview from './Preview';
 import AddExercise from './AddExercise/AddExercise';
+import AddTags from './AddTags/AddTags';
 import { createNewWorkout } from '../../../repositories/WorkoutRepo';
 import { getExerciseById } from '../../../repositories/ExerciseRepo';
 import './CreateWorkoutPage.css';
@@ -10,6 +11,12 @@ const CreateWorkoutPage = () => {
   const [workoutData, setWorkoutData] = useState({ name: '', description: '' });
   const [exerciseList, setExerciseList] = useState([]);
   const [isAddingExercises, setIsAddingExercises] = useState(false);
+  const [isAddingTags, setIsAddingTags] = useState(false);
+  const [selectedTags, setSelectedTags] = useState({
+    fitnessGoals: [],
+    fitnessLevels: [],
+    trainingStyles: [],
+  });
   const [imageFile, setImageFile] = useState(null); // Separate state for image file
 
   const handleInputChange = (e) => {
@@ -19,6 +26,10 @@ const CreateWorkoutPage = () => {
 
   const handleAddExercise = () => {
     setIsAddingExercises(true);
+  };
+
+  const handleAddTags = () => {
+    setIsAddingTags(true);
   };
 
   const handleAddPicture = (e) => {
@@ -35,6 +46,11 @@ const CreateWorkoutPage = () => {
     setIsAddingExercises(false);
   };
 
+  const handleSaveTags = (tags) => {
+    setSelectedTags(tags);
+    setIsAddingTags(false);
+  };
+
   const handleCreate = async () => {
     try {
       // Fetch full exercise objects for each ID in exerciseList
@@ -45,15 +61,18 @@ const CreateWorkoutPage = () => {
         })
       );
 
-      // Update workout data with full exercise objects
-      const workoutDataWithExercises = {
+      // Update workout data with full exercise objects and selected tags
+      const workoutDataWithDetails = {
         ...workoutData,
         exercises: fullExercises,
+        fitnessGoals: selectedTags.fitnessGoals,
+        fitnessLevels: selectedTags.fitnessLevels,
+        trainingStyles: selectedTags.trainingStyles,
       };
 
-      console.log(workoutDataWithExercises);
+      console.log(workoutDataWithDetails);
       // Send data to backend using createNewWorkout function
-      const createdWorkout = await createNewWorkout(workoutDataWithExercises, imageFile);
+      const createdWorkout = await createNewWorkout(workoutDataWithDetails, imageFile);
       if (createdWorkout) {
         console.log('Workout created successfully:', createdWorkout);
       } else {
@@ -68,16 +87,23 @@ const CreateWorkoutPage = () => {
     <div className="create-workout-page">
       {isAddingExercises ? (
         <AddExercise onSave={handleSaveExercises} />
+      ) : isAddingTags ? (
+        <AddTags onSave={handleSaveTags} />
       ) : (
         <>
           <div className="create-workout-content">
             <CreateWorkoutFields
               onAddExercise={handleAddExercise}
+              onAddTags={handleAddTags}
               onAddPicture={handleAddPicture}
               onInputChange={handleInputChange}
             />
-            <Preview workoutData={workoutData} exerciseList={exerciseList} imageFile={imageFile} />
-
+            <Preview
+              workoutData={workoutData}
+              exerciseList={exerciseList}
+              imageFile={imageFile}
+              selectedTags={selectedTags}
+            />
           </div>
           <button className="create-button" onClick={handleCreate}>Create</button>
         </>

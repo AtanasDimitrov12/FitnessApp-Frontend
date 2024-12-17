@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import React, { useState } from 'react';
 import "./App.css";
 import WorkoutPage from "./components/WorkoutPage/WorkoutPage";
 import DietPage from "./components/DietPage/DietPage";
@@ -16,9 +17,33 @@ import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/Upda
 import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
 
 function App() {
+  const [notifications, setNotifications] = useState([
+    { message: 'New workout available!', isRead: false },
+    { message: 'Don’t forget to log your weight today!', isRead: false },
+    { message: 'Workout session completed, well done!', isRead: false },
+  ]);
+
+  const markNotificationAsRead = (index) => {
+    setNotifications((prev) =>
+      prev.map((notification, i) =>
+        i === index ? { ...notification, isRead: true } : notification
+      )
+    );
+  };
+
+  const markAllAsRead = () => {
+    setNotifications((prev) =>
+      prev.map((notification) => ({ ...notification, isRead: true }))
+    );
+  };
+
   return (
     <>
-      <Header />
+      <Header
+        notifications={notifications}
+        setNotifications={setNotifications}
+        markAllAsRead={markAllAsRead}
+      />
 
       <main id="main-content">
         <Routes>
@@ -55,7 +80,7 @@ function App() {
               </PrivateRoute>
             }
           />
-           <Route
+          <Route
             path="/admin-manage"
             element={
               <PrivateRoute roles={["ADMIN"]}>
@@ -88,8 +113,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
-
 
           <Route path="/register" element={<AuthContainer />} />
           <Route path="/not-authorized" element={<NotAuthorized />} />
