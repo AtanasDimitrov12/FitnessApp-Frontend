@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./WorkoutCard.css";
 import websocketService from "../../../websocketService";
 
-const WorkoutCard = ({ workoutData, workoutPlanId, userId, onWorkoutDone }) => {
+const WorkoutCard = ({ workoutData, workoutPlanId, userId }) => {
   const [isSending, setIsSending] = useState(false); // State to manage button click feedback
 
   if (!workoutData) {
@@ -20,7 +20,7 @@ const WorkoutCard = ({ workoutData, workoutPlanId, userId, onWorkoutDone }) => {
     try {
       websocketService.sendWorkoutDone(workoutPlanId, workoutData.id, userId);
       console.log("Workout marked as done:", workoutData.id);
-      onWorkoutDone(workoutData.id); // Update UI
+      
     } catch (error) {
       console.error("Failed to send workout completion:", error);
     } finally {

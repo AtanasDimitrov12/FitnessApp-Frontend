@@ -5,6 +5,8 @@ import ExercisesSection from "./ExerciseSection";
 import websocketService from "../../websocketService";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
 import "./WorkoutPage.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const WorkoutPage = () => {
   const [userId, setUserId] = useState(null);
@@ -13,6 +15,7 @@ const WorkoutPage = () => {
   const [workoutDetails, setWorkoutDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
 
   // Fetch and set user ID
   useEffect(() => {
@@ -25,7 +28,7 @@ const WorkoutPage = () => {
         // Connect to WebSocket for notifications
         websocketService.connect(userId, (notification) => {
           console.log("Notification received:", notification);
-          alert(notification.message); // Display notification
+          toast.success(notification.message); // Display notification
         });
       } catch (error) {
         console.error("WebSocket connection failed:", error);
@@ -84,13 +87,6 @@ const WorkoutPage = () => {
     setWorkoutDetails(null);
   };
 
-  // Handle marking a workout as done
-  const handleWorkoutDone = (workoutId) => {
-    setWorkoutPlan((prevPlan) => ({
-      ...prevPlan,
-      workouts: prevPlan.workouts.filter((w) => w.id !== workoutId),
-    }));
-  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -103,25 +99,29 @@ const WorkoutPage = () => {
         activeWorkout={activeWorkoutId}
         onWorkoutChange={handleWorkoutChange}
       />
-
+  
       <div className="workout-details-container">
         <WorkoutCard
           key={workoutDetails.id}
           workoutData={workoutDetails}
           workoutPlanId={workoutPlan.id}
           userId={userId}
-          onWorkoutDone={handleWorkoutDone}
         />
-
+  
         <ExercisesSection
-          exercises={workoutDetails?.exercises || []} // Default to an empty array
+          exercises={workoutDetails?.exercises || []}
           onExerciseSelect={(exerciseName) =>
             console.log(`Exercise Selected: ${exerciseName}`)
           }
         />
       </div>
+  
+      {/* Toast notifications */}
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+
     </div>
   );
+  
 };
 
 export default WorkoutPage;
