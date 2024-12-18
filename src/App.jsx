@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import WorkoutPage from "./components/WorkoutPage/WorkoutPage";
 import DietPage from "./components/DietPage/DietPage";
@@ -15,21 +15,29 @@ import AdminManagePage from "./components/AdminManagePage/AdminManagePage";
 import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateExercise/UpdateExercise";
 import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
 import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
+import websocketService from "./websocketService";
 
 function App() {
-  const [notifications, setNotifications] = useState([
-    { message: 'New workout available!', isRead: false },
-    { message: 'Don’t forget to log your weight today!', isRead: false },
-    { message: 'Workout session completed, well done!', isRead: false },
-  ]);
+  const [notifications, setNotifications] = useState([]);
+  const token = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("user");
+  const userId = storedUser ? JSON.parse(storedUser).userId : null;
 
-  const markNotificationAsRead = (index) => {
-    setNotifications((prev) =>
-      prev.map((notification, i) =>
-        i === index ? { ...notification, isRead: true } : notification
-      )
-    );
-  };
+  useEffect(() => {
+    if (token && userId) {
+      websocketService.connect(userId, (notification) => {
+        setNotifications((prev) => [
+          ...prev,
+          { message: notification.message, isRead: false },
+        ]);
+      });
+    }
+
+    return () => {
+      websocketService.disconnect();
+    };
+  }, [token, userId]);
+
 
   const markAllAsRead = () => {
     setNotifications((prev) =>
