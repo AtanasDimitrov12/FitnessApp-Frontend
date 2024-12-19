@@ -43,21 +43,13 @@ describe("AuthContainer E2E Tests", () => {
   
 
   it("should log in successfully with valid credentials", () => {
-    // Mock the API response for login
-    // cy.intercept("POST", "**/auth/login", {
-    //   statusCode: 200,
-    //   body: { token: "fake-jwt-token" },
-    // }).as("loginRequest");
+    
 
     cy.get('[data-testid="username-input"]').type("testuser");
     cy.get('[data-testid="password-input"]').type("password123");
     cy.get('[data-testid="sign-in-submit"]').click();
 
-    // // Wait for the API call and validate the request payload
-    // cy.wait("@loginRequest").its("request.body").should("deep.equal", {
-    //   username: "testuser",
-    //   password: "password123",
-    // });
+    
 
     cy.contains("h2", "Welcome, testuser", { timeout: 10000 }).should("be.visible");
   });
@@ -77,11 +69,7 @@ describe("AuthContainer E2E Tests", () => {
   });
 
   it("should register successfully with valid inputs", () => {
-    // Mock the API response for registration
-    // cy.intercept("POST", "/api/register", {
-    //   statusCode: 201,
-    //   body: { message: "Signup successful!" },
-    // }).as("registerRequest");
+    
 
     cy.get('[data-testid="sign-up-button"]').click(); 
     cy.get('[data-testid="username-signup"]').type("cypresstestuser");
@@ -90,14 +78,7 @@ describe("AuthContainer E2E Tests", () => {
     cy.get('[data-testid="confirm-password-signup"]').type("password123");
     cy.get('[data-testid="sign-up-submit"]').click();
 
-    // Wait for the API call and validate the request payload
-    // cy.wait("@registerRequest").its("request.body").should("deep.equal", {
-    //   username: "cypresstestuser",
-    //   email: "cypresstest@example.com",
-    //   password: "password123",
-    //   confirmPassword: "password123",
-    // });
-
+    
     cy.get(".Toastify__toast", { timeout: 5000 }).should("contain", "Signup successful!");
   });
 });
