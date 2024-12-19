@@ -52,8 +52,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Weight Loss"
-              checked={goal === 'Weight Loss'}
+              value="WEIGHT_LOSS"
+              checked={goal === 'WEIGHT_LOSS'}
               onChange={(e) => setGoal(e.target.value)}
             />
             Weight Loss
@@ -61,8 +61,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Muscle Gain"
-              checked={goal === 'Muscle Gain'}
+              value="MUSCLE_GAIN"
+              checked={goal === 'MUSCLE_GAIN'}
               onChange={(e) => setGoal(e.target.value)}
             />
             Muscle Gain
@@ -70,8 +70,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Maintenance"
-              checked={goal === 'Maintenance'}
+              value="MAINTENANCE"
+              checked={goal === 'MAINTENANCE'}
               onChange={(e) => setGoal(e.target.value)}
             />
             Maintenance
@@ -86,8 +86,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Beginner"
-              checked={fitnessLevel === 'Beginner'}
+              value="BEGINNER"
+              checked={fitnessLevel === 'BEGINNER'}
               onChange={(e) => setFitnessLevel(e.target.value)}
             />
             Beginner
@@ -95,8 +95,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Intermediate"
-              checked={fitnessLevel === 'Intermediate'}
+              value="INTERMEDIATE"
+              checked={fitnessLevel === 'INTERMEDIATE'}
               onChange={(e) => setFitnessLevel(e.target.value)}
             />
             Intermediate
@@ -104,8 +104,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Advanced"
-              checked={fitnessLevel === 'Advanced'}
+              value="ADVANCED"
+              checked={fitnessLevel === 'ADVANCED'}
               onChange={(e) => setFitnessLevel(e.target.value)}
             />
             Advanced
@@ -120,8 +120,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Strength"
-              checked={trainingStyle === 'Strength'}
+              value="STRENGTH"
+              checked={trainingStyle === 'STRENGTH'}
               onChange={(e) => setTrainingStyle(e.target.value)}
             />
             Strength
@@ -129,8 +129,8 @@ const CreateWorkoutPreference = ({ update, passedUserId, onSubmit }) => {
           <label>
             <input
               type="radio"
-              value="Endurance"
-              checked={trainingStyle === 'Endurance'}
+              value="ENDURANCE"
+              checked={trainingStyle === 'ENDURANCE'}
               onChange={(e) => setTrainingStyle(e.target.value)}
             />
             Endurance

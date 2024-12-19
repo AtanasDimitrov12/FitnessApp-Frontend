@@ -1,58 +1,138 @@
-/* Styling for the workout card container */
-.workout-card-User {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-    padding: 15px;
-    width: 100%;
-    max-width: 350px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  /* Image container inside the workout card */
-  .workout-card-User .workout-image-container {
-    width: 100%;
-    max-width: 300px;
-    max-height: 200px;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    background-color: #e0e0e0; /* Placeholder background */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Workout image styling */
-  .workout-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Ensures the image covers the container without stretching */
-    border-radius: 10px;
-  }
-  
-  /* Title and description styling */
-  .workout-card-User h3 {
-    font-size: 1.2em;
-    color: #333;
-    margin: 10px 0;
-  }
-  
-  .workout-card-User p {
-    font-size: 1em;
-    color: #666;
-    margin-bottom: 10px;
-  }
-  
-  /* List of exercises */
-  .workout-card-User ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .workout-card-User li {
-    font-size: 0.9em;
-    color: #333;
-    margin: 5px 0;
-  }
-  
+/* Main workout page layout */
+.workout-page {
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr; /* Sidebar, content, and video sections */
+  grid-template-areas:
+    "sidebar workout video"
+    "sidebar exercises exercises";
+  gap: 15px; /* Decreased gap */
+  padding: 0px; /* Removed extra padding */
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar {
+  grid-area: sidebar;
+  background-color: #e0e0e0;
+  padding: 10px; /* Reduced padding */
+  border-radius: 10px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Workout content area */
+.workout-content {
+  grid-area: workout;
+  margin: 15px;
+  margin-left: 50px;
+  background-color: #bdbdbd; /* Updated color */
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 0.9em; /* Reduced font size */
+}
+
+/* Workout card styling */
+.workout-card {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 15px; /* Reduced padding */
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.workout-card img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.workout-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Exercises section styling */
+.exercises-section {
+  grid-area: exercises;
+  background-color: #bdbdbd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px auto;
+  width: 85%;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  font-size: 0.9em;
+}
+
+.exercises-section h2 {
+  font-size: 1.1em;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.exercises-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
+  gap: 15px;
+}
+
+.exercise-item {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.exercise-item:hover {
+  background-color: #e0e0e0;
+}
+
+/* Exercise video section styling */
+.exercise-video {
+  grid-area: video;
+  background-color: #bdbdbd;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.exercise-video h3 {
+  font-size: 1.1em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.exercise-video video {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.mark-done-button {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.mark-done-button:hover {
+  background-color: #45a049;
+}
+

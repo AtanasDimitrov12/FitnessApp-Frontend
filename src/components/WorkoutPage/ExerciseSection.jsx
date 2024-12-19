@@ -1,7 +1,12 @@
 import React from 'react';
 import './ExercisesSection.css';
 
-const ExercisesSection = ({ exercises, onExerciseSelect }) => {
+const ExercisesSection = ({ exercises = [], onExerciseSelect }) => {
+  // Fallback message if exercises are not available
+  if (!exercises || exercises.length === 0) {
+    return <div className="exercises-section">No exercises available</div>;
+  }
+
   return (
     <div className="exercises-section">
       <h2>Exercises</h2>

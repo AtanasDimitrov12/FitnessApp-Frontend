@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import WorkoutPage from "./components/WorkoutPage/WorkoutPage";
 import DietPage from "./components/DietPage/DietPage";
@@ -14,11 +15,43 @@ import AdminManagePage from "./components/AdminManagePage/AdminManagePage";
 import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateExercise/UpdateExercise";
 import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
 import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
+import websocketService from "./websocketService";
 
 function App() {
+  const [notifications, setNotifications] = useState([]);
+  const token = localStorage.getItem("token");
+  const storedUser = localStorage.getItem("user");
+  const userId = storedUser ? JSON.parse(storedUser).userId : null;
+
+  useEffect(() => {
+    if (token && userId) {
+      websocketService.connect(userId, (notification) => {
+        setNotifications((prev) => [
+          ...prev,
+          { message: notification.message, isRead: false },
+        ]);
+      });
+    }
+
+    return () => {
+      websocketService.disconnect();
+    };
+  }, [token, userId]);
+
+
+  const markAllAsRead = () => {
+    setNotifications((prev) =>
+      prev.map((notification) => ({ ...notification, isRead: true }))
+    );
+  };
+
   return (
     <>
-      <Header />
+      <Header
+        notifications={notifications}
+        setNotifications={setNotifications}
+        markAllAsRead={markAllAsRead}
+      />
 
       <main id="main-content">
         <Routes>
@@ -55,7 +88,7 @@ function App() {
               </PrivateRoute>
             }
           />
-           <Route
+          <Route
             path="/admin-manage"
             element={
               <PrivateRoute roles={["ADMIN"]}>
@@ -88,8 +121,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
-
 
           <Route path="/register" element={<AuthContainer />} />
           <Route path="/not-authorized" element={<NotAuthorized />} />

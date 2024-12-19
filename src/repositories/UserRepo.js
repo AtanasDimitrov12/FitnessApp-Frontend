@@ -69,6 +69,21 @@ export const uploadProfilePicture = async (userId, imageFile) => {
   }
 };
 
+export const getCompletedWorkouts = async (userId, rangeType) => {
+  try {
+    const response = await backEndClient.get(
+      `${usersURL}/completed/${userId}`,
+      {
+        params: { rangeType }, // Pass rangeType as a query parameter
+      }
+    );
+    return response.data; // Return the count of completed workouts
+  } catch (error) {
+    handleRequestError("Error fetching completed workouts", error);
+    return null;
+  }
+};
+
 
 // Utility function for handling and logging request errors
 const handleRequestError = (message, error) => {

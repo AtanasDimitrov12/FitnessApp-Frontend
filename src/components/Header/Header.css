@@ -1,4 +1,3 @@
-
 header {
   margin: 0;
   padding: 0;
@@ -30,7 +29,6 @@ header {
   width: 100%;
 }
 
-
 .menu-wrapper {
   display: flex;
   justify-content: space-between;
@@ -51,9 +49,8 @@ h1 {
 }
 
 .home:hover {
-  color: #4CAF50; 
+  color: #4CAF50;
 }
-
 
 .nav-menu {
   display: flex;
@@ -64,11 +61,123 @@ h1 {
 .nav-menu nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
+}
+
+.notifications-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notification-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.red-dot {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.notifications-modal {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 320px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.notifications-title {
+  margin: 0;
+  padding: 12px;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-weight: bold;
+  background-color: #f8f8f8;
+}
+
+.notifications-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.notification-item.unread {
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
+
+.notification-item.read {
+  color: #666;
+}
+
+.notification-item:hover {
+  background-color: #f1f1f1;
+}
+
+.mark-all-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.mark-all-button:hover {
+  background-color: #45a049;
+}
+
+.logout-button {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #4CAF50;
+  color: #fff;
 }
 
 #user-nav,
-#trainer-nav,
+#admin-nav,
 #guest-nav {
   display: flex;
   gap: 15px;
@@ -78,8 +187,9 @@ h1 {
   color: #fff;
   text-decoration: none;
   font-size: 18px;
-  padding: 10px 15px;
+  padding: 8px 12px;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
 .nav-menu a:hover {
@@ -87,64 +197,7 @@ h1 {
   color: #fff;
 }
 
-.nav-menu p {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  padding: 10px 15px;
-  border-radius: 4px;
-}
-
-.nav-menu p:hover {
-  background-color: #4CAF50;
-  color: #fff;
-}
-
 .active-navigation-link {
   background-color: #4CAF50;
   color: white;
-}
-
-
-@media (max-width: 768px) {
-  .container-fluid {
-    flex-direction: column;
-  }
-
-  .menu-wrapper {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-menu {
-    width: 100%;
-    display: block;
-    text-align: center;
-  }
-
-  .nav-menu nav {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px 0;
-  }
-
-  .nav-menu a {
-    font-size: 16px;
-    padding: 8px 0;
-  }
-
-  h1 {
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .nav-menu a {
-    font-size: 14px;
-  }
-
-  h1 {
-    font-size: 18px;
-  }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreateWorkoutFields = ({ onAddExercise, onAddPicture, onInputChange }) => {
+const CreateWorkoutFields = ({ onAddExercise, onAddTags, onAddPicture, onInputChange }) => {
   return (
     <div className="create-workout-fields">
       <h3>Create Workout</h3>
@@ -22,6 +22,7 @@ const CreateWorkoutFields = ({ onAddExercise, onAddPicture, onInputChange }) => 
         
         <div className="button-group">
           <button type="button" onClick={onAddExercise} className="add-button">Add exercises</button>
+          <button type="button" onClick={onAddTags} className="add-button">Add tags</button>
           
           <label htmlFor="upload-picture" className="add-button">Add picture</label>
           <input
