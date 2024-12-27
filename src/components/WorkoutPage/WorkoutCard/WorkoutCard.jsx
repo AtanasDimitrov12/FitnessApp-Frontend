@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./WorkoutCard.css";
-import websocketService from "../../../websocketService";
+import websocketService from "../../../services/WebSocketService";
 
 const WorkoutCard = ({ workoutData, workoutPlanId, userId }) => {
   const [isSending, setIsSending] = useState(false); // State to manage button click feedback

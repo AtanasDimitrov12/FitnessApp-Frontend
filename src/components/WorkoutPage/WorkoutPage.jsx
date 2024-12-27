@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./SideBar/SideBar";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import ExercisesSection from "./ExerciseSection";
-import websocketService from "../../websocketService";
+import websocketService from "../../services/WebSocketService";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
 import "./WorkoutPage.css";
 import { ToastContainer, toast } from "react-toastify";

@@ -15,7 +15,7 @@ import AdminManagePage from "./components/AdminManagePage/AdminManagePage";
 import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateExercise/UpdateExercise";
 import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
 import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
-import websocketService from "./websocketService";
+import websocketService from "./services/WebSocketService";
 
 function App() {
   const [notifications, setNotifications] = useState([]);
@@ -37,7 +37,6 @@ function App() {
       websocketService.disconnect();
     };
   }, [token, userId]);
-
 
   const markAllAsRead = () => {
     setNotifications((prev) =>

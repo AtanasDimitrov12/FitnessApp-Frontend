@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import websocketService from "../../../../services/WebSocketService";
 import AddExercise from "../../../AdminCreatePage/CreateWorkout/AddExercise/AddExercise";
 import Preview from "../../../AdminCreatePage/CreateWorkout/Preview";
 import { updateWorkout, updateWorkoutWithoutPicture } from "../../../../repositories/WorkoutRepo";
@@ -11,7 +12,7 @@ const UpdateWorkout = () => {
 
   const workout = location.state?.workout || {};
   const [workoutData, setWorkoutData] = useState({
-    id:workout.id,
+    id: workout.id,
     name: workout.name || "",
     description: workout.description || "",
   });
@@ -20,6 +21,23 @@ const UpdateWorkout = () => {
   const [isAddingExercises, setIsAddingExercises] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false); // Loading state
   const [isPictureUpdated, setIsPictureUpdated] = useState(false); // Track if picture is updated
+
+  // Callback to handle incoming notifications
+  const handleNotification = (notification) => {
+    console.log("Notification received:", notification);
+    // Optional: Display notification to the user
+  };
+
+  useEffect(() => {
+    // Ensure WebSocket is connected with a callback for notifications
+    const userId = 1; // Replace with the actual user ID
+    websocketService.connect(userId, handleNotification);
+
+    return () => {
+      // Disconnect WebSocket when the component unmounts
+      websocketService.disconnect();
+    };
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -59,14 +77,20 @@ const UpdateWorkout = () => {
         // Update with picture
         response = await updateWorkout(updatedWorkoutData, imageFile);
       } else {
-
-        console.log("the program send this request" + updatedWorkoutData);
+        console.log("The program sends this request: ", updatedWorkoutData);
         // Update without picture
         response = await updateWorkoutWithoutPicture(updatedWorkoutData);
       }
 
       if (response) {
         console.log("Workout updated successfully:", response);
+
+        // Send WebSocket notification using the external service
+        websocketService.sendNotification("/app/update-workout", {
+          workoutId: workoutData.id,
+          workoutName: workoutData.name,
+        });
+
         navigate("/admin-manage"); // Redirect to the ManageWorkouts page
       } else {
         console.error("Failed to update workout.");
