@@ -85,3 +85,18 @@ export const deleteExercise = async (id) => {
     return false;
   }
 };
+
+export const getCompletedExercisesPerMuscleGroup = async () => {
+  try {
+    const response = await backEndClient.get(`${exercisesURL}/completed-per-muscle-group`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error(`Error: Received status code ${response.status}`);
+      return null;
+    }
+  } catch (error) {
+    console.error("Error fetching exercise by ID:", error);
+    return null;
+  }
+};

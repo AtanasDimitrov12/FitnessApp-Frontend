@@ -16,6 +16,7 @@ import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateEx
 import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
 import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
 import websocketService from "./services/WebSocketService";
+import AdminMonitoringPage from "./components/AdminMonitoringPage/AdminMonitoringPage";
 
 function App() {
   const [notifications, setNotifications] = useState([]);
@@ -92,6 +93,14 @@ function App() {
             element={
               <PrivateRoute roles={["ADMIN"]}>
                 <AdminManagePage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/admin-monitor"
+            element={
+              <PrivateRoute roles={["ADMIN"]}>
+                <AdminMonitoringPage />
               </PrivateRoute>
             }
           />

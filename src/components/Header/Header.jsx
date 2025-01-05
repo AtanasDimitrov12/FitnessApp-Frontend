@@ -53,15 +53,7 @@ const Header = ({ notifications, setNotifications }) => {
                           <NavLink to="/workout">Workout</NavLink>
                           <NavLink to="/diet">Diet</NavLink>
                           <NavLink to="/user-profile">User Profile</NavLink>
-                        </div>
-                      )}
-                      {user.roles.includes("ADMIN") && (
-                        <div id="admin-nav">
-                          <NavLink to="/admin-manage">Manage</NavLink>
-                          <NavLink to="/admin-create">Create</NavLink>
-                        </div>
-                      )}
-                      <div className="notifications-container">
+                          <div className="notifications-container">
                         <button
                           className="notification-button"
                           onClick={toggleNotifications}
@@ -94,6 +86,16 @@ const Header = ({ notifications, setNotifications }) => {
                           </div>
                         )}
                       </div>
+                        </div>
+                      )}
+                      {user.roles.includes("ADMIN") && (
+                        <div id="admin-nav">
+                          <NavLink to="/admin-manage">Manage</NavLink>
+                          <NavLink to="/admin-create">Create</NavLink>
+                          <NavLink to="/admin-monitor">Monitor</NavLink>
+                        </div>
+                      )}
+                      
                       <div>
                         <p onClick={handleLogout} className="logout-button">
                           Log out
