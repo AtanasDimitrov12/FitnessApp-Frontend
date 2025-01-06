@@ -1,118 +1,74 @@
-/* Main workout page layout */
 .workout-page {
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr; /* Sidebar, WorkoutCard, Exercise Video */
-  grid-template-areas:
-    "sidebar workout video"
-    "sidebar exercises exercises";
+  grid-template-columns: 250px 1fr;
   gap: 20px;
-  padding: 20px;
-  background-color: #f5f5f5;
+  background-color: #f9fafb;
   min-height: 100vh;
 }
 
-/* Sidebar styling */
-.sidebar {
-  grid-area: sidebar;
-  background-color: #e0e0e0;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Workout content area */
 .workout-content {
-  grid-area: workout;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive columns */
+  display: flex;
   gap: 20px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  width: 100%;
-  box-sizing: border-box;
+  margin: 20px 0 0 100px;
+
+  
 }
 
-/* Workout card styling */
-.workout-card {
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
+.footer {
+  background-color: #1f2937;
+  color: #f9fafb;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.footer-content {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  position: relative;
 }
 
-/* Ensure cards fit within their allocated grid space */
-.workout-card img {
-  max-width: 100%;
+.footer-left .start-highlight {
+  color: #22c55e;
+}
+
+.join-now {
+  background-color: #22c55e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
   border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
 }
 
-.workout-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+.join-now:hover {
+  background-color: #16a34a;
 }
 
-/* Exercises section styling */
-.exercises-section {
-  grid-area: exercises;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+.workout-actions {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.exercises-section h2 {
-  font-size: 1.5em;
-  color: #333;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.exercises-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive columns */
-  gap: 15px;
-}
-
-.exercise-item {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: center;
+.mark-done-button {
+  background-color: #22c55e; /* Green button */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.exercise-item:hover {
-  background-color: #e0e0e0;
+.mark-done-button:hover {
+  background-color: #16a34a; /* Darker green on hover */
 }
 
-/* Exercise video section styling */
-.exercise-video {
-  grid-area: video;
-  background-color: #ffffff;
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
-}
-
-.exercise-video h3 {
-  font-size: 1.5em;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.exercise-video video {
-  width: 100%;
-  max-width: 600px;
-  border-radius: 10px;
-  margin-top: 10px;
+.done-message {
+  color: #4caf50; /* Green message */
+  font-size: 1.1rem;
+  font-weight: bold;
 }

@@ -3,7 +3,7 @@ import './Sidebar.css';
 
 const Sidebar = ({ workouts, activeWorkout, onWorkoutChange }) => {
   return (
-    <div className="sidebar">
+    <div className="sidebarWorkout">
       {workouts.map((workout, index) => (
         <button
           key={index}

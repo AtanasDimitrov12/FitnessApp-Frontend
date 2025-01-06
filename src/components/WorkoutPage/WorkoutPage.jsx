@@ -5,73 +5,46 @@ import ExercisesSection from "./ExerciseSection";
 import websocketService from "../../services/WebSocketService";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
 import "./WorkoutPage.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const WorkoutPage = () => {
   const [userId, setUserId] = useState(null);
   const [workoutPlan, setWorkoutPlan] = useState(null);
   const [activeWorkoutId, setActiveWorkoutId] = useState(null);
   const [workoutDetails, setWorkoutDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
+  const [workoutDone, setWorkoutDone] = useState(false);
 
-  // Fetch and set user ID
+  // Fetch userId and connect WebSocket
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const { userId } = JSON.parse(storedUser);
       setUserId(userId);
-  
-      try {
-        // Connect to WebSocket for notifications
-        websocketService.connect(userId, (notification) => {
-          console.log("Notification received:", notification);
-          toast.success(notification.message); // Display notification
-        });
-      } catch (error) {
-        console.error("WebSocket connection failed:", error);
-      }
-    } else {
-      setError("User data not found in session.");
-      setLoading(false);
-    }
-  
-    // Cleanup WebSocket on component unmount
-    return () => {
-      console.log("Cleaning up WebSocket connection...");
-      websocketService.disconnect();
-    };
-  }, []);
-  
 
-  // Fetch workout plan for the user
+      // Connect to WebSocket
+      websocketService.connect(userId, (notification) => {
+        console.log("Notification received:", notification);
+      });
+    }
+
+    return () => websocketService.disconnect();
+  }, []);
+
+  // Fetch workout plan
   useEffect(() => {
     const fetchWorkoutPlan = async () => {
       if (!userId) return;
 
-      setLoading(true);
-      try {
-        const fetchedPlan = await getWorkoutPlanByUserId(userId);
-        if (fetchedPlan?.workouts?.length > 0) {
-          setWorkoutPlan(fetchedPlan);
-          setActiveWorkoutId(fetchedPlan.workouts[0].id);
-        } else {
-          setError("No workouts found for the user's plan.");
-        }
-      } catch (err) {
-        console.error("Error fetching workout plan:", err);
-        setError("Failed to load workout plan. Please try again.");
-      } finally {
-        setLoading(false);
+      const fetchedPlan = await getWorkoutPlanByUserId(userId);
+      if (fetchedPlan?.workouts?.length > 0) {
+        setWorkoutPlan(fetchedPlan);
+        setActiveWorkoutId(fetchedPlan.workouts[0].id);
       }
     };
 
     fetchWorkoutPlan();
   }, [userId]);
 
-  // Update workout details when the active workout changes
+  // Update workout details when active workout changes
   useEffect(() => {
     if (!activeWorkoutId || !workoutPlan) return;
 
@@ -79,49 +52,41 @@ const WorkoutPage = () => {
       (workout) => workout.id === activeWorkoutId
     );
     setWorkoutDetails(selectedWorkout);
+    setWorkoutDone(false); // Reset the "done" state when changing workouts
   }, [activeWorkoutId, workoutPlan]);
 
-  // Handle workout change from the sidebar
-  const handleWorkoutChange = (workoutId) => {
-    setActiveWorkoutId(workoutId);
-    setWorkoutDetails(null);
+  // Function to mark the workout as done
+  const handleMarkAsDone = () => {
+    if (!userId || !workoutPlan || !activeWorkoutId) return;
+
+    setWorkoutDone(true);
+
+    // Notify the server using WebSocket
+    websocketService.sendWorkoutDone(workoutPlan.id, activeWorkoutId, userId);
+
+    console.log(`Workout ${activeWorkoutId} marked as done!`);
   };
-
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (!workoutDetails) return <div>No workout details available</div>;
 
   return (
     <div className="workout-page">
       <Sidebar
-        workouts={workoutPlan.workouts}
+        workouts={workoutPlan?.workouts || []}
         activeWorkout={activeWorkoutId}
-        onWorkoutChange={handleWorkoutChange}
+        onWorkoutChange={setActiveWorkoutId}
       />
-  
-      <div className="workout-details-container">
-        <WorkoutCard
-          key={workoutDetails.id}
-          workoutData={workoutDetails}
-          workoutPlanId={workoutPlan.id}
-          userId={userId}
-        />
-  
-        <ExercisesSection
-          exercises={workoutDetails?.exercises || []}
-          onExerciseSelect={(exerciseName) =>
-            console.log(`Exercise Selected: ${exerciseName}`)
-          }
-        />
-      </div>
-  
-      {/* Toast notifications */}
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
 
+      <div className="workout-content">
+        {workoutDetails && (
+          <WorkoutCard
+            workoutData={workoutDetails}
+            workoutDone={workoutDone}
+            onMarkAsDone={handleMarkAsDone}
+          />
+        )}
+        <ExercisesSection exercises={workoutDetails?.exercises || []} />
+      </div>
     </div>
   );
-  
 };
 
 export default WorkoutPage;

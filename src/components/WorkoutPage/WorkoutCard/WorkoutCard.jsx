@@ -1,56 +1,66 @@
-import React, { useState } from "react";
+import React from "react";
 import "./WorkoutCard.css";
-import websocketService from "../../../services/WebSocketService";
 
-const WorkoutCard = ({ workoutData, workoutPlanId, userId }) => {
-  const [isSending, setIsSending] = useState(false); // State to manage button click feedback
+const WorkoutCard = ({ workoutData, workoutDone, onMarkAsDone }) => {
+  if (!workoutData) return null;
 
-  if (!workoutData) {
-    return <div>Loading...</div>;
-  }
+  const formatEnumName = (enumName) =>
+    enumName
+      .toLowerCase()
+      .replace("_", " ")
+      .replace(/\b\w/g, (char) => char.toUpperCase());
 
-  // Handle marking a workout as done
-  const handleMarkAsDone = () => {
-    if (!userId || !workoutPlanId) {
-      console.error("User ID or Workout Plan ID is missing.");
-      return;
-    }
-
-    setIsSending(true); // Prevent multiple clicks
-    try {
-      websocketService.sendWorkoutDone(workoutPlanId, workoutData.id, userId);
-      console.log("Workout marked as done:", workoutData.id);
-      
-    } catch (error) {
-      console.error("Failed to send workout completion:", error);
-    } finally {
-      setIsSending(false);
-    }
-  };
+  const renderTags = (items, activeItems) =>
+    items.map((item, index) => (
+      <span
+        key={index}
+        className={`badge ${activeItems.includes(item) ? "active" : ""}`}
+      >
+        {formatEnumName(item)}
+      </span>
+    ));
 
   return (
-    <div className="workout-card-User">
-      <div className="workout-image-container">
-        {workoutData.pictureURL ? (
-          <img
-            src={workoutData.pictureURL}
-            alt="Workout"
-            className="workout-image"
-          />
+    <div className="workout-card">
+      <div className="workout-details">
+        <h3>{workoutData.name}</h3>
+        <p>{workoutData.description || "This place here is for the description"}</p>
+        <div className="workout-tags">
+          <div className="tag-section">
+            <p>Fitness goal:</p>
+            {renderTags(
+              ["WEIGHT_LOSS", "MUSCLE_GAIN", "MAINTENANCE"],
+              workoutData.fitnessGoals
+            )}
+          </div>
+          <div className="tag-section">
+            <p>Fitness level:</p>
+            {renderTags(
+              ["BEGINNER", "INTERMEDIATE", "ADVANCED"],
+              workoutData.fitnessLevels
+            )}
+          </div>
+          <div className="tag-section">
+            <p>Training style:</p>
+            {renderTags(["STRENGTH", "ENDURANCE"], workoutData.trainingStyles)}
+          </div>
+        </div>
+      </div>
+      <div className="workout-image">
+        <img
+          src={workoutData.pictureURL || "https://via.placeholder.com/150"}
+          alt="Workout"
+        />
+      </div>
+      <div className="workout-actions">
+        {!workoutDone ? (
+          <button className="mark-done-button" onClick={onMarkAsDone}>
+            Mark as Done
+          </button>
         ) : (
-          <p>No Image Added</p>
+          <p className="done-message">This workout is marked as done!</p>
         )}
       </div>
-      <h3>{workoutData.name || "Title"}</h3>
-      <p>{workoutData.description || "This place here is for the description"}</p>
-
-      <button
-        className="mark-done-btn"
-        onClick={handleMarkAsDone}
-        disabled={isSending} // Disable button while sending
-      >
-        {isSending ? "Marking..." : "Mark as Done"}
-      </button>
     </div>
   );
 };
