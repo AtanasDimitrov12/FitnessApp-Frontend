@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './SideBar/SideBar';
+import UserSideBar from './UserSideBar/UserSideBar';
 import ProfileInformation from './ProfileInformation/ProfileInformation';
 import DietPreference from './DietPreference/DietPreference';
 import WorkoutPreference from './WorkoutPreference/WorkoutPreference';
@@ -75,7 +75,7 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile">
-      <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+      <UserSideBar activeSection={activeSection} onSectionChange={setActiveSection} />
       <div className="section-content">
         {renderSection()}
       </div>

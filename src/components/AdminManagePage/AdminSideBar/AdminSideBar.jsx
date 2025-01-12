@@ -1,5 +1,5 @@
 import React from 'react';
-import './Sidebar.css';
+import './AdminSideBar.css';
 
 const Sidebar = ({ activeSection, onSectionChange }) => {
   return (

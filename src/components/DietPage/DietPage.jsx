@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from './SideBar/SideBar';
+import DietSidebar from './DietSideBar/DietSideBar';
 import MealCard from './MealCard/MealCard';
 import RecipeCard from './RecipeCard/RecipeCard';
 import NutrientChart from './NutrientChart';
@@ -121,7 +121,7 @@ const DietPage = () => {
 
   return (
     <div className="diet-page">
-      <Sidebar
+      <DietSidebar
         meals={diet.meals}
         activeMeal={activeMealId}
         onMealChange={handleMealChange}

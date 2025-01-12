@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './SideBar/SideBar';
+import AdminSideBar from './AdminSideBar/AdminSideBar';
 import ManageExercise from './ManageExercise/ManageExercise';
 import './AdminManagePage.css'; // Ensure this file contains the updated CSS
 import ManageMeal from './ManageMeals/ManageMeal';
@@ -10,7 +10,7 @@ const AdminManagePage = () => {
 
   return (
     <div className="admin-manage-page">
-      <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+      <AdminSideBar activeSection={activeSection} onSectionChange={setActiveSection} />
       <div className="admin-manage-content">
         {activeSection === 'manageExercise' && <ManageExercise />}
         {activeSection === 'manageWorkouts' && <ManageWorkouts />}

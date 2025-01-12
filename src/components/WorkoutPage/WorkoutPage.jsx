@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./SideBar/SideBar";
+import Sidebar from "./SideBar/WorkoutSideBar";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import ExercisesSection from "./ExerciseSection";
 import websocketService from "../../services/WebSocketService";

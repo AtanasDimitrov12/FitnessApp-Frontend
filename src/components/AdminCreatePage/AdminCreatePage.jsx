@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './SideBar/SideBar';
+import AdminSideBar from './AdminSideBar/AdminSideBar';
 import CreateExercise from './CreateExercise/CreateExercise';
 import CreateWorkout from './CreateWorkout/CreateWorkoutPage';
 import CreateMeal from './CreateMeal/CreateMeal';
@@ -10,7 +10,7 @@ const AdminCreatePage = () => {
 
   return (
     <div className="admin-create-page">
-      <Sidebar activeSection={activeSection} onSectionChange={setActiveSection} />
+      <AdminSideBar activeSection={activeSection} onSectionChange={setActiveSection} />
       
       {activeSection === 'createExercise' && <CreateExercise />}
       {activeSection === 'createWorkout' && <CreateWorkout />}
