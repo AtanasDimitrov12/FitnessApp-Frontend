@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./SideBar/WorkoutSideBar";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import ExercisesSection from "./ExerciseSection";
-import websocketService from "../../services/WebSocketService";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
 import "./WorkoutPage.css";
 
@@ -13,20 +12,12 @@ const WorkoutPage = () => {
   const [workoutDetails, setWorkoutDetails] = useState(null);
   const [workoutDone, setWorkoutDone] = useState(false);
 
-  // Fetch userId and connect WebSocket
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       const { userId } = JSON.parse(storedUser);
       setUserId(userId);
-
-      // Connect to WebSocket
-      websocketService.connect(userId, (notification) => {
-        console.log("Notification received:", notification);
-      });
     }
-
-    return () => websocketService.disconnect();
   }, []);
 
   // Fetch workout plan
@@ -60,9 +51,6 @@ const WorkoutPage = () => {
     if (!userId || !workoutPlan || !activeWorkoutId) return;
 
     setWorkoutDone(true);
-
-    // Notify the server using WebSocket
-    websocketService.sendWorkoutDone(workoutPlan.id, activeWorkoutId, userId);
 
     console.log(`Workout ${activeWorkoutId} marked as done!`);
   };

@@ -15,8 +15,8 @@ import AdminManagePage from "./components/AdminManagePage/AdminManagePage";
 import UpdateExercise from "./components/AdminManagePage/ManageExercise/UpdateExercise/UpdateExercise";
 import UpdateMeal from "./components/AdminManagePage/ManageMeals/UpdateMeal/UpdateMeal";
 import UpdateWorkout from "./components/AdminManagePage/ManageWorkouts/UpdateWorkout/UpdateWorkout";
-import websocketService from "./services/WebSocketService";
 import AdminMonitoringPage from "./components/AdminMonitoringPage/AdminMonitoringPage";
+import websocketService from "./services/WebSocketService";
 
 function App() {
   const [notifications, setNotifications] = useState([]);
@@ -26,17 +26,19 @@ function App() {
 
   useEffect(() => {
     if (token && userId) {
+      // Connect to WebSocket and update notifications
       websocketService.connect(userId, (notification) => {
+        console.log("Notification received:", notification);
         setNotifications((prev) => [
           ...prev,
           { message: notification.message, isRead: false },
         ]);
       });
-    }
 
-    return () => {
-      websocketService.disconnect();
-    };
+      return () => {
+        websocketService.disconnect();
+      };
+    }
   }, [token, userId]);
 
   const markAllAsRead = () => {
@@ -120,7 +122,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           <Route
             path="/update-workout"
             element={
@@ -129,7 +130,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           <Route path="/register" element={<AuthContainer />} />
           <Route path="/not-authorized" element={<NotAuthorized />} />
         </Routes>

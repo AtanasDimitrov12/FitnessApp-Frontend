@@ -5,6 +5,7 @@ class WebSocketService {
   constructor() {
     this.stompClient = null;
     this.isConnected = false; // Properly track connection state
+    this.subscriptions = []; // Keep track of all active subscriptions
   }
 
   connect(userId, onNotificationReceived) {
@@ -32,12 +33,18 @@ class WebSocketService {
       this.isConnected = true; // Update connection state
 
       // Subscribe to notifications for the specific user
-      this.stompClient.subscribe(`/topic/notifications/${userId}`, (message) => {
-        if (message.body) {
-          const notification = JSON.parse(message.body);
-          onNotificationReceived(notification); // Call the callback function
+      const subscription = this.stompClient.subscribe(
+        `/topic/notifications/${userId}`,
+        (message) => {
+          if (message.body) {
+            const notification = JSON.parse(message.body);
+            onNotificationReceived(notification); // Call the callback function
+          }
         }
-      });
+      );
+
+      // Store the subscription
+      this.subscriptions.push(subscription);
     };
 
     this.stompClient.onDisconnect = () => {
@@ -56,8 +63,17 @@ class WebSocketService {
     this.stompClient.activate(); // Activate the WebSocket connection
   }
 
+  unsubscribeAll() {
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
+    this.subscriptions = [];
+    console.log("Unsubscribed from all topics.");
+  }
+
   disconnect() {
     if (this.stompClient && this.isConnected) {
+      this.unsubscribeAll(); // Ensure all subscriptions are removed
       this.stompClient.deactivate(); // Deactivate the connection
       console.log("WebSocket disconnected");
       this.isConnected = false; // Update connection state
