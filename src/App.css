@@ -5,4 +5,30 @@ body, html {
     box-sizing: border-box;
     width: 100%; 
   }
+
+  /* GlobalStyles.css */
+body {
+  font-family: 'Roboto', sans-serif; /* Default font for body text */
+  font-size: 16px; /* Base font size */
+  line-height: 1.6; /* Improve readability */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f9f9f9; /* Optional: Set a light background */
+  color: #333; /* Text color */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for headings */
+  font-weight: 600; /* Bold headings */
+  margin: 0; /* Remove default margin */
+}
+
+code, pre {
+  font-family: 'Fira Code', monospace; /* Use Fira Code for code blocks */
+  background: #eaeaea; /* Light background for code */
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+}
+
   
