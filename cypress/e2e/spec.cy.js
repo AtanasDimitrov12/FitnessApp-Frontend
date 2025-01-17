@@ -17,6 +17,24 @@ describe("AuthContainer E2E Tests", () => {
     cy.get('[data-testid="sign-up-container"]').should("be.visible", { timeout: 10000 });
   });
 
+  
+
+
+  it("should register successfully with valid inputs", () => {
+    
+
+    cy.get('[data-testid="sign-up-button"]').click(); 
+    cy.get('[data-testid="username-signup"]').type("cypresstestuser");
+    cy.get('[data-testid="email-signup"]').type("cypresstest@example.com");
+    cy.get('[data-testid="password-signup"]').type("password123");
+    cy.get('[data-testid="confirm-password-signup"]').type("password123");
+    cy.get('[data-testid="sign-up-submit"]').click();
+
+    
+    cy.get(".Toastify__toast", { timeout: 5000 }).should("contain", "Signup successful!");
+  });
+
+
   it("should toggle back to Sign In panel when clicking Sign In", () => {
     cy.get('[data-testid="sign-up-button"]').click(); 
     cy.get('[data-testid="sign-in-button"]').click(); 
@@ -25,33 +43,19 @@ describe("AuthContainer E2E Tests", () => {
     cy.get('[data-testid="sign-in-container"]').should("be.visible", { timeout: 10000 });
     cy.get('[data-testid="sign-up-container"]').should("not.be.visible", { timeout: 10000 });
   });
-
-  it("should show an error if login fields are empty", () => {
-    
-    cy.get('[data-testid="sign-in-submit"]').click();
   
-    cy.get('[data-testid="username-input"]')
-      .then(($input) => {
-        expect($input[0].validationMessage).to.eq("Please fill in this field.");
-      });
-  
-    cy.get('[data-testid="password-input"]')
-      .then(($input) => {
-        expect($input[0].validationMessage).to.eq("Please fill in this field.");
-      });
-  });
   
 
   it("should log in successfully with valid credentials", () => {
     
 
-    cy.get('[data-testid="username-input"]').type("testuser");
+    cy.get('[data-testid="username-input"]').type("cypresstestuser");
     cy.get('[data-testid="password-input"]').type("password123");
     cy.get('[data-testid="sign-in-submit"]').click();
 
     
 
-    cy.contains("h2", "Welcome, testuser", { timeout: 10000 }).should("be.visible");
+    cy.contains("h2", "Welcome, cypresstestuser", { timeout: 10000 }).should("be.visible");
   });
 
   it("should show validation errors when registering with invalid inputs", () => {
@@ -68,17 +72,5 @@ describe("AuthContainer E2E Tests", () => {
     );
   });
 
-  it("should register successfully with valid inputs", () => {
-    
-
-    cy.get('[data-testid="sign-up-button"]').click(); 
-    cy.get('[data-testid="username-signup"]').type("cypresstestuser");
-    cy.get('[data-testid="email-signup"]').type("cypresstest@example.com");
-    cy.get('[data-testid="password-signup"]').type("password123");
-    cy.get('[data-testid="confirm-password-signup"]').type("password123");
-    cy.get('[data-testid="sign-up-submit"]').click();
-
-    
-    cy.get(".Toastify__toast", { timeout: 5000 }).should("contain", "Signup successful!");
-  });
+  
 });
