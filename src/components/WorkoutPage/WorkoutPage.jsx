@@ -3,6 +3,8 @@ import Sidebar from "./SideBar/WorkoutSideBar";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import ExercisesSection from "./ExerciseSection";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
+import { markWorkoutAsDone } from "../../repositories/WorkoutStatusRepo";
+import backEndClient from "../../repositories/axiosClient"; // Axios client
 import "./WorkoutPage.css";
 
 const WorkoutPage = () => {
@@ -11,6 +13,8 @@ const WorkoutPage = () => {
   const [activeWorkoutId, setActiveWorkoutId] = useState(null);
   const [workoutDetails, setWorkoutDetails] = useState(null);
   const [workoutDone, setWorkoutDone] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -20,22 +24,24 @@ const WorkoutPage = () => {
     }
   }, []);
 
-  // Fetch workout plan
   useEffect(() => {
     const fetchWorkoutPlan = async () => {
       if (!userId) return;
-
-      const fetchedPlan = await getWorkoutPlanByUserId(userId);
-      if (fetchedPlan?.workouts?.length > 0) {
-        setWorkoutPlan(fetchedPlan);
-        setActiveWorkoutId(fetchedPlan.workouts[0].id);
+      try {
+        const fetchedPlan = await getWorkoutPlanByUserId(userId);
+        if (fetchedPlan?.workouts?.length > 0) {
+          setWorkoutPlan(fetchedPlan);
+          setActiveWorkoutId(fetchedPlan.workouts[0].id);
+        }
+      } catch (error) {
+        setError("Failed to fetch workout plan.");
+        console.error(error);
       }
     };
 
     fetchWorkoutPlan();
   }, [userId]);
 
-  // Update workout details when active workout changes
   useEffect(() => {
     if (!activeWorkoutId || !workoutPlan) return;
 
@@ -43,16 +49,39 @@ const WorkoutPage = () => {
       (workout) => workout.id === activeWorkoutId
     );
     setWorkoutDetails(selectedWorkout);
-    setWorkoutDone(false); // Reset the "done" state when changing workouts
+
+    // Fetch workout status from backend
+    fetchWorkoutStatus(workoutPlan.id, activeWorkoutId);
   }, [activeWorkoutId, workoutPlan]);
 
-  // Function to mark the workout as done
-  const handleMarkAsDone = () => {
+  // Function to fetch if the workout is already marked as done
+  const fetchWorkoutStatus = async (workoutPlanId, workoutId) => {
+    try {
+      const response = await backEndClient.get(`/api/workout-status`, {
+        params: { workoutPlanId, workoutId}
+      });
+
+      setWorkoutDone(response.data.isDone); // Set workoutDone based on backend response
+    } catch (error) {
+      console.error("Failed to fetch workout status:", error);
+      setWorkoutDone(false); // Default to false if an error occurs
+    }
+  };
+
+  const handleMarkAsDone = async () => {
     if (!userId || !workoutPlan || !activeWorkoutId) return;
 
-    setWorkoutDone(true);
+    setLoading(true);
+    setError(null);
 
-    console.log(`Workout ${activeWorkoutId} marked as done!`);
+    try {
+      await markWorkoutAsDone(workoutPlan.id, activeWorkoutId, userId);
+      setWorkoutDone(true);
+    } catch (error) {
+      setError("Failed to mark workout as done.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -64,11 +93,13 @@ const WorkoutPage = () => {
       />
 
       <div className="workout-content">
+        {error && <p className="error-message">{error}</p>}
         {workoutDetails && (
           <WorkoutCard
             workoutData={workoutDetails}
             workoutDone={workoutDone}
             onMarkAsDone={handleMarkAsDone}
+            loading={loading}
           />
         )}
         <ExercisesSection exercises={workoutDetails?.exercises || []} />

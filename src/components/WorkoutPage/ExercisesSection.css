@@ -20,19 +20,24 @@
   /* Exercise cards layout */
   .exercises-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Increase min width */
     gap: 20px;
-  }
+    align-items: stretch; /* Ensure all items stretch equally */
+}
   
-  .exercise-item {
-    background-color: #f3f4f6;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
+.exercise-item {
+  background-color: #f3f4f6;
+  border-radius: 10px;
+  padding: 30px; /* More padding for better spacing */
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  min-height: 120px; /* Ensure minimum height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
   
   .exercise-item:hover {
     background-color: #e5e7eb;
@@ -44,7 +49,11 @@
     font-size: 1.2em;
     color: #374151;
     margin-bottom: 10px;
-  }
+    white-space: normal; /* Allow text wrapping */
+    word-wrap: break-word; /* Ensure words break properly */
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
   
   .exercise-item p {
     color: #6b7280; /* Subtle text for sets and reps */

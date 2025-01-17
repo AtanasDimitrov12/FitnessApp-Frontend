@@ -5,6 +5,7 @@ import RecipeCard from './RecipeCard/RecipeCard';
 import NutrientChart from './NutrientChart';
 import DailyCaloriesChart from './DailyCaloriesChart';
 import { getDietByUserId } from '../../repositories/DietRepo'; // Use DietRepo
+import NoPlanFound from '../NoPlanFound/NoPlanFound';
 import './DietPage.css';
 
 const DietPage = () => {
@@ -112,7 +113,7 @@ const DietPage = () => {
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div><NoPlanFound type="meal" /></div>;
   }
 
   if (!mealData) {

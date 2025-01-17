@@ -1,7 +1,7 @@
 .admin-monitoring-page {
     padding: 20px;
     font-family: Arial, sans-serif;
-    max-width: 1200px; 
+    max-width: 600px; 
     margin: 0 auto; 
     height: 100vh;
 }
@@ -13,6 +13,7 @@
     justify-content: center; 
     align-items: stretch; 
     height: 500px;
+    margin-top: 50px;
 }
 
 .chart {

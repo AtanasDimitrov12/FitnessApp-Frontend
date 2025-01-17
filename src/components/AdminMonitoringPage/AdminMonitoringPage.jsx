@@ -43,11 +43,10 @@ const AdminMonitoringPage = () => {
 
   return (
     <div className="admin-monitoring-page">
-      <h1>Admin Monitoring Page</h1>
 
       <div className="chart-container">
         <PieChartSection data={completedExercises} />
-        <LineChartSection />
+        
       </div>
     </div>
   );
@@ -78,24 +77,6 @@ const PieChartSection = ({ data }) => (
   </div>
 );
 
-const LineChartSection = () => (
-  <div className="chart">
-    <h2>Workout Completion Trends</h2>
-    <ResponsiveContainer width="100%" height={300}>
-      <LineChart
-        data={[
-          { week: "Week 1", workouts: 10 },
-          { week: "Week 2", workouts: 15 },
-          { week: "Week 3", workouts: 20 },
-        ]}
-      >
-        <XAxis dataKey="week" />
-        <YAxis />
-        <Tooltip />
-        <Line type="monotone" dataKey="workouts" stroke="#82ca9d" />
-      </LineChart>
-    </ResponsiveContainer>
-  </div>
-);
+
 
 export default AdminMonitoringPage;
