@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { updateUser, uploadProfilePicture } from "../../../repositories/UserRepo";
 import { getCompletedWorkouts } from "../../../repositories/UserRepo";
+import { fetchWorkoutStatus } from "../../../repositories/WorkoutStatusRepo"; // ✅ Import method
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./ProfileInformation.css";
@@ -10,6 +11,8 @@ const ProfileInformation = ({ user }) => {
   const [userData, setUserData] = useState(user);
   const [previewURL, setPreviewURL] = useState(user.pictureURL ?? defaultPicURL);
   const [finishedWorkouts, setFinishedWorkouts] = useState(0);
+  const [lastWorkout, setLastWorkout] = useState("Loading...");
+  const [nextWorkout, setNextWorkout] = useState("Loading...");
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -43,7 +46,42 @@ const ProfileInformation = ({ user }) => {
     };
 
     fetchData();
-  }, [userData.id]); // Run when `userData.id` changes
+  }, [userData.id]);
+
+  // Fetch last and next workout status
+  useEffect(() => {
+    const fetchWorkoutData = async () => {
+      if (!user.workoutPlan || !user.workoutPlan.workouts?.length) {
+        setLastWorkout("No completed workouts");
+        setNextWorkout("No upcoming workouts");
+        return;
+      }
+
+      const workouts = user.workoutPlan.workouts;
+
+      // **Check each workout's status**
+      let lastDoneWorkout = null;
+      let nextUndoneWorkout = null;
+
+      for (const workout of workouts) {
+        try {
+          const response = await fetchWorkoutStatus(user.workoutPlan.id, workout.id);
+          if (response.isDone) {
+            lastDoneWorkout = workout.name;
+          } else if (!nextUndoneWorkout) {
+            nextUndoneWorkout = workout.name;
+          }
+        } catch (error) {
+          console.error(`Error fetching status for workout ${workout.id}:`, error);
+        }
+      }
+
+      setLastWorkout(lastDoneWorkout || "No completed workouts");
+      setNextWorkout(nextUndoneWorkout || "No upcoming workouts");
+    };
+
+    fetchWorkoutData();
+  }, [user.workoutPlan]); // Re-fetch when workout plan changes
 
   return (
     <div className="profile-information">
@@ -70,9 +108,9 @@ const ProfileInformation = ({ user }) => {
       <div className="info-section">
         <div className="basic-info card">
           <h3>Basic info:</h3>
-          <p>Weight: {user.weight}</p>
-          <p>Last workout: {user.lastWorkout}</p>
-          <p>Next workout: {user.nextWorkout}</p>
+          <p>Weight: {user.notes.length > 0 ? user.notes[user.notes.length - 1].weight : "No data available"} kg</p>
+          <p>Last workout: {lastWorkout}</p>
+          <p>Next workout: {nextWorkout}</p>
           <p>Finished workouts: {finishedWorkouts}</p>
         </div>
         <div className="credentials card">

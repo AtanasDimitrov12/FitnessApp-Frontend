@@ -26,3 +26,20 @@ export const markWorkoutAsDone = async (workoutPlanId, workoutId, userId) => {
     throw error; // Propagate the error for handling in the calling function
   }
 };
+
+export const fetchWorkoutStatus = async (workoutPlanId, workoutId) => {
+  try {
+    const response = await backEndClient.get(`/api/workout-status`, {
+      params: { workoutPlanId, workoutId}
+    });
+
+    if (response.status === 200 || response.status === 201) {
+      return response.data; // Return success message
+    } 
+    throw new Error(`Unexpected response status: ${response.status}`);
+  } catch (error) {
+    console.error("Error fetching workout status:", error.message);
+    throw error; // Propagate the error for handling in the calling function
+  }
+};
+

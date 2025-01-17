@@ -3,8 +3,7 @@ import Sidebar from "./SideBar/WorkoutSideBar";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import ExercisesSection from "./ExerciseSection";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
-import { markWorkoutAsDone } from "../../repositories/WorkoutStatusRepo";
-import backEndClient from "../../repositories/axiosClient"; // Axios client
+import { markWorkoutAsDone, fetchWorkoutStatus } from "../../repositories/WorkoutStatusRepo";
 import "./WorkoutPage.css";
 
 const WorkoutPage = () => {
@@ -50,23 +49,19 @@ const WorkoutPage = () => {
     );
     setWorkoutDetails(selectedWorkout);
 
-    // Fetch workout status from backend
-    fetchWorkoutStatus(workoutPlan.id, activeWorkoutId);
+    // **Call `fetchWorkoutStatus` and update state**
+    const getWorkoutStatus = async () => {
+      try {
+        const response = await fetchWorkoutStatus(workoutPlan.id, activeWorkoutId);
+        setWorkoutDone(response.isDone); // ✅ Correct state update
+      } catch (error) {
+        console.error("Failed to fetch workout status:", error);
+        setWorkoutDone(false);
+      }
+    };
+
+    getWorkoutStatus(); // ✅ Call function correctly
   }, [activeWorkoutId, workoutPlan]);
-
-  // Function to fetch if the workout is already marked as done
-  const fetchWorkoutStatus = async (workoutPlanId, workoutId) => {
-    try {
-      const response = await backEndClient.get(`/api/workout-status`, {
-        params: { workoutPlanId, workoutId}
-      });
-
-      setWorkoutDone(response.data.isDone); // Set workoutDone based on backend response
-    } catch (error) {
-      console.error("Failed to fetch workout status:", error);
-      setWorkoutDone(false); // Default to false if an error occurs
-    }
-  };
 
   const handleMarkAsDone = async () => {
     if (!userId || !workoutPlan || !activeWorkoutId) return;
