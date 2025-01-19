@@ -2,6 +2,23 @@ import React, { useState } from 'react';
 import { createExercise } from '../../../repositories/ExerciseRepo'; // Import the function
 import './CreateExercise.css';
 
+const muscleGroups = [
+  { label: "Back", value: "BACK" },
+  { label: "Cardio", value: "CARDIO" },
+  { label: "Chest", value: "CHEST" },
+  { label: "Lower Arms", value: "LOWER_ARMS" },
+  { label: "Lower Legs", value: "LOWER_LEGS" },
+  { label: "Neck", value: "NECK" },
+  { label: "Shoulders", value: "SHOULDERS" },
+  { label: "Upper Arms", value: "UPPER_ARMS" },
+  { label: "Upper Legs", value: "UPPER_LEGS" },
+  { label: "Abs", value: "ABS" },
+  { label: "Lats", value: "LATS" },
+  { label: "Pectorals", value: "PECTORALS" },
+  { label: "Waist", value: "WAIST" }
+];
+
+
 const CreateExercise = () => {
   const [exerciseData, setExerciseData] = useState({
     name: '',
@@ -9,7 +26,7 @@ const CreateExercise = () => {
     sets: '',
     muscleGroup: ''
   });
-  
+
   const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e) => {
@@ -22,19 +39,22 @@ const CreateExercise = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Submitting:", exerciseData); // Debugging step
     try {
-      const response = await createExercise(exerciseData); // Call createExercise with form data
-      if (response) {
-        setStatusMessage('Exercise created successfully!');
-        setExerciseData({ name: '', reps: '', sets: '', muscleGroup: '' }); // Reset form
-      } else {
-        setStatusMessage('Failed to create exercise.');
-      }
+        const response = await createExercise(exerciseData);
+        if (response) {
+            setStatusMessage('Exercise created successfully!');
+            setExerciseData({ name: '', reps: '', sets: '', muscleGroup: '' }); // Reset form
+        } else {
+            setStatusMessage('Failed to create exercise.');
+        }
     } catch (error) {
-      console.error('Error creating exercise:', error);
-      setStatusMessage('An error occurred while creating exercise.');
+        console.error('Error creating exercise:', error);
+        console.error('Response:', error.response?.data); // Log backend response for more details
+        setStatusMessage('An error occurred while creating exercise.');
     }
-  };
+};
+
 
   return (
     <div className="create-exercise create-exercise-container">
@@ -81,10 +101,11 @@ const CreateExercise = () => {
           required
         >
           <option value="">Select Muscle Group</option>
-          <option value="Legs">Legs</option>
-          <option value="Chest">Chest</option>
-          <option value="Back">Back</option>
-          <option value="Shoulders">Shoulders</option>
+          {muscleGroups.map((group) => (
+            <option key={group.value} value={group.value}>
+              {group.label}
+            </option>
+          ))}
         </select>
         
         <button type="submit" className="create-button">Create</button>

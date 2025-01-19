@@ -4,7 +4,7 @@
     border-radius: 20px;
     padding: 20px 50px;
     width: 90%;
-    height: fit-content;
+    height:auto;
     max-width: 400px;
     text-align: center;
     margin: 60px auto 30px auto;
@@ -52,7 +52,7 @@
 }
 
 /* Button styling */
-.update-button {
+.exercise-update-button {
     background-color: #7bb601;
     color: white;
     padding: 8px;
@@ -63,7 +63,7 @@
     margin-top: 10px;
 }
 
-.update-button:hover {
+.exercise-update-button:hover {
     background-color: #5e9401;
 }
 

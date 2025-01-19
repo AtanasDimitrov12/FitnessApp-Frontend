@@ -1,6 +1,7 @@
 import React from 'react';
 import "./WorkoutCard.css";
 
+
 const WorkoutCard = ({ workoutData, exerciseList, imageFile, pictureURL }) => {
   const imageSrc = imageFile
     ? URL.createObjectURL(imageFile)

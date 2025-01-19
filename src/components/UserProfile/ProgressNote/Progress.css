@@ -154,38 +154,46 @@
   margin: 8px 0;
 }
 
-.delete-button {
+.note-delete-button {
   background-color: #ff4d4f; /* Bright red for delete */
   color: white;
-  padding: 8px 15px;
+  padding: 6px 12px;
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.9em;
   transition: background-color 0.3s, transform 0.2s;
+  margin-left: 10px; /* Ensure spacing between text and button */
 }
 
-.delete-button:hover {
-  background-color: #e63946; /* Slightly darker red on hover */
-  transform: scale(1.05); /* Slight zoom effect */
+.note-delete-button:hover {
+  background-color: #e63946;
+  transform: scale(1.05);
 }
 
-.delete-button:active {
-  background-color: #c62a2e; /* Even darker red on click */
-  transform: scale(0.95); /* Slight shrink effect on click */
+.note-delete-button:active {
+  background-color: #c62a2e;
+  transform: scale(0.95);
 }
 
 .history-item {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Ensures text and delete button are spaced properly */
   align-items: center;
   margin-bottom: 10px;
+  padding: 5px 10px;
+  background: rgba(255, 255, 255, 0.2); /* Optional slight background */
+  border-radius: 10px;
 }
 
 .history-item p {
   margin: 0;
-  flex: 1;
+  flex: 1; /* Allow text to take up remaining space */
   text-align: left;
+  white-space: nowrap; /* Prevent text from breaking into multiple lines */
+  overflow: hidden; 
+  text-overflow: ellipsis; /* Truncate text if it's too long */
 }
 
 @media (max-width: 768px) {

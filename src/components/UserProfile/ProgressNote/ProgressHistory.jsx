@@ -12,7 +12,7 @@ const ProgressHistory = ({ notes, handleDelete }) => {
               <strong>{index + 1}. {note.date} - {note.weight}kg -</strong> {note.note}
             </p>
             <button
-              className="delete-button"
+              className="note-delete-button"
               onClick={() => handleDelete(note.id)}
             >
               Delete

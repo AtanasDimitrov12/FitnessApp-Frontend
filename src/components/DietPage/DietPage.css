@@ -75,6 +75,7 @@
     height: 280px; /* Reduced height for smaller charts */
     width: 100%;
     font-size: 0.9em; /* Reduced font size for text within charts */
+    margin: 40px;
   }
   
   /* Styling for chart titles */

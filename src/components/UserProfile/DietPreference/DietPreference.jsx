@@ -3,12 +3,13 @@ import ExistingDietPreference from './ExistingDietPreference';
 import CreateDietPreference from './CreateDietPreference';
 import { getUserDietPreferenceByUserId } from '../../../repositories/DietPreferenceRepo';
 import './DietPreference.css';
+import NoPreference from '../../NoPreference/NoPreference';
 
 const DietPreference = ({ userId }) => {
   const [dietPreference, setDietPreference] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showCreateForm, setShowCreateForm] = useState(false); // Track whether to show the CreateDietPreference form
+  const [showCreateForm, setShowCreateForm] = useState(false);
 
   useEffect(() => {
     if (!userId) {
@@ -22,7 +23,7 @@ const DietPreference = ({ userId }) => {
       try {
         const preference = await getUserDietPreferenceByUserId(userId);
         setDietPreference(preference || null);
-        setShowCreateForm(false); // Ensure we start by showing the existing preference
+        setShowCreateForm(false); // Ensure correct view is shown
       } catch (err) {
         setError('Failed to fetch diet preferences.');
         console.error('Error fetching diet preferences:', err);
@@ -43,27 +44,36 @@ const DietPreference = ({ userId }) => {
   }
 
   const handleCreateNew = () => {
-    setShowCreateForm(true); // Show the CreateDietPreference form
+    setShowCreateForm(true);
   };
 
   const handleFormSubmit = (newPreference) => {
-    setDietPreference(newPreference); // Update the diet preference state
-    setShowCreateForm(false); // Return to showing the existing preference after creation or update
+    setDietPreference(newPreference);
+    setShowCreateForm(false);
   };
 
   return (
     <div className="diet-preference">
       {showCreateForm ? (
         <CreateDietPreference
-          update={!!dietPreference} // Determine if we're updating or creating
+          update={showCreateForm && dietPreference !== null} // Fix: Correctly determine update mode
           passedUserId={userId}
-          onSubmit={handleFormSubmit} // Handle form submission
+          onSubmit={handleFormSubmit}
         />
       ) : (
-        <ExistingDietPreference
-          dietPreference={dietPreference}
-          onCreateNew={handleCreateNew} // Trigger showing the CreateDietPreference form
-        />
+        dietPreference ? (
+          <ExistingDietPreference
+            dietPreference={dietPreference}
+            onCreateNew={handleCreateNew} // Show form when "Create New" is clicked
+          />
+        ) : (
+          <NoPreference
+            title="No Diet Preference Found"
+            description="It looks like you haven't set up your diet preferences yet."
+            buttonText="Create Diet Preference"
+            onCreate={() => setShowCreateForm(true)}
+          />
+        )
       )}
     </div>
   );

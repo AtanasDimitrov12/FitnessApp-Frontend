@@ -38,50 +38,56 @@
 
 /* Card styling inherited from ExerciseCard */
 .exercise-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
     background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 250px; /* Ensure consistent height */
+    max-width: 100%; /* Prevent card overflow */
+    box-sizing: border-box; /* Include padding in size calculation */
 }
-
-.exercise-card:hover {
+  
+  .exercise-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-}
+  }
 
 /* Edit button */
-.edit-button {
-    position: absolute;
-    top: 8px;
-    right: 40px;
-    background: none;
-    border: none;
-    cursor: pointer;
+.edit-button, .delete-button {
+    position: absolute; /* Position buttons relative to the card */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+  margin-top: 50px;
+  }
+
+  .edit-button{
+    bottom: 10px; /* Align at the bottom */
+    left: 10px; /* Align at the left corner */
     color: #007bff;
-    font-size: 16px;
-    transition: color 0.2s;
-}
-
-.edit-button:hover {
+    z-index: 10; 
+  }
+  
+  .edit-button:hover {
     color: #0056b3;
-}
-
-/* Delete button */
-.delete-button {
-    background: none;
-    border: none;
-    cursor: pointer;
+  }
+  
+  .delete-button {
+    bottom: 10px; /* Align at the bottom */
+    right: 10px; /* Align at the right corner */
     color: #dc3545;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: color 0.2s;
-}
 
-.delete-button:hover {
+  }
+  
+  .delete-button:hover {
     color: #c82333;
-}
+  }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

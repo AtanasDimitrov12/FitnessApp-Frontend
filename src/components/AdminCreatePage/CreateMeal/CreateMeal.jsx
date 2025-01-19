@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import './CreateMeal.css';
 import { createNewMeal } from '../../../repositories/MealRepo'; // Import the create function
 
@@ -22,21 +24,27 @@ const CreateMeal = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await createNewMeal(mealData); // Call createNewMeal with mealData only
+      const result = await createNewMeal(mealData);
       if (result) {
+        toast.success('Meal created successfully!', { position: "top-right", autoClose: 3000 });
         console.log('Meal created successfully:', result);
-        // Optionally, clear the form after successful submission
+
+        // Clear the form after success
         setMealData({ name: '', calories: '', protein: '', carbs: '', cookingTime: '' });
       } else {
+        toast.error('Failed to create meal. Please try again.', { position: "top-right", autoClose: 3000 });
         console.error('Failed to create meal');
       }
     } catch (error) {
       console.error('Error creating meal:', error);
+      toast.error('An error occurred while creating meal. Check console for details.', { position: "top-right", autoClose: 4000 });
     }
   };
 
   return (
     <div className="create-meal-container">
+      <ToastContainer /> {/* Ensure ToastContainer is included to display notifications */}
+      
       <h3>Create Meal</h3>
       <form onSubmit={handleSubmit} className="create-meal-form">
         <label htmlFor="name">Name:</label>
@@ -84,7 +92,7 @@ const CreateMeal = () => {
 
         <label htmlFor="cookingTime">Cooking time:</label>
         <input
-          type="number" // Change to number to match `double` type in backend
+          type="number"
           id="cookingTime"
           name="cookingTime"
           value={mealData.cookingTime}

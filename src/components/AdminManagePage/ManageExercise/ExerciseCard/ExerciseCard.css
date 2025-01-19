@@ -1,45 +1,50 @@
 .exercise-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    position: relative;
-    transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #ffffff;
+border: 1px solid #dddddd;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+padding: 20px;
+position: relative; /* Ensures buttons are positioned relative to the card */
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+display: flex; /* Use flexbox for layout */
+flex-direction: column;
+justify-content: space-between;
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Edit button */
+.edit-button, .delete-button {
+  position: absolute; /* Position buttons relative to the card */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.2s;
+  margin-top: 50px;
   }
-  
-  .exercise-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .edit-button {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #007bff;
-    font-size: 16px;
-    transition: color 0.2s;
-  }
-  
-  .edit-button:hover {
-    color: #0056b3;
-  }
-  
-  .delete-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #dc3545;
-    font-size: 16px;
-    margin-top: 10px;
-    transition: color 0.2s;
-  }
-  
-  .delete-button:hover {
-    color: #c82333;
-  }
-  
+
+.edit-button{
+  bottom: 10px; /* Align at the bottom */
+  left: 10px; /* Align at the left corner */
+  color: #007bff;
+  z-index: 10; 
+}
+
+.edit-button:hover {
+  color: #0056b3;
+}
+
+.delete-button {
+  bottom: 10px; /* Align at the bottom */
+  right: 10px; /* Align at the right corner */
+  color: #dc3545;
+
+}
+
+.delete-button:hover {
+  color: #c82333;
+}

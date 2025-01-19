@@ -3,6 +3,22 @@ import { getAllExercises } from '../../../../repositories/ExerciseRepo'; // Impo
 import ExerciseItem from './ExerciseItem';
 import './AddExercise.css';
 
+const muscleGroups = [
+  { label: "Back", value: "BACK" },
+  { label: "Cardio", value: "CARDIO" },
+  { label: "Chest", value: "CHEST" },
+  { label: "Lower Arms", value: "LOWER_ARMS" },
+  { label: "Lower Legs", value: "LOWER_LEGS" },
+  { label: "Neck", value: "NECK" },
+  { label: "Shoulders", value: "SHOULDERS" },
+  { label: "Upper Arms", value: "UPPER_ARMS" },
+  { label: "Upper Legs", value: "UPPER_LEGS" },
+  { label: "Abs", value: "ABS" },
+  { label: "Lats", value: "LATS" },
+  { label: "Pectorals", value: "PECTORALS" },
+  { label: "Waist", value: "WAIST" }
+];
+
 const AddExercise = ({ onSave }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedExerciseIds, setSelectedExerciseIds] = useState([]);
@@ -43,7 +59,7 @@ const AddExercise = ({ onSave }) => {
   const filteredExercises = exercises.filter(
     (exercise) =>
       (!searchQuery || exercise.name.toLowerCase().includes(searchQuery.toLowerCase())) &&
-      (!muscleFilter.length || muscleFilter.includes(exercise.group))
+      (!muscleFilter.length || muscleFilter.includes(exercise.muscleGroup)) // Ensure filtering matches enum values
   );
 
   const handleDone = () => {
@@ -66,14 +82,14 @@ const AddExercise = ({ onSave }) => {
         />
         <div className="muscle-filter">
           <h4>Filter by muscle group</h4>
-          {['Legs', 'Chest', 'Back', 'Shoulders'].map((group) => (
-            <label key={group}>
+          {muscleGroups.map((group) => (
+            <label key={group.value}>
               <input
                 type="checkbox"
-                checked={muscleFilter.includes(group)}
-                onChange={() => handleMuscleFilterChange(group)}
+                checked={muscleFilter.includes(group.value)}
+                onChange={() => handleMuscleFilterChange(group.value)}
               />
-              {group}
+              {group.label}
             </label>
           ))}
         </div>

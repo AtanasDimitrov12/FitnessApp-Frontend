@@ -146,19 +146,19 @@ const UpdateWorkout = () => {
             </div>
 
             {/* Preview on the right */}
-            <div className="preview-container">
+            
               <Preview
                 workoutData={workoutData}
                 exerciseList={exerciseList}
                 imageFile={imageFile}
                 pictureURL={workout.pictureURL}
               />
-            </div>
+            
           </div>
 
           {/* Update button centered below */}
           <button
-            className="update-button"
+            className="workout-update-button"
             onClick={handleUpdate}
             disabled={isUpdating}
           >

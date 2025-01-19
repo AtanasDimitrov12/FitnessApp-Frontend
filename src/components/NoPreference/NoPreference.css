@@ -1,0 +1,44 @@
+.no-preference-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    height: 100vh; /* Full viewport height */
+    padding-top: 100px; /* Space from the top */
+}
+
+.no-preference {
+    text-align: center;
+    background: #f8f8f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px; /* Limit width */
+    width: 100%; /* Responsive width */
+}
+
+
+.no-preference h3 {
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.no-preference p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.create-btn {
+    background-color: #b3cf32;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.create-btn:hover {
+    background-color: #7bb601;
+}

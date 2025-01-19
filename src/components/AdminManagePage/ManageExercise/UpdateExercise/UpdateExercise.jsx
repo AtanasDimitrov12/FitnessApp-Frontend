@@ -4,12 +4,27 @@ import { updateExercise } from '../../../../repositories/ExerciseRepo';
 import { toast } from 'react-toastify';
 import './UpdateExercise.css';
 
+const muscleGroups = [
+  { label: "Back", value: "BACK" },
+  { label: "Cardio", value: "CARDIO" },
+  { label: "Chest", value: "CHEST" },
+  { label: "Lower Arms", value: "LOWER_ARMS" },
+  { label: "Lower Legs", value: "LOWER_LEGS" },
+  { label: "Neck", value: "NECK" },
+  { label: "Shoulders", value: "SHOULDERS" },
+  { label: "Upper Arms", value: "UPPER_ARMS" },
+  { label: "Upper Legs", value: "UPPER_LEGS" },
+  { label: "Abs", value: "ABS" },
+  { label: "Lats", value: "LATS" },
+  { label: "Pectorals", value: "PECTORALS" },
+  { label: "Waist", value: "WAIST" }
+];
+
 const UpdateExercise = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const exercise = location.state?.exercise || {}; // Get exercise from state
   const [exerciseData, setExerciseData] = useState(exercise); // Initialize form with exercise data
-  const [statusMessage, setStatusMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,17 +95,17 @@ const UpdateExercise = () => {
           required
         >
           <option value="">Select Muscle Group</option>
-          <option value="Legs">Legs</option>
-          <option value="Chest">Chest</option>
-          <option value="Back">Back</option>
-          <option value="Shoulders">Shoulders</option>
+          {muscleGroups.map((group) => (
+            <option key={group.value} value={group.value}>
+              {group.label}
+            </option>
+          ))}
         </select>
 
-        <button type="submit" className="update-button">
+        <button type="submit" className="exercise-update-button">
           Update
         </button>
       </form>
-      {statusMessage && <p>{statusMessage}</p>}
     </div>
   );
 };

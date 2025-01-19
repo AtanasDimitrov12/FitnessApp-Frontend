@@ -21,7 +21,7 @@
     flex: 1; /* Take up equal space */
     background-color: #ffffff;
     border-radius: 10px;
-    padding: 20px;
+    padding: 40px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -60,7 +60,7 @@
 }
 
 .add-exercise-button {
-    background-color: #28a745;
+    background-color: #7bb601;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -73,7 +73,7 @@
 }
 
 .add-exercise-button:hover {
-    background-color: #218838;
+    background-color: #7bb601;
     transform: translateY(-2px);
 }
 
@@ -81,7 +81,7 @@
     flex: 1; /* Take up equal space */
     background-color: #ffffff;
     border-radius: 10px;
-    padding: 20px;
+    padding: 60px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
@@ -92,8 +92,8 @@
     color: #333;
 }
 
-.update-button {
-    background-color: #007bff;
+.workout-update-button {
+    background-color: #b3cf32;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -106,12 +106,12 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.update-button:hover {
-    background-color: #0056b3;
+.workout-update-button:hover {
+    background-color: #7bb601;
     transform: translateY(-2px);
 }
 
-.update-button:disabled {
+.workout-update-button:disabled {
     background-color: #b5b5b5;
     cursor: not-allowed;
 }

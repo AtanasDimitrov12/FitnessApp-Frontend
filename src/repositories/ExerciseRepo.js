@@ -1,5 +1,6 @@
 import backEndClient from './axiosClient';
 
+
 const exercisesURL = "/api/exercises";
 
 // Fetch all exercises
