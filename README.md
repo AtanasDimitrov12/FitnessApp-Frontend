@@ -1,25 +1,25 @@
-# 🏋️‍♂️ Fitness App - Frontend
+# 🏋️‍♂️ Fitness App - Frontend (Dockerized)
 
-This repository contains the **frontend** of the Fitness App, a web-based application that helps users track workouts, meal plans, and fitness progress. It is built using **React** and **Vite**, providing a fast and modern user experience.
+This repository contains the **frontend** of the Fitness App, a fully **Dockerized React application** for fitness tracking. The **easiest way** to set up and run this project is **using Docker**.
 
 ## 🚀 Features
-- **User Authentication** – Secure login system for users and trainers.
-- **Workout Management** – View, track, and complete workouts.
-- **Meal Planning** – Track nutrition and recommended meals.
-- **Real-Time Notifications** – Updates when workouts are completed.
-- **Interactive Charts** – Visualize progress with dynamically generated reports.
+- **User Authentication** – Secure login system.
+- **Workout Tracking** – View, complete, and track progress.
+- **Meal Planning** – Monitor nutrition and diet plans.
+- **WebSockets** – Real-time notifications when workouts are completed.
+- **Interactive Charts** – Dynamic visual reports.
 
 ## 📂 Tech Stack
 - **Frontend Framework**: React (Vite)
 - **State Management**: React Context API
 - **API Requests**: Axios
 - **Styling**: CSS Modules
-- **Build Tool**: Vite
-- **Deployment**: Docker, Nginx
+- **Containerization**: Docker, Nginx
 
 ---
 
-## **🛠️ Installation & Setup**
+## **🐳 Running the Frontend with Docker (Recommended)**
+The easiest way to run this frontend is **inside Docker**.
 
 ### **1️⃣ Clone the Repository**
 ```sh
