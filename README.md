@@ -23,5 +23,5 @@ The easiest way to run this frontend is **inside Docker**.
 
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone https://github.com/YOUR_USERNAME/FitnessApp-Frontend.git
+git clone https://github.com/AtanasDimitrov12/FitnessApp-Frontend.git
 cd FitnessApp-Frontend
