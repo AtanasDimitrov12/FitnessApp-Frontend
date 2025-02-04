@@ -6,6 +6,15 @@
   min-height: 100vh;
 }
 
+.full-screen {
+  display: flex;  /* Change from grid to flex */
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full screen height */
+  background-color: #f9fafb;
+}
+
+
 .workout-content {
   display: flex;
   gap: 20px;

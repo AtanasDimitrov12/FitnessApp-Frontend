@@ -4,6 +4,7 @@ import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import ExercisesSection from "./ExerciseSection";
 import { getWorkoutPlanByUserId } from "../../repositories/WorkoutPlansRepo";
 import { markWorkoutAsDone, fetchWorkoutStatus } from "../../repositories/WorkoutStatusRepo";
+import NoPlanFound from "../NoPlanFound/NoPlanFound"
 import "./WorkoutPage.css";
 
 const WorkoutPage = () => {
@@ -27,16 +28,22 @@ const WorkoutPage = () => {
     const fetchWorkoutPlan = async () => {
       if (!userId) return;
       try {
+        setLoading(true);
         const fetchedPlan = await getWorkoutPlanByUserId(userId);
         if (fetchedPlan?.workouts?.length > 0) {
           setWorkoutPlan(fetchedPlan);
           setActiveWorkoutId(fetchedPlan.workouts[0].id);
+        } else {
+          setError("No workouts found for this user."); // ✅ Ensure error state is set
         }
       } catch (error) {
-        setError("Failed to fetch workout plan.");
+        setError("Failed to fetch workout plan."); // ✅ Ensure error state is set
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
+    
 
     fetchWorkoutPlan();
   }, [userId]);
@@ -80,27 +87,38 @@ const WorkoutPage = () => {
   };
 
   return (
-    <div className="workout-page">
-      <Sidebar
-        workouts={workoutPlan?.workouts || []}
-        activeWorkout={activeWorkoutId}
-        onWorkoutChange={setActiveWorkoutId}
-      />
-
-      <div className="workout-content">
-        {error && <p className="error-message">{error}</p>}
-        {workoutDetails && (
-          <WorkoutCard
-            workoutData={workoutDetails}
-            workoutDone={workoutDone}
-            onMarkAsDone={handleMarkAsDone}
-            loading={loading}
+    <div className={`workout-page ${error || (!workoutPlan?.workouts?.length) ? "full-screen" : ""}`}>
+      {loading && <div>Loading...</div>}
+  
+      {error && <NoPlanFound type="workout" />}
+      
+      {!loading && !error && workoutPlan?.workouts?.length === 0 && (
+        <NoPlanFound type="workout" />
+      )}
+  
+      {!loading && !error && workoutPlan?.workouts?.length > 0 && (
+        <>
+          <Sidebar
+            workouts={workoutPlan.workouts}
+            activeWorkout={activeWorkoutId}
+            onWorkoutChange={setActiveWorkoutId}
           />
-        )}
-        <ExercisesSection exercises={workoutDetails?.exercises || []} />
-      </div>
+  
+          <div className="workout-content">
+            {workoutDetails && (
+              <WorkoutCard
+                workoutData={workoutDetails}
+                workoutDone={workoutDone}
+                onMarkAsDone={handleMarkAsDone}
+                loading={loading}
+              />
+            )}
+            <ExercisesSection exercises={workoutDetails?.exercises || []} />
+          </div>
+        </>
+      )}
     </div>
   );
-};
+};  
 
 export default WorkoutPage;
