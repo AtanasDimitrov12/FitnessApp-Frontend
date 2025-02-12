@@ -1,5 +1,5 @@
 const config = {
-    backEndBaseUri: "http://localhost:8080/"
+    backEndBaseUri: "https://fitnessapp-backend-mft9.onrender.com/"
 };
 
 export default config;
