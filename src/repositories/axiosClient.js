@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const backEndClient = axios.create({
-  baseURL: 'http://localhost:8080', // Replace with your backend's base URL
+  baseURL: 'https://fitnessapp-backend-mft9.onrender.com', // Replace with your backend's base URL
 });
 
 // Add an interceptor to include the token
