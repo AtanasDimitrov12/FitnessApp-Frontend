@@ -19,7 +19,7 @@ class WebSocketService {
 
     // Initialize the STOMP client with SockJS
     this.stompClient = new Client({
-      webSocketFactory: () => new SockJS("http://localhost:8080/ws"), // Use SockJS
+      webSocketFactory: () => new SockJS("https://fitnessapp-backend-mft9.onrender.com/ws"), // Use SockJS
       connectHeaders: {
         Authorization: `Bearer ${token}`, // Attach the JWT token
       },
